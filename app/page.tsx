@@ -247,16 +247,22 @@ export default function Home() {
           borderBottom: "1px solid rgba(227,175,43,.18)",
         }}
       >
-        <a href="#" style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <Image src="/assets/ss-mark-tight.png" alt="SS" height={52} width={60} style={{ height: 52, width: "auto" }} priority />
-          <span style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <span style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 22, letterSpacing: ".06em", color: "#f7f5f1", lineHeight: 1 }}>
-              {COMPANY.short}
-            </span>
-            <span style={{ fontWeight: 300, fontSize: 9, letterSpacing: ".34em", textTransform: "uppercase", color: "rgba(227,175,43,.85)", lineHeight: 1 }}>
-              {COMPANY.suffix}
-            </span>
-          </span>
+        <a href="#" style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src="/assets/ss-logo-cropped.png"
+            alt={COMPANY.name}
+            height={68}
+            width={120}
+            style={{
+              height: 64,
+              width: "auto",
+              objectFit: "contain",
+              display: "block",
+              filter: "brightness(1.05) contrast(1.05)",
+            }}
+            priority
+            unoptimized
+          />
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 38 }} className="nav-links">
           <a href="#craft" style={{ color: "rgba(247,245,241,.75)", fontWeight: 300, fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase" }}>Craft</a>
