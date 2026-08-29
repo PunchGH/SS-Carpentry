@@ -164,6 +164,9 @@ export default function Home() {
   const quoteRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    document.body.classList.add("js-loaded");
+
+    // Scroll progress indicator
     let queued = false;
     const update = () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
@@ -181,7 +184,36 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     update();
+
+    // Scroll-triggered reveal animations observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    const revealElements = document.querySelectorAll(
+      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+    );
+    revealElements.forEach((el) => observer.observe(el));
+
+    // Smoothly reveal hero elements right on page load
+    const timer = setTimeout(() => {
+      document.querySelectorAll(".hero-reveal").forEach((el) => {
+        el.classList.add("revealed");
+        observer.unobserve(el);
+      });
+    }, 60);
+
     return () => {
+      clearTimeout(timer);
+      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -231,18 +263,21 @@ export default function Home() {
         <div style={{ height: "100%", width: `${progress}%`, background: GOLD, transition: "width .12s linear" }} />
       </div>
 
-      {/* ===== NAV ===== */}
+      {/* ===== NAV (Fixed Across Full Site) ===== */}
       <nav
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
+          left: 0,
+          right: 0,
+          width: "100%",
           zIndex: 60,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 56px",
           height: 88,
-          background: "rgba(0,0,0,.85)",
+          background: "rgba(0,0,0,.88)",
           backdropFilter: "blur(14px)",
           borderBottom: "1px solid rgba(227,175,43,.18)",
         }}
@@ -275,8 +310,11 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* Nav Spacer */}
+      <div className="nav-spacer" />
+
       {/* ===== HERO (Higher / Video Background / Top-Left Elements) ===== */}
-      <section style={{ position: "relative", minHeight: "96vh", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", background: "#000" }}>
+      <section style={{ position: "relative", minHeight: "calc(96vh - 88px)", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", background: "#000" }}>
         {/* Video Background (Lighter & More Visible) */}
         <video
           autoPlay
@@ -302,21 +340,21 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.05) 30%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.85) 100%)" }} />
 
         {/* Hero Content (Positioned Top-Left, Brought Down with Balanced Spacing) */}
-        <div className="hero-content" style={{ position: "relative", zIndex: 2, padding: "135px 56px 40px", maxWidth: 1120 }}>
-          <h1 className="hero-h1" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.02, letterSpacing: "-.015em", maxWidth: 1040, textShadow: "0 4px 28px rgba(0,0,0,0.85), 0 1px 6px rgba(0,0,0,0.9)" }}>
+        <div className="hero-content" style={{ position: "relative", zIndex: 2, padding: "75px 56px 40px", maxWidth: 1120 }}>
+          <h1 className="hero-h1 reveal hero-reveal" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.02, letterSpacing: "-.015em", maxWidth: 1040, textShadow: "0 4px 28px rgba(0,0,0,0.85), 0 1px 6px rgba(0,0,0,0.9)" }}>
             Craftsmanship you<br />can run your <span style={{ fontStyle: "italic", color: GOLD }}>hand</span> along.
           </h1>
-          <p style={{ margin: "26px 0 0", fontWeight: 300, fontSize: 19, lineHeight: 1.7, maxWidth: 540, color: "rgba(247,245,241,.9)", textShadow: "0 2px 14px rgba(0,0,0,0.9)" }}>
+          <p className="reveal hero-reveal" style={{ margin: "26px 0 0", fontWeight: 300, fontSize: 19, lineHeight: 1.7, maxWidth: 540, color: "rgba(247,245,241,.9)", textShadow: "0 2px 14px rgba(0,0,0,0.9)", transitionDelay: "0.12s" }}>
             Hand-built kitchens, custom staircases, tailored wardrobes and whole-home renovations in Ottawa crafted with owner-led precision.
           </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 26, marginTop: 38, flexWrap: "wrap" }}>
+          <div className="reveal hero-reveal" style={{ display: "flex", alignItems: "center", gap: 26, marginTop: 38, flexWrap: "wrap", transitionDelay: "0.22s" }}>
             <GoldButton onClick={scrollToForm}>Request a quote</GoldButton>
             <a href="#portfolio" style={{ fontWeight: 300, fontSize: 12, letterSpacing: ".22em", textTransform: "uppercase", color: "#f7f5f1", paddingBottom: 5, borderBottom: "1px solid rgba(227,175,43,.5)", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>View recent work</a>
           </div>
         </div>
 
         {/* Stat Bar (3 Items, Pinned to Bottom) */}
-        <div style={{ position: "relative", zIndex: 2, marginTop: "auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", borderTop: "1px solid rgba(227,175,43,.25)", background: "rgba(0,0,0,0.75)", backdropFilter: "blur(12px)" }} className="statbar">
+        <div style={{ position: "relative", zIndex: 2, marginTop: "auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", borderTop: "1px solid rgba(227,175,43,.25)", background: "rgba(0,0,0,0.75)", backdropFilter: "blur(12px)", transitionDelay: "0.3s" }} className="statbar reveal hero-reveal">
           <div style={{ padding: "26px 40px", borderRight: "1px solid rgba(247,245,241,.1)" }}>
             <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 38, lineHeight: 1, color: GOLD }}>{COMPANY.rating.toFixed(1)}<span style={{ color: GOLD, fontSize: 24 }}> {stars}</span></div>
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.65)", marginTop: 10 }}>{COMPANY.reviewCount} Google 5.0★ reviews</div>
@@ -334,7 +372,7 @@ export default function Home() {
 
       {/* ===== SERVICES / CRAFT ===== */}
       <section id="craft" style={{ background: "#0b0a09", padding: "160px 56px 140px" }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 48, marginBottom: 72, flexWrap: "wrap" }}>
+        <div className="reveal" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 48, marginBottom: 72, flexWrap: "wrap" }}>
           <div>
             <div style={eyebrow}>I / Our craft</div>
             <h2 className="h2" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 640 }}>
@@ -348,7 +386,7 @@ export default function Home() {
 
         <div className="craft-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 28, alignItems: "stretch" }}>
           {/* Signature Kitchen */}
-          <div className="card-hover" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <div className="card-hover reveal-left" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden" }}>
             <div style={{ position: "relative", minHeight: 460, width: "100%", overflow: "hidden" }}>
               <Image
                 src="/assets/craft-kitchen.jpg"
@@ -375,9 +413,9 @@ export default function Home() {
           </div>
 
           {/* 3 Secondary Services */}
-          <div style={{ display: "grid", gridTemplateRows: "repeat(3,1fr)", gap: 28 }}>
+          <div className="stagger-children" style={{ display: "grid", gridTemplateRows: "repeat(3,1fr)", gap: 28 }}>
             {SERVICES.map((s) => (
-              <div key={s.title} className="card-hover service-row" style={{ display: "grid", gridTemplateColumns: "220px 1fr", border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", overflow: "hidden" }}>
+              <div key={s.title} className="card-hover service-row reveal-right" style={{ display: "grid", gridTemplateColumns: "220px 1fr", border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", overflow: "hidden" }}>
                 <div style={{ position: "relative", width: "100%", minHeight: 180, overflow: "hidden" }}>
                   <Image
                     src={s.image}
@@ -415,7 +453,7 @@ export default function Home() {
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.65) 100%)" }} />
           
-          <div className="band-card" style={{ position: "absolute", left: 56, bottom: 48, background: "rgba(0,0,0,0.92)", border: "1px solid rgba(227,175,43,.45)", padding: "38px 44px", maxWidth: 460, backdropFilter: "blur(10px)" }}>
+          <div className="band-card reveal-left" style={{ position: "absolute", left: 56, bottom: 48, background: "rgba(0,0,0,0.92)", border: "1px solid rgba(227,175,43,.45)", padding: "38px 44px", maxWidth: 460, backdropFilter: "blur(10px)" }}>
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>Westboro &middot; walnut &amp; stone</div>
             <p style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 26, lineHeight: 1.4, color: "#f7f5f1" }}>
               Crafted in the workshop. Fitted with millimeter precision. Built to look stunning for decades.
@@ -427,7 +465,7 @@ export default function Home() {
       {/* ===== SECTION 4: WHY US (Lighter Image) ===== */}
       <section style={{ background: "#000", padding: "130px 56px" }}>
         <div className="why-grid" style={{ display: "grid", gridTemplateColumns: "0.95fr 1.05fr", gap: 80, alignItems: "center" }}>
-          <div className="why-image-box" style={{ position: "relative", height: 560, border: "1px solid rgba(247,245,241,.15)", overflow: "hidden" }}>
+          <div className="why-image-box reveal-left" style={{ position: "relative", height: 560, border: "1px solid rgba(247,245,241,.15)", overflow: "hidden" }}>
             <Image
               src="/assets/carpenter-workbench.jpg"
               alt="Carpenter at the workbench"
@@ -443,13 +481,15 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <div style={eyebrow}>II / Why SS</div>
-            <h2 className="h2" style={{ margin: "0 0 46px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 560 }}>
-              The difference is what you never have to <span style={{ fontStyle: "italic", color: GOLD }}>chase</span>
-            </h2>
-            <div className="why-subgrid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px 48px" }}>
+            <div className="reveal-right">
+              <div style={eyebrow}>II / Why SS</div>
+              <h2 className="h2" style={{ margin: "0 0 46px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 560 }}>
+                The difference is what you never have to <span style={{ fontStyle: "italic", color: GOLD }}>chase</span>
+              </h2>
+            </div>
+            <div className="why-subgrid stagger-children" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px 48px" }}>
               {WHY_US.map((w) => (
-                <div key={w.title} style={{ borderTop: "1px solid rgba(227,175,43,.45)", paddingTop: 18 }}>
+                <div key={w.title} className="reveal" style={{ borderTop: "1px solid rgba(227,175,43,.45)", paddingTop: 18 }}>
                   <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 23, marginBottom: 8 }}>{w.title}</div>
                   <p style={{ margin: 0, fontWeight: 300, fontSize: 14.5, lineHeight: 1.7, color: "rgba(247,245,241,.62)" }}>{w.copy}</p>
                 </div>
@@ -461,15 +501,15 @@ export default function Home() {
 
       {/* ===== PROCESS ===== */}
       <section id="process" style={{ background: "#0b0a09", padding: "130px 56px" }}>
-        <div style={{ textAlign: "center", marginBottom: 78 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 78 }}>
           <div style={eyebrow}>III / How it works</div>
           <h2 className="h2" style={{ margin: "0 auto", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 700 }}>
             From first conversation to final <span style={{ fontStyle: "italic", color: GOLD }}>polish</span>
           </h2>
         </div>
-        <div className="process-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
+        <div className="process-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
           {PROCESS.map((p) => (
-            <div key={p.n} style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b" }}>
+            <div key={p.n} className="reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b" }}>
               <div style={{ position: "relative", height: 140, background: "#141210", borderBottom: "1px solid rgba(247,245,241,.06)" }}>
                 <div style={{ position: "absolute", top: 22, left: 24, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 52, lineHeight: 1, color: GOLD }}>{p.n}</div>
               </div>
@@ -484,7 +524,7 @@ export default function Home() {
 
       {/* ===== PORTFOLIO ===== */}
       <section id="portfolio" style={{ background: "#000", padding: "150px 56px 130px" }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 60, flexWrap: "wrap" }}>
+        <div className="reveal" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 60, flexWrap: "wrap" }}>
           <div>
             <div style={eyebrow}>IV / Portfolio</div>
             <h2 className="h2-xl" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 0.98, letterSpacing: "-.02em" }}>
@@ -496,9 +536,9 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gridAutoRows: 280, gap: 22 }}>
+        <div className="portfolio-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gridAutoRows: 280, gap: 22 }}>
           {PORTFOLIO.map((p) => (
-            <div key={p.label} className="gallery-tile" style={{ gridRow: p.big ? "span 2" : undefined, position: "relative", border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
+            <div key={p.label} className="gallery-tile reveal-scale" style={{ gridRow: p.big ? "span 2" : undefined, position: "relative", border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
               <Image
                 src={p.image}
                 alt={p.label}
@@ -518,7 +558,7 @@ export default function Home() {
 
       {/* ===== TESTIMONIALS (GOOGLE REVIEWS) ===== */}
       <section style={{ background: "#0b0a09", padding: "104px 56px 116px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, marginBottom: 64, flexWrap: "wrap" }}>
+        <div className="reveal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, marginBottom: 64, flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <GoogleLogo size={28} />
             <div>
@@ -550,9 +590,9 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="reviews-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
+        <div className="reviews-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
           {REVIEWS.map((r) => (
-            <div key={r.name} style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "36px 32px", display: "flex", flexDirection: "column", position: "relative" }}>
+            <div key={r.name} className="reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "36px 32px", display: "flex", flexDirection: "column", position: "relative" }}>
               {/* Google Verified Badge */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -593,7 +633,7 @@ export default function Home() {
 
       {/* ===== PULL QUOTE ===== */}
       <section style={{ background: "#000", padding: "160px 56px 150px" }}>
-        <div style={{ maxWidth: 920, margin: "0 auto", textAlign: "center" }}>
+        <div className="reveal" style={{ maxWidth: 920, margin: "0 auto", textAlign: "center" }}>
           <span style={{ display: "block", width: 64, height: 1, background: GOLD, margin: "0 auto 42px" }} />
           <p className="pull-quote" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.32, letterSpacing: "-.01em", color: "#f7f5f1" }}>
             There is no such thing as a small <span style={{ fontStyle: "italic", color: GOLD }}>detail</span>. There is only the one someone will notice every morning for twenty years.
@@ -607,7 +647,7 @@ export default function Home() {
       {/* ===== ABOUT AKASH / THE ATELIER ===== */}
       <section id="atelier" style={{ background: "#080706", padding: "130px 56px", borderTop: "1px solid rgba(247,245,241,.06)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ maxWidth: 660, marginBottom: 54 }}>
+          <div className="reveal" style={{ maxWidth: 660, marginBottom: 54 }}>
             <div style={eyebrow}>VI / The atelier &amp; founder</div>
             <h2 className="h2" style={{ margin: "0 0 20px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08 }}>
               Craftsmanship led by the <span style={{ fontStyle: "italic", color: GOLD }}>maker</span>
@@ -617,7 +657,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="craft-grid atelier-card" style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: 52, alignItems: "center", border: "1px solid rgba(227,175,43,.2)", background: "#0c0a08", padding: "40px" }}>
+          <div className="craft-grid atelier-card reveal-scale" style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: 52, alignItems: "center", border: "1px solid rgba(227,175,43,.2)", background: "#0c0a08", padding: "40px" }}>
             <div className="atelier-portrait" style={{ position: "relative", height: 420, border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
               <Image
                 src="/assets/akash-owner.jpg"
@@ -664,7 +704,7 @@ export default function Home() {
       {/* ===== QUOTE FORM ===== */}
       <section id="quote" ref={quoteRef} style={{ background: "#0b0a09", padding: "130px 56px", borderTop: "1px solid rgba(227,175,43,.25)" }}>
         <div className="quote-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 88, alignItems: "start", maxWidth: 1280, margin: "0 auto" }}>
-          <div>
+          <div className="reveal-left">
             <div style={eyebrow}>VII / Request a quote</div>
             <h2 className="h2" style={{ margin: "0 0 26px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.04 }}>
               Tell us what you have in <span style={{ fontStyle: "italic", color: GOLD }}>mind</span>.
@@ -692,7 +732,7 @@ export default function Home() {
           </div>
 
           {!submitted ? (
-            <form onSubmit={submit} className="quote-form-card" style={{ background: "#000", border: "1px solid rgba(247,245,241,.14)", padding: "44px 40px" }}>
+            <form onSubmit={submit} className="quote-form-card reveal-right" style={{ background: "#000", border: "1px solid rgba(247,245,241,.14)", padding: "44px 40px" }}>
               <div style={{ marginBottom: 26 }}>
                 <label style={{ display: "block", fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginBottom: 11 }}>Your name</label>
                 <input
@@ -760,13 +800,13 @@ export default function Home() {
       {/* ===== FAQ ===== */}
       <section style={{ background: "#000", padding: "130px 56px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <div className="reveal" style={{ textAlign: "center", marginBottom: 64 }}>
             <div style={eyebrow}>VIII / Common Questions</div>
             <h2 style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 56, lineHeight: 1.08 }}>The questions we hear most</h2>
           </div>
-          <div style={{ borderTop: "1px solid rgba(247,245,241,.14)" }}>
+          <div className="stagger-children" style={{ borderTop: "1px solid rgba(247,245,241,.14)" }}>
             {FAQS.map((f, i) => (
-              <div key={f.q}>
+              <div key={f.q} className="reveal">
                 <div onClick={() => toggleFaq(i)} style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, padding: "30px 4px", borderBottom: "1px solid rgba(247,245,241,.14)" }}>
                   <span style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 25 }}>{f.q}</span>
                   <span style={{ fontFamily: "var(--font-display), serif", fontSize: 28, color: GOLD, lineHeight: 1 }}>{faqOpen[i] ? "−" : "+"}</span>
@@ -779,7 +819,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div style={{ textAlign: "center", marginTop: 60 }}>
+          <div className="reveal" style={{ textAlign: "center", marginTop: 60 }}>
             <GoldButton onClick={scrollToForm} style={{ padding: "21px 46px" }}>Request a quote</GoldButton>
           </div>
         </div>
@@ -787,14 +827,14 @@ export default function Home() {
 
       {/* ===== FOOTER ===== */}
       <footer style={{ background: "#000", borderTop: "1px solid rgba(227,175,43,.2)", padding: "74px 56px 44px" }}>
-        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1.7fr 1fr 1fr 1fr", gap: 48, marginBottom: 56 }}>
-          <div>
+        <div className="footer-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "1.7fr 1fr 1fr 1fr", gap: 48, marginBottom: 56 }}>
+          <div className="reveal">
             <Image src="/assets/ss-logo-cropped.png" alt={COMPANY.name} width={300} height={173} style={{ width: 300, height: "auto", display: "block", marginBottom: 26 }} />
             <p style={{ margin: 0, fontWeight: 300, fontSize: 15, lineHeight: 1.75, color: "rgba(247,245,241,.55)", maxWidth: 310 }}>
               Bespoke carpentry and renovations for Ottawa homes where the details matter.
             </p>
           </div>
-          <div>
+          <div className="reveal">
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Explore</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 15 }}>
               <a href="#craft" style={{ color: "rgba(247,245,241,.7)" }}>Our craft</a>
@@ -803,7 +843,7 @@ export default function Home() {
               <a href="#atelier" style={{ color: "rgba(247,245,241,.7)" }}>About Akash</a>
             </div>
           </div>
-          <div>
+          <div className="reveal">
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Contact</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 15, color: "rgba(247,245,241,.7)" }}>
               <a href={COMPANY.phoneHref} style={{ color: "rgba(247,245,241,.7)" }}>{COMPANY.phone}</a>
@@ -811,7 +851,7 @@ export default function Home() {
               <span>{COMPANY.address}</span>
             </div>
           </div>
-          <div>
+          <div className="reveal">
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Assurance</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 13, letterSpacing: ".1em", color: "rgba(247,245,241,.55)" }}>
               <span>{COMPANY.rating.toFixed(1)}&#9733; ON GOOGLE (3 REVIEWS)</span>
@@ -820,7 +860,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="footer-bottom" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 28, fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.4)" }}>
+        <div className="footer-bottom reveal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 28, fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.4)" }}>
           <span>&copy; {new Date().getFullYear()} {COMPANY.name}</span>
           <span style={{ letterSpacing: ".22em", textTransform: "uppercase" }}>Crafted by Akash &middot; Ottawa, ON</span>
         </div>
