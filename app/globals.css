@@ -40,25 +40,77 @@ textarea {
 }
 
 /* ===== interaction states ===== */
+.gold-btn {
+  transition: all 0.25s ease !important;
+}
 .gold-btn:hover {
   background: #f2c34a !important;
 }
+.gold-btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.88);
+}
 
+.outline-btn {
+  transition: all 0.25s ease !important;
+}
 .outline-btn:hover {
   background: #e3af2b !important;
   color: #0a0908 !important;
+}
+.outline-btn:active {
+  transform: scale(0.96);
+}
+
+/* Nav link hover underline */
+.nav-links a {
+  position: relative;
+  transition: color 0.25s ease !important;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: #e3af2b;
+  transition: width 0.3s ease;
+}
+.nav-links a:hover {
+  color: #f7f5f1 !important;
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Text-style link buttons */
+.text-btn {
+  transition: opacity 0.25s ease, color 0.25s ease !important;
+}
+.text-btn:hover {
+  opacity: 0.8;
+  color: #f2c34a !important;
+}
+.text-btn:active {
+  opacity: 0.65;
 }
 
 .card-hover,
 .gallery-tile,
 .service-row {
-  transition: border-color 0.35s;
+  transition: border-color 0.35s, transform 0.35s ease;
 }
 
 .card-hover:hover,
 .gallery-tile:hover,
 .service-row:hover {
   border-color: rgba(227, 175, 43, 0.55) !important;
+}
+
+.card-hover:active,
+.service-row:active {
+  transform: scale(0.985);
 }
 
 /* ===== fluid type ===== */
@@ -193,8 +245,16 @@ body.js-loaded .reveal-scale.revealed {
     padding: 20px 24px !important;
   }
 
-  .craft-grid,
-  .why-grid,
+  .craft-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 28px !important;
+  }
+
+  .why-subgrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+  }
+
   .quote-grid {
     grid-template-columns: 1fr !important;
     gap: 48px !important;
@@ -254,13 +314,9 @@ body.js-loaded .reveal-scale.revealed {
     border-bottom: none !important;
   }
 
-  .service-row {
+  .craft-grid {
     grid-template-columns: 1fr !important;
-  }
-
-  .service-row > div:first-child {
-    min-height: 220px !important;
-    height: 220px !important;
+    gap: 24px !important;
   }
 
   .band-container {
@@ -268,20 +324,9 @@ body.js-loaded .reveal-scale.revealed {
     min-height: 480px !important;
   }
 
-  .band-card {
-    position: static !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 26px 22px !important;
-  }
-
-  .why-image-box {
-    height: 320px !important;
-  }
-
   .why-subgrid {
     grid-template-columns: 1fr !important;
-    gap: 28px !important;
+    gap: 20px !important;
   }
 
   .process-grid {

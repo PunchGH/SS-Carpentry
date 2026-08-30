@@ -51,6 +51,125 @@ function GoogleLogo({ size = 20 }: { size?: number }) {
   );
 }
 
+function PinIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function PhoneIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
+function MailIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+/* Why SS Icons */
+function PriceIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10 9 9 9 8 9" />
+    </svg>
+  );
+}
+
+function CraftIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m14.7 6.3 3 3-9.4 9.4H5.3v-3z" />
+      <path d="m16.5 4.5 3 3" />
+      <path d="m19 2-3 3" />
+      <path d="M2 22h20" />
+    </svg>
+  );
+}
+
+function ContactIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function TidyIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2v4" />
+      <path d="m4.93 4.93 2.83 2.83" />
+      <path d="M2 12h4" />
+      <path d="m4.93 19.07 2.83-2.83" />
+      <path d="M12 22v-4" />
+      <path d="m19.07 19.07-2.83-2.83" />
+      <path d="M22 12h-4" />
+      <path d="m19.07 4.93-2.83 2.83" />
+      <circle cx="12" cy="12" r="4" />
+    </svg>
+  );
+}
+
+/* Process Icons */
+function VisitIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}
+
+function BlueprintIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M9 21V9" />
+      <path d="m9 3 12 12" />
+    </svg>
+  );
+}
+
+function WorkshopIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 20h20" />
+      <path d="M5 20V8l7-5 7 5v12" />
+      <path d="M9 20v-6h6v6" />
+      <line x1="12" y1="3" x2="12" y2="8" />
+    </svg>
+  );
+}
+
+function HandoverIcon() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m11 17 2 2 4-4" />
+      <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" />
+      <path d="M12 6v6l4 2" />
+    </svg>
+  );
+}
+
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=SS%20Carpentry%20and%20Renovations&query_place_id=ChIJnT3tXwD9zUwRCidzjIIUTs8";
 
 const REVIEWS = [
@@ -76,51 +195,69 @@ const REVIEWS = [
   },
 ];
 
-const SERVICES = [
+const CRAFT_ITEMS = [
   {
+    badge: "Our signature",
+    title: "Bespoke kitchens",
+    image: "/assets/craft-kitchen.jpg",
+    alt: "Bespoke luxury fitted kitchen",
+    copy: "Made to the millimetre for your room in premium hardwood and stone. Designed with you, built in our workshop, and installed with pride.",
+    cta: "Request consultation",
+  },
+  {
+    badge: "Joinery craft",
     title: "Staircases & joinery",
     image: "/assets/craft-staircase.jpg",
     alt: "Custom architectural staircase and millwork",
     copy: "Staircases, panelling, doors and mouldings cut in our workshop and hand-finished on site.",
+    cta: "Learn more",
   },
   {
+    badge: "Storage & wardrobes",
     title: "Fitted wardrobes",
     image: "/assets/craft-wardrobe.jpg",
     alt: "Custom fitted luxury wardrobe dressing room",
     copy: "Dressing rooms and wardrobes built into the awkward corners other fitters walk away from.",
+    cta: "Learn more",
   },
   {
+    badge: "Whole-home",
     title: "Full renovations",
     image: "/assets/craft-renovation.jpg",
     alt: "Full residential interior home renovation",
     copy: "Whole-house work managed end to end, with one person you call and one schedule everyone follows.",
+    cta: "Learn more",
   },
 ];
 
 const WHY_US = [
   {
+    icon: <PriceIcon />,
     title: "A fixed written price",
     copy: "The figure we quote is the figure you pay. It only moves if you ask it to, in writing.",
   },
   {
+    icon: <CraftIcon />,
     title: "Direct owner craft",
     copy: "Akash personally oversees and fits every build, ensuring meticulous quality from cut to finish.",
   },
   {
+    icon: <ContactIcon />,
     title: "One point of contact",
     copy: "You get a direct phone number and fast answers, not a receptionist or switchboard.",
   },
   {
+    icon: <TidyIcon />,
     title: "A tidy site, daily",
     copy: "Dust sheets down, floors protected, everything swept before we leave. You still live here.",
   },
 ];
 
 const PROCESS = [
-  { n: "I", title: "The visit", copy: "We come to you, look at the space properly, and listen before we suggest anything." },
-  { n: "II", title: "Drawings & quote", copy: "You get drawings, material samples and one itemised price with nothing hidden underneath it." },
-  { n: "III", title: "Workshop & fit", copy: "We build off site where we can, then fit it in the fewest days your home can manage." },
-  { n: "IV", title: "Walk it with us", copy: "We go through every edge and hinge together, put anything right, then hand it over." },
+  { icon: <VisitIcon />, title: "The visit", copy: "We come to you, look at the space properly, and listen before we suggest anything." },
+  { icon: <BlueprintIcon />, title: "Drawings & quote", copy: "You get drawings, material samples and one itemised price with nothing hidden underneath it." },
+  { icon: <WorkshopIcon />, title: "Workshop & fit", copy: "We build off site where we can, then fit it in the fewest days your home can manage." },
+  { icon: <HandoverIcon />, title: "Walk it with us", copy: "We go through every edge and hinge together, put anything right, then hand it over." },
 ];
 
 const PORTFOLIO = [
@@ -370,7 +507,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== SERVICES / CRAFT ===== */}
+      {/* ===== SERVICES / CRAFT (2x2 Uniform Grid) ===== */}
       <section id="craft" style={{ background: "#0b0a09", padding: "160px 56px 140px" }}>
         <div className="reveal" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 48, marginBottom: 72, flexWrap: "wrap" }}>
           <div>
@@ -384,122 +521,90 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="craft-grid" style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 28, alignItems: "stretch" }}>
-          {/* Signature Kitchen */}
-          <div className="card-hover reveal-left" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            <div style={{ position: "relative", minHeight: 460, width: "100%", overflow: "hidden" }}>
-              <Image
-                src="/assets/craft-kitchen.jpg"
-                alt="Bespoke luxury fitted kitchen"
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 980px) 100vw, 60vw"
-                unoptimized
-              />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(15,13,11,0.95) 100%)" }} />
-            </div>
-            <div style={{ padding: "36px 42px 40px" }}>
-              <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>Our signature</div>
-              <h3 style={{ margin: "0 0 16px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 42, lineHeight: 1.1 }}>
-                Bespoke <span style={{ fontStyle: "italic", color: GOLD }}>kitchens</span>
-              </h3>
-              <p style={{ margin: "0 0 24px", fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.65)", maxWidth: 460 }}>
-                Made to the millimetre for your room in premium hardwood and stone. Designed with you, built in our workshop, and installed with pride.
-              </p>
-              <div onClick={scrollToForm} style={{ cursor: "pointer", display: "inline-block", fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, borderBottom: "1px solid rgba(227,175,43,.45)", paddingBottom: 4 }}>
-                Request consultation &rarr;
+        <div className="craft-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 28 }}>
+          {CRAFT_ITEMS.map((item) => (
+            <div key={item.title} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+              <div style={{ position: "relative", height: 290, width: "100%", overflow: "hidden" }}>
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  fill
+                  style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
+                  sizes="(max-width: 980px) 100vw, 50vw"
+                  unoptimized
+                />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(15,13,11,0.92) 100%)" }} />
+              </div>
+              <div style={{ padding: "32px 36px 36px", display: "flex", flexDirection: "column", flex: 1 }}>
+                <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>{item.badge}</div>
+                <h3 style={{ margin: "0 0 14px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 32, lineHeight: 1.15 }}>
+                  {item.title}
+                </h3>
+                <p style={{ margin: "0 0 24px", fontWeight: 300, fontSize: 15, lineHeight: 1.7, color: "rgba(247,245,241,.65)", flex: 1 }}>
+                  {item.copy}
+                </p>
+                <div onClick={scrollToForm} className="text-btn" style={{ cursor: "pointer", display: "inline-block", fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, borderBottom: "1px solid rgba(227,175,43,.45)", paddingBottom: 4, width: "fit-content" }}>
+                  {item.cta} &rarr;
+                </div>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          {/* 3 Secondary Services */}
-          <div className="stagger-children" style={{ display: "grid", gridTemplateRows: "repeat(3,1fr)", gap: 28 }}>
-            {SERVICES.map((s) => (
-              <div key={s.title} className="card-hover service-row reveal-right" style={{ display: "grid", gridTemplateColumns: "220px 1fr", border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", overflow: "hidden" }}>
-                <div style={{ position: "relative", width: "100%", minHeight: 180, overflow: "hidden" }}>
-                  <Image
-                    src={s.image}
-                    alt={s.alt}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 980px) 100vw, 220px"
-                    unoptimized
-                  />
-                  <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.15)" }} />
+      {/* ===== SECTION 3: FULL-BLEED PHOTO BANNER (Centered Text Overlay) ===== */}
+      <section style={{ position: "relative", background: "#000" }}>
+        <div className="band-container" style={{ position: "relative", height: 580, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+          <Image
+            src="/assets/fullbleed-kitchen.jpg"
+            alt="Hand-finished kitchen at dusk in Westboro"
+            fill
+            style={{ objectFit: "cover", filter: "brightness(0.72) contrast(1.08)" }}
+            sizes="100vw"
+            unoptimized
+          />
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%)" }} />
+          
+          <div className="reveal" style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 840, padding: "0 32px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+              <span style={{ width: 32, height: 1, background: GOLD }} />
+              <span style={{ fontWeight: 300, fontSize: 11, letterSpacing: ".32em", textTransform: "uppercase", color: GOLD }}>Westboro &middot; Walnut &amp; Stone</span>
+              <span style={{ width: 32, height: 1, background: GOLD }} />
+            </div>
+            <h2 style={{ margin: "0 auto 20px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: "clamp(30px, 4.5vw, 56px)", lineHeight: 1.15, color: "#f7f5f1", textShadow: "0 4px 24px rgba(0,0,0,0.9)" }}>
+              Crafted in the workshop.<br />Fitted with <span style={{ fontStyle: "italic", color: GOLD }}>millimetre</span> precision.
+            </h2>
+            <p style={{ margin: "0 auto", fontWeight: 300, fontSize: 17, lineHeight: 1.7, color: "rgba(247,245,241,.8)", maxWidth: 580, textShadow: "0 2px 12px rgba(0,0,0,0.9)" }}>
+              Built to look stunning and function flawlessly for decades in Ottawa homes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SECTION 4: WHY US (Full-width Grid with Custom Icons) ===== */}
+      <section style={{ background: "#000", padding: "140px 56px" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div className="reveal" style={{ textAlign: "center", marginBottom: 70 }}>
+            <div style={eyebrow}>II / Why SS</div>
+            <h2 className="h2" style={{ margin: "0 auto", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 660 }}>
+              The difference is what you never have to <span style={{ fontStyle: "italic", color: GOLD }}>chase</span>
+            </h2>
+          </div>
+          <div className="why-subgrid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 28 }}>
+            {WHY_US.map((w) => (
+              <div key={w.title} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0c0a08", padding: "40px 30px 36px", display: "flex", flexDirection: "column" }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(227,175,43,.08)", border: "1px solid rgba(227,175,43,.3)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 26 }}>
+                  {w.icon}
                 </div>
-                <div style={{ padding: "26px 28px 28px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <h3 style={{ margin: "0 0 8px", fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24 }}>{s.title}</h3>
-                  <p style={{ margin: "0 0 14px", fontWeight: 300, fontSize: 14, lineHeight: 1.65, color: "rgba(247,245,241,.62)" }}>{s.copy}</p>
-                  <div onClick={scrollToForm} style={{ cursor: "pointer", fontWeight: 400, fontSize: 10.5, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD }}>
-                    Learn more &rarr;
-                  </div>
-                </div>
+                <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24, marginBottom: 12, lineHeight: 1.25 }}>{w.title}</div>
+                <p style={{ margin: 0, fontWeight: 300, fontSize: 14.5, lineHeight: 1.7, color: "rgba(247,245,241,.62)" }}>{w.copy}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SECTION 3: FULL-BLEED PHOTO BAND (Lighter & Vibrant) ===== */}
-      <section style={{ position: "relative", background: "#000" }}>
-        <div className="band-container" style={{ position: "relative", height: 620, overflow: "hidden" }}>
-          <Image
-            src="/assets/fullbleed-kitchen.jpg"
-            alt="Hand-finished kitchen at dusk"
-            fill
-            style={{ objectFit: "cover", filter: "brightness(0.92) contrast(1.02)" }}
-            sizes="100vw"
-            unoptimized
-          />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.65) 100%)" }} />
-          
-          <div className="band-card reveal-left" style={{ position: "absolute", left: 56, bottom: 48, background: "rgba(0,0,0,0.92)", border: "1px solid rgba(227,175,43,.45)", padding: "38px 44px", maxWidth: 460, backdropFilter: "blur(10px)" }}>
-            <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>Westboro &middot; walnut &amp; stone</div>
-            <p style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 26, lineHeight: 1.4, color: "#f7f5f1" }}>
-              Crafted in the workshop. Fitted with millimeter precision. Built to look stunning for decades.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SECTION 4: WHY US (Lighter Image) ===== */}
-      <section style={{ background: "#000", padding: "130px 56px" }}>
-        <div className="why-grid" style={{ display: "grid", gridTemplateColumns: "0.95fr 1.05fr", gap: 80, alignItems: "center" }}>
-          <div className="why-image-box reveal-left" style={{ position: "relative", height: 560, border: "1px solid rgba(247,245,241,.15)", overflow: "hidden" }}>
-            <Image
-              src="/assets/carpenter-workbench.jpg"
-              alt="Carpenter at the workbench"
-              fill
-              style={{ objectFit: "cover", filter: "brightness(0.95) contrast(1.02)" }}
-              sizes="(max-width: 980px) 100vw, 50vw"
-              unoptimized
-            />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%)" }} />
-            <div style={{ position: "absolute", left: -1, bottom: 36, background: "rgba(0,0,0,0.9)", borderLeft: "3px solid " + GOLD, padding: "26px 32px", maxWidth: 310, backdropFilter: "blur(8px)" }}>
-              <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 28, lineHeight: 1.2, color: GOLD }}>Every project</div>
-              <div style={{ fontWeight: 300, fontSize: 14, lineHeight: 1.65, marginTop: 8, color: "rgba(247,245,241,.85)" }}>built the exact way we promised you it would be built.</div>
-            </div>
-          </div>
-          <div>
-            <div className="reveal-right">
-              <div style={eyebrow}>II / Why SS</div>
-              <h2 className="h2" style={{ margin: "0 0 46px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 560 }}>
-                The difference is what you never have to <span style={{ fontStyle: "italic", color: GOLD }}>chase</span>
-              </h2>
-            </div>
-            <div className="why-subgrid stagger-children" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px 48px" }}>
-              {WHY_US.map((w) => (
-                <div key={w.title} className="reveal" style={{ borderTop: "1px solid rgba(227,175,43,.45)", paddingTop: 18 }}>
-                  <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 23, marginBottom: 8 }}>{w.title}</div>
-                  <p style={{ margin: 0, fontWeight: 300, fontSize: 14.5, lineHeight: 1.7, color: "rgba(247,245,241,.62)" }}>{w.copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== PROCESS ===== */}
+      {/* ===== PROCESS (Custom Icons instead of Roman Numerals) ===== */}
       <section id="process" style={{ background: "#0b0a09", padding: "130px 56px" }}>
         <div className="reveal" style={{ textAlign: "center", marginBottom: 78 }}>
           <div style={eyebrow}>III / How it works</div>
@@ -508,10 +613,13 @@ export default function Home() {
           </h2>
         </div>
         <div className="process-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
-          {PROCESS.map((p) => (
-            <div key={p.n} className="reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b" }}>
-              <div style={{ position: "relative", height: 140, background: "#141210", borderBottom: "1px solid rgba(247,245,241,.06)" }}>
-                <div style={{ position: "absolute", top: 22, left: 24, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 52, lineHeight: 1, color: GOLD }}>{p.n}</div>
+          {PROCESS.map((p, idx) => (
+            <div key={p.title} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b" }}>
+              <div style={{ position: "relative", height: 130, background: "#141210", borderBottom: "1px solid rgba(247,245,241,.06)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px" }}>
+                <div style={{ width: 54, height: 54, borderRadius: "50%", background: "rgba(227,175,43,.08)", border: "1px solid rgba(227,175,43,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {p.icon}
+                </div>
+                <span style={{ fontFamily: "var(--font-display), serif", fontSize: 20, color: "rgba(227,175,43,.4)", fontWeight: 300 }}>0{idx + 1}</span>
               </div>
               <div style={{ padding: "28px 26px 32px" }}>
                 <h3 style={{ margin: "0 0 10px", fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24 }}>{p.title}</h3>
@@ -556,7 +664,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS (GOOGLE REVIEWS) ===== */}
+      {/* ===== TESTIMONIALS (GOOGLE REVIEWS - Readable Sans-Serif Font & Enlarged Avatars) ===== */}
       <section style={{ background: "#0b0a09", padding: "104px 56px 116px" }}>
         <div className="reveal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, marginBottom: 64, flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -592,9 +700,9 @@ export default function Home() {
 
         <div className="reviews-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
           {REVIEWS.map((r) => (
-            <div key={r.name} className="reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "36px 32px", display: "flex", flexDirection: "column", position: "relative" }}>
+            <div key={r.name} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "36px 32px", display: "flex", flexDirection: "column", position: "relative" }}>
               {/* Google Verified Badge */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <GoogleLogo size={18} />
                   <span style={{ fontSize: 10, letterSpacing: ".16em", textTransform: "uppercase", color: "rgba(247,245,241,.6)" }}>Google Review</span>
@@ -602,17 +710,19 @@ export default function Home() {
                 <div style={{ color: GOLD, fontSize: 13, letterSpacing: 2 }}>★★★★★</div>
               </div>
 
-              <p style={{ margin: "0 0 28px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 17.5, lineHeight: 1.65, fontStyle: "italic", color: "#f7f5f1", flex: 1 }}>
+              {/* Review Text - Clean Readable Sans-Serif Font */}
+              <p style={{ margin: "0 0 28px", fontFamily: "var(--font-sans), sans-serif", fontWeight: 300, fontSize: 15.5, lineHeight: 1.75, color: "rgba(247,245,241,.88)", flex: 1 }}>
                 &ldquo;{r.text}&rdquo;
               </p>
 
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", borderTop: "1px solid rgba(247,245,241,.08)", paddingTop: 18, flexWrap: "wrap", gap: 10 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#1c1915", border: "1px solid rgba(227,175,43,.35)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, color: GOLD, fontWeight: 500 }}>
+              {/* Reviewer Profile - Enlarged Initial Avatar */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", borderTop: "1px solid rgba(247,245,241,.08)", paddingTop: 18, flexWrap: "wrap", gap: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                  <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#1c1915", border: "1.5px solid rgba(227,175,43,.45)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: GOLD, fontWeight: 600, boxShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
                     {r.name.charAt(0)}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 400, fontSize: 14 }}>{r.name}</div>
+                    <div style={{ fontWeight: 400, fontSize: 15, color: "#f7f5f1" }}>{r.name}</div>
                     <div style={{ fontWeight: 300, fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247,245,241,.45)", marginTop: 2 }}>{r.tag}</div>
                   </div>
                 </div>
@@ -621,6 +731,7 @@ export default function Home() {
                   href={r.reviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-btn"
                   style={{ fontSize: 11, color: GOLD, letterSpacing: ".1em", textTransform: "uppercase", borderBottom: "1px solid rgba(227,175,43,.4)", paddingBottom: 2 }}
                 >
                   View on Google ↗
@@ -701,7 +812,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== QUOTE FORM ===== */}
+      {/* ===== QUOTE FORM (with Google Maps & Contact Icons) ===== */}
       <section id="quote" ref={quoteRef} style={{ background: "#0b0a09", padding: "130px 56px", borderTop: "1px solid rgba(227,175,43,.25)" }}>
         <div className="quote-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 88, alignItems: "start", maxWidth: 1280, margin: "0 auto" }}>
           <div className="reveal-left">
@@ -709,10 +820,10 @@ export default function Home() {
             <h2 className="h2" style={{ margin: "0 0 26px", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.04 }}>
               Tell us what you have in <span style={{ fontStyle: "italic", color: GOLD }}>mind</span>.
             </h2>
-            <p style={{ margin: "0 0 44px", fontWeight: 300, fontSize: 17, lineHeight: 1.75, color: "rgba(247,245,241,.66)", maxWidth: 440 }}>
+            <p style={{ margin: "0 0 36px", fontWeight: 300, fontSize: 17, lineHeight: 1.75, color: "rgba(247,245,241,.66)", maxWidth: 440 }}>
               Send us the basics and Akash will personally review your project and get back within one working day. No cost, and zero sales pressure.
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               {[
                 "Direct reply from Akash within one working day",
                 "Drawings and samples before you commit",
@@ -724,10 +835,44 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 44, borderTop: "1px solid rgba(247,245,241,.14)", paddingTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
-              <span style={{ fontWeight: 300, fontSize: 14, color: "rgba(247,245,241,.7)" }}>{COMPANY.address}</span>
-              <a href={COMPANY.phoneHref} style={{ fontWeight: 300, fontSize: 14, color: "rgba(247,245,241,.7)" }}>{COMPANY.phone}</a>
-              <a href={`mailto:${COMPANY.email}`} style={{ fontWeight: 300, fontSize: 14, color: "rgba(247,245,241,.7)" }}>{COMPANY.email}</a>
+
+            {/* Contact Details with Icons */}
+            <div style={{ marginTop: 38, borderTop: "1px solid rgba(247,245,241,.14)", paddingTop: 26, display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ marginTop: 2, flexShrink: 0 }}>
+                  <PinIcon size={18} />
+                </div>
+                <span style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)", lineHeight: 1.5 }}>{COMPANY.address}</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ flexShrink: 0 }}>
+                  <PhoneIcon size={18} />
+                </div>
+                <a href={COMPANY.phoneHref} style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)" }}>{COMPANY.phone}</a>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ flexShrink: 0 }}>
+                  <MailIcon size={18} />
+                </div>
+                <a href={`mailto:${COMPANY.email}`} style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)" }}>{COMPANY.email}</a>
+              </div>
+            </div>
+
+            {/* Google Maps Embed */}
+            <div style={{ marginTop: 32, overflow: "hidden", border: "1px solid rgba(227,175,43,.3)", borderRadius: 2 }}>
+              <iframe
+                title="SS Carpentry Location Map"
+                src="https://maps.google.com/maps?q=3008%20Travertine%20Way,%20Ottawa,%20ON%20K2J%207G4,%20Canada&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="220"
+                style={{
+                  border: 0,
+                  display: "block",
+                  filter: "invert(92%) hue-rotate(180deg) brightness(85%) contrast(110%)",
+                }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
