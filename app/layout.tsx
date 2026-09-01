@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { COMPANY } from "./data/company";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -24,29 +25,31 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://sscarpentryandrenovations.com"),
   title: {
-    default: "SS Carpentry and Renovations | Bespoke Carpentry in Ottawa",
+    default: "SS Carpentry and Renovations | Kitchen, Bathroom & Renovation Contractor in Ottawa",
     template: "%s | SS Carpentry and Renovations",
   },
   description:
-    "SS Carpentry and Renovations — bespoke kitchens, custom staircases, luxury fitted wardrobes, and whole-home renovations in Ottawa, ON. Direct master craftsmanship led by owner Akash with a 5.0★ Google rating.",
+    "SS Carpentry and Renovations — kitchen and bathroom renovations, TV feature walls, flooring and tiling, and legal basement secondary suites in Ottawa, ON. Owner-led precision with a 5.0★ Google rating.",
   keywords: [
     "SS Carpentry and Renovations",
     "carpenter Ottawa",
-    "bespoke kitchens Ottawa",
-    "custom staircases Ottawa",
-    "fitted wardrobes Ottawa",
     "home renovations Ottawa",
-    "custom cabinetry Ottawa",
-    "millwork Ottawa",
-    "Akash carpenter Ottawa",
+    "kitchen renovation Ottawa",
+    "bathroom renovation Ottawa",
+    "TV feature wall Ottawa",
+    "basement apartment Ottawa",
+    "legal basement Ottawa",
+    "flooring installation Ottawa",
+    "tile installation Ottawa",
+    "owner operated renovations Ottawa",
     "Travertine Way Ottawa carpentry",
     "Barrhaven home renovations",
     "Westboro custom carpentry",
-    "Kanata bespoke joinery",
+    "Kanata home renovations",
     "Ottawa woodworker",
   ],
-  authors: [{ name: "Akash", url: "https://sscarpentryandrenovations.com" }],
-  creator: "Akash - SS Carpentry and Renovations",
+  authors: [{ name: "SS Carpentry and Renovations", url: "https://sscarpentryandrenovations.com" }],
+  creator: "SS Carpentry and Renovations",
   publisher: "SS Carpentry and Renovations",
   category: "Construction & Carpentry Services",
   applicationName: "SS Carpentry and Renovations",
@@ -76,9 +79,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "SS Carpentry and Renovations | Bespoke Carpentry & Renovations in Ottawa",
+    title: "SS Carpentry and Renovations | Kitchen, Bathroom & Renovation Contractor in Ottawa",
     description:
-      "Hand-crafted bespoke kitchens, custom staircases, fitted wardrobes, and full home renovations in Ottawa. Owner-led precision by Akash with 5.0★ Google reviews.",
+      "Kitchen and bathroom renovations, custom TV feature walls, flooring, tiling, and legal secondary suites in Ottawa. Owner-led precision with 5.0★ Google reviews.",
     url: "https://sscarpentryandrenovations.com",
     siteName: "SS Carpentry and Renovations",
     locale: "en_CA",
@@ -95,9 +98,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SS Carpentry and Renovations | Bespoke Carpentry Ottawa",
+    title: "SS Carpentry and Renovations | Kitchen, Bathroom & Renovation Contractor in Ottawa",
     description:
-      "Hand-built kitchens, custom staircases, luxury wardrobes and renovations in Ottawa. 5.0★ Google rated owner-led craftsmanship.",
+      "Kitchen and bathroom renovations, custom TV feature walls, flooring, tiling, and legal secondary suites in Ottawa. 5.0★ Google rated owner-led craftsmanship.",
     images: ["/assets/og-image.png"],
     creator: "@SSCarpentry",
   },
@@ -113,13 +116,13 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
-  name: "SS Carpentry and Renovations",
+  name: COMPANY.name,
   image: "https://sscarpentryandrenovations.com/assets/og-image.png",
   logo: "https://sscarpentryandrenovations.com/assets/ss-logo-cropped.png",
   description:
-    "Bespoke kitchens, custom staircases, fitted wardrobes, and whole-home renovations in Ottawa, ON. Hand-crafted with owner-led precision.",
-  telephone: "+1-437-288-5105",
-  email: "info@sscarpentryandrenovations.com",
+    "Kitchen and bathroom renovations, custom TV feature walls, flooring and tiling, and legal basement secondary suites in Ottawa, ON. Hand-crafted with owner-led precision.",
+  telephone: COMPANY.phones[0].href.replace("tel:", ""),
+  email: COMPANY.email,
   url: "https://sscarpentryandrenovations.com",
   address: {
     "@type": "PostalAddress",
@@ -142,11 +145,6 @@ const jsonLd = {
       closes: "18:00",
     },
   ],
-  founder: {
-    "@type": "Person",
-    name: "Akash",
-    jobTitle: "Owner & Master Craftsman",
-  },
   priceRange: "$$$",
   areaServed: [
     { "@type": "City", name: "Ottawa" },
@@ -157,6 +155,44 @@ const jsonLd = {
     { "@type": "AdministrativeArea", name: "The Glebe" },
     { "@type": "AdministrativeArea", name: "Rockcliffe Park" },
   ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Renovation and Carpentry Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Kitchens & Bathrooms",
+          url: "https://sscarpentryandrenovations.com/services/kitchens-bathrooms",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "TV Walls & Lighting Panels",
+          url: "https://sscarpentryandrenovations.com/services/tv-walls-lighting-panels",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Flooring & Tiling",
+          url: "https://sscarpentryandrenovations.com/services/flooring-tiling",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Legal Basements",
+          url: "https://sscarpentryandrenovations.com/services/legal-basements",
+        },
+      },
+    ],
+  },
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "5.0",

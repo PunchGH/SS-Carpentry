@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { SiteNav } from "./components/SiteNav";
+import { SiteFooter } from "./components/SiteFooter";
+import { COMPANY } from "./data/company";
+import { SERVICES } from "./data/services";
+import { REVIEWS } from "./data/reviews";
 
 const GOLD = "#e3af2b";
 const GOLD_LIGHT = "#f2c34a";
@@ -13,19 +19,6 @@ const eyebrow: CSSProperties = {
   textTransform: "uppercase",
   color: GOLD,
   marginBottom: 22,
-};
-
-const COMPANY = {
-  name: "SS Carpentry and Renovations",
-  short: "SS Carpentry",
-  suffix: "& Renovations",
-  type: "Home builder in Ottawa, Canada",
-  address: "3008 Travertine Way, Ottawa, ON K2J 7G4, Canada",
-  phone: "+1 437-288-5105",
-  phoneHref: "tel:+14372885105",
-  email: "info@sscarpentryandrenovations.com",
-  rating: 5.0,
-  reviewCount: 3,
 };
 
 function GoogleLogo({ size = 20 }: { size?: number }) {
@@ -170,66 +163,6 @@ function HandoverIcon() {
   );
 }
 
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/search/?api=1&query=SS%20Carpentry%20and%20Renovations&query_place_id=ChIJnT3tXwD9zUwRCidzjIIUTs8";
-
-const REVIEWS = [
-  {
-    name: "Arman Sandhu",
-    tag: "Kitchen & tile renovation",
-    reviewUrl: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25wUGExbGZRek4wWm5ndGVqWnZOemRxZW1VNVRFRRAB!2m1!1s0x0:0xcf4e14828c73270a!3m1!1s2@1:CAIQACodChtycF9oOnpPa1lfQzN0ZngtejZvNzdqemU5TEE%7C%7C?hl=en",
-    text:
-      "We had SS Carpentry and Renovations complete work on our kitchen and tiles, and we’re very happy with the results. The workmanship was excellent, the finishing was clean and professional, and they paid great attention to detail. They were reliable, respectful, and easy to work with throughout the project. Our kitchen looks amazing, and we’re very pleased with how everything turned out. I would definitely recommend SS Carpentry and Renovations to anyone looking for quality renovation work.",
-  },
-  {
-    name: "Sumeta Saroya",
-    tag: "Deck & custom joinery",
-    reviewUrl: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT25nMU1YcHdPRjloWW5kb2QyUk5ORjgwT0dSRGVuYxAB!2m1!1s0x0:0xcf4e14828c73270a!3m1!1s2@1:CAIQACodChtycF9oOng1MXpwOF9hYndod2RNNF80OGRDenc%7C%7C?hl=en",
-    text:
-      "We had an amazing experience getting our backyard deck and some accent work done in our bedrooms. Akash made custom walnut floating shelves and did a really good job installing everything. Whole work was done ahead of schedule and quality workmanship. Highly recommended.",
-  },
-  {
-    name: "The Hartley Project",
-    tag: "Google review",
-    reviewUrl: "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xoaVdscDRYMmhqVDBaM1F6WnZSM0pDWkdWUFVGRRAB!2m1!1s0x0:0xcf4e14828c73270a!3m1!1s2@1:CAIQACodChtycF9oOlhiWlp4X2hjT0Z3QzZvR3JCZGVPUFE%7C%7C?hl=en",
-    text: "Great Job! Clean execution and superb attention to woodwork details.",
-  },
-];
-
-const CRAFT_ITEMS = [
-  {
-    badge: "Our signature",
-    title: "Bespoke kitchens",
-    image: "/assets/craft-kitchen.jpg",
-    alt: "Bespoke luxury fitted kitchen",
-    copy: "Made to the millimetre for your room in premium hardwood and stone. Designed with you, built in our workshop, and installed with pride.",
-    cta: "Request consultation",
-  },
-  {
-    badge: "Joinery craft",
-    title: "Staircases & joinery",
-    image: "/assets/craft-staircase.jpg",
-    alt: "Custom architectural staircase and millwork",
-    copy: "Staircases, panelling, doors and mouldings cut in our workshop and hand-finished on site.",
-    cta: "Learn more",
-  },
-  {
-    badge: "Storage & wardrobes",
-    title: "Fitted wardrobes",
-    image: "/assets/craft-wardrobe.jpg",
-    alt: "Custom fitted luxury wardrobe dressing room",
-    copy: "Dressing rooms and wardrobes built into the awkward corners other fitters walk away from.",
-    cta: "Learn more",
-  },
-  {
-    badge: "Whole-home",
-    title: "Full renovations",
-    image: "/assets/craft-renovation.jpg",
-    alt: "Full residential interior home renovation",
-    copy: "Whole-house work managed end to end, with one person you call and one schedule everyone follows.",
-    cta: "Learn more",
-  },
-];
-
 const WHY_US = [
   {
     icon: <PriceIcon />,
@@ -239,7 +172,7 @@ const WHY_US = [
   {
     icon: <CraftIcon />,
     title: "Direct owner craft",
-    copy: "Akash personally oversees and fits every build, ensuring meticulous quality from cut to finish.",
+    copy: "The owner personally oversees and fits every build, ensuring meticulous quality from cut to finish.",
   },
   {
     icon: <ContactIcon />,
@@ -385,7 +318,7 @@ export default function Home() {
     },
     {
       q: "Are you insured and licensed in Ottawa?",
-      a: "Yes — fully insured for carpentry and renovation work across Ottawa and surrounding areas. If something is not right, Akash personally comes back to make it perfect.",
+      a: "Yes — fully insured for carpentry and renovation work across Ottawa and surrounding areas. If something is not right, the owner personally comes back to make it perfect.",
     },
     {
       q: "Do you work with our designer or architect?",
@@ -400,54 +333,7 @@ export default function Home() {
         <div style={{ height: "100%", width: `${progress}%`, background: GOLD, transition: "width .12s linear" }} />
       </div>
 
-      {/* ===== NAV (Fixed Across Full Site) ===== */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          width: "100%",
-          zIndex: 60,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 56px",
-          height: 88,
-          background: "rgba(0,0,0,.88)",
-          backdropFilter: "blur(14px)",
-          borderBottom: "1px solid rgba(227,175,43,.18)",
-        }}
-      >
-        <a href="#" style={{ display: "flex", alignItems: "center" }}>
-          <Image
-            src="/assets/ss-logo-cropped.png"
-            alt={COMPANY.name}
-            height={68}
-            width={120}
-            style={{
-              height: 64,
-              width: "auto",
-              objectFit: "contain",
-              display: "block",
-              filter: "brightness(1.05) contrast(1.05)",
-            }}
-            priority
-            unoptimized
-          />
-        </a>
-        <div style={{ display: "flex", alignItems: "center", gap: 38 }} className="nav-links">
-          <a href="#craft" style={{ color: "rgba(247,245,241,.75)", fontWeight: 300, fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase" }}>Craft</a>
-          <a href="#process" style={{ color: "rgba(247,245,241,.75)", fontWeight: 300, fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase" }}>Process</a>
-          <a href="#portfolio" style={{ color: "rgba(247,245,241,.75)", fontWeight: 300, fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase" }}>Portfolio</a>
-          <a href="#atelier" style={{ color: "rgba(247,245,241,.75)", fontWeight: 300, fontSize: 12, letterSpacing: ".18em", textTransform: "uppercase" }}>About Akash</a>
-        </div>
-        <div onClick={scrollToForm} className="gold-btn" style={{ cursor: "pointer", background: GOLD, color: "#0a0908", fontWeight: 500, fontSize: 11, letterSpacing: ".2em", textTransform: "uppercase", padding: "14px 26px", transition: "background .25s" }}>
-          Request a quote
-        </div>
-      </nav>
-
-      {/* Nav Spacer */}
+      <SiteNav />
       <div className="nav-spacer" />
 
       {/* ===== HERO (Higher / Video Background / Top-Left Elements) ===== */}
@@ -490,18 +376,24 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stat Bar (3 Items, Pinned to Bottom) */}
+        {/* Stat Bar (3 Items, Pinned to Bottom)
+            Numerals render in Jost (sans), not the display serif — in Cormorant
+            Garamond the numeral "1" and capital "I" are nearly identical strokes.
+            Jost's "1" has a flag and foot serif, so it reads unambiguously as a digit. */}
         <div style={{ position: "relative", zIndex: 2, marginTop: "auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", borderTop: "1px solid rgba(227,175,43,.25)", background: "rgba(0,0,0,0.75)", backdropFilter: "blur(12px)", transitionDelay: "0.3s" }} className="statbar reveal hero-reveal">
           <div style={{ padding: "26px 40px", borderRight: "1px solid rgba(247,245,241,.1)" }}>
-            <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 38, lineHeight: 1, color: GOLD }}>{COMPANY.rating.toFixed(1)}<span style={{ color: GOLD, fontSize: 24 }}> {stars}</span></div>
-            <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.65)", marginTop: 10 }}>{COMPANY.reviewCount} Google 5.0★ reviews</div>
+            <div style={{ fontFamily: "var(--font-sans), sans-serif", fontWeight: 500, fontSize: 34, lineHeight: 1, color: GOLD }}>{COMPANY.rating.toFixed(1)}<span style={{ color: GOLD, fontSize: 20 }}> {stars}</span></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 7, fontWeight: 300, fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: "rgba(247,245,241,.65)", marginTop: 10 }}>
+              <GoogleLogo size={13} />
+              <span>{COMPANY.reviewCount} five-star Google reviews</span>
+            </div>
           </div>
           <div style={{ padding: "26px 40px", borderRight: "1px solid rgba(247,245,241,.1)" }}>
-            <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 38, lineHeight: 1 }}>100%</div>
+            <div style={{ fontFamily: "var(--font-sans), sans-serif", fontWeight: 500, fontSize: 34, lineHeight: 1 }}>100%</div>
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.65)", marginTop: 10 }}>Direct owner oversight &amp; craft</div>
           </div>
           <div style={{ padding: "26px 40px" }}>
-            <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 38, lineHeight: 1 }}>1</div>
+            <div style={{ fontFamily: "var(--font-sans), sans-serif", fontWeight: 500, fontSize: 34, lineHeight: 1 }}>1</div>
             <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.65)", marginTop: 10 }}>Fixed, itemised written quote</div>
           </div>
         </div>
@@ -517,13 +409,19 @@ export default function Home() {
             </h2>
           </div>
           <p style={{ margin: 0, maxWidth: 380, fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.62)" }}>
-            Everything is carefully measured, built, and fitted under Akash&apos;s direct supervision. No subcontracting, no compromises.
+            Everything is carefully measured, built, and fitted under the owner&apos;s direct supervision. No subcontracting, no compromises.
           </p>
         </div>
 
-        <div className="craft-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 28 }}>
-          {CRAFT_ITEMS.map((item) => (
-            <div key={item.title} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        {/* gridAutoRows: 1fr keeps all four cards identical in height across both rows */}
+        <div className="craft-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gridAutoRows: "1fr", gap: 28 }}>
+          {SERVICES.map((item) => (
+            <Link
+              key={item.slug}
+              href={`/services/${item.slug}`}
+              className="card-hover reveal"
+              style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", display: "flex", flexDirection: "column", overflow: "hidden", color: "#f7f5f1" }}
+            >
               <div style={{ position: "relative", height: 290, width: "100%", overflow: "hidden" }}>
                 <Image
                   src={item.image}
@@ -541,13 +439,13 @@ export default function Home() {
                   {item.title}
                 </h3>
                 <p style={{ margin: "0 0 24px", fontWeight: 300, fontSize: 15, lineHeight: 1.7, color: "rgba(247,245,241,.65)", flex: 1 }}>
-                  {item.copy}
+                  {item.blurb}
                 </p>
-                <div onClick={scrollToForm} className="text-btn" style={{ cursor: "pointer", display: "inline-block", fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, borderBottom: "1px solid rgba(227,175,43,.45)", paddingBottom: 4, width: "fit-content" }}>
-                  {item.cta} &rarr;
-                </div>
+                <span className="text-btn" style={{ display: "inline-block", fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, borderBottom: "1px solid rgba(227,175,43,.45)", paddingBottom: 4, width: "fit-content" }}>
+                  Learn more &rarr;
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -604,29 +502,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== PROCESS (Custom Icons instead of Roman Numerals) ===== */}
+      {/* ===== PROCESS — TIMELINE ===== */}
       <section id="process" style={{ background: "#0b0a09", padding: "130px 56px" }}>
-        <div className="reveal" style={{ textAlign: "center", marginBottom: 78 }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 90 }}>
           <div style={eyebrow}>III / How it works</div>
           <h2 className="h2" style={{ margin: "0 auto", fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.08, maxWidth: 700 }}>
             From first conversation to final <span style={{ fontStyle: "italic", color: GOLD }}>polish</span>
           </h2>
         </div>
-        <div className="process-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
-          {PROCESS.map((p, idx) => (
-            <div key={p.title} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b" }}>
-              <div style={{ position: "relative", height: 130, background: "#141210", borderBottom: "1px solid rgba(247,245,241,.06)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px" }}>
-                <div style={{ width: 54, height: 54, borderRadius: "50%", background: "rgba(227,175,43,.08)", border: "1px solid rgba(227,175,43,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {p.icon}
+
+        <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative" }}>
+          {/* Connecting rule — sits behind the nodes, fills in on scroll */}
+          <div className="timeline-track reveal">
+            <span className="timeline-track-fill" />
+          </div>
+
+          <div className="timeline-items stagger-children">
+            {PROCESS.map((p, idx) => (
+              <div key={p.title} className="timeline-item reveal">
+                <div className="timeline-node">{p.icon}</div>
+                <div className="timeline-body">
+                  <span className="timeline-index">0{idx + 1}</span>
+                  <h3 style={{ margin: "0 0 10px", fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 23 }}>{p.title}</h3>
+                  <p style={{ margin: 0, fontWeight: 300, fontSize: 14.5, lineHeight: 1.7, color: "rgba(247,245,241,.6)" }}>{p.copy}</p>
                 </div>
-                <span style={{ fontFamily: "var(--font-display), serif", fontSize: 20, color: "rgba(227,175,43,.4)", fontWeight: 300 }}>0{idx + 1}</span>
               </div>
-              <div style={{ padding: "28px 26px 32px" }}>
-                <h3 style={{ margin: "0 0 10px", fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24 }}>{p.title}</h3>
-                <p style={{ margin: 0, fontWeight: 300, fontSize: 14.5, lineHeight: 1.7, color: "rgba(247,245,241,.6)" }}>{p.copy}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -675,7 +577,7 @@ export default function Home() {
             </div>
           </div>
           <a
-            href={GOOGLE_MAPS_URL}
+            href={COMPANY.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -750,12 +652,12 @@ export default function Home() {
             There is no such thing as a small <span style={{ fontStyle: "italic", color: GOLD }}>detail</span>. There is only the one someone will notice every morning for twenty years.
           </p>
           <div style={{ marginTop: 40, fontWeight: 300, fontSize: 10.5, letterSpacing: ".32em", textTransform: "uppercase", color: "rgba(247,245,241,.5)" }}>
-            &mdash; Akash &middot; Owner &amp; Lead Craftsman, {COMPANY.short}
+            &mdash; Owner &amp; Lead Craftsman, {COMPANY.short}
           </div>
         </div>
       </section>
 
-      {/* ===== ABOUT AKASH / THE ATELIER ===== */}
+      {/* ===== ABOUT THE OWNER / THE ATELIER ===== */}
       <section id="atelier" style={{ background: "#080706", padding: "130px 56px", borderTop: "1px solid rgba(247,245,241,.06)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="reveal" style={{ maxWidth: 660, marginBottom: 54 }}>
@@ -771,8 +673,8 @@ export default function Home() {
           <div className="craft-grid atelier-card reveal-scale" style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: 52, alignItems: "center", border: "1px solid rgba(227,175,43,.2)", background: "#0c0a08", padding: "40px" }}>
             <div className="atelier-portrait" style={{ position: "relative", height: 420, border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
               <Image
-                src="/assets/akash-owner.jpg"
-                alt="Akash - Owner and Master Craftsman"
+                src="/assets/owner-portrait.jpg"
+                alt="Owner and Master Craftsman"
                 fill
                 style={{ objectFit: "cover" }}
                 sizes="(max-width: 980px) 100vw, 360px"
@@ -780,7 +682,7 @@ export default function Home() {
               />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.85) 100%)" }} />
               <div style={{ position: "absolute", bottom: 18, left: 20 }}>
-                <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24, color: "#f7f5f1" }}>Akash</div>
+                <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24, color: "#f7f5f1" }}>The Owner</div>
                 <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".24em", textTransform: "uppercase", color: GOLD, marginTop: 4 }}>Owner &amp; Lead Carpenter</div>
               </div>
             </div>
@@ -791,7 +693,7 @@ export default function Home() {
                 &ldquo;Every cut and joint is a reflection of my personal name on the work.&rdquo;
               </h3>
               <p style={{ margin: "0 0 20px", fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.7)" }}>
-                When you hire SS Carpentry and Renovations, you work directly with Akash from the initial on-site consultation to the final handover. Whether it&apos;s crafting custom walnut floating shelves, designing bespoke cabinetry, or executing a comprehensive home renovation, you receive direct communication, honest timelines, and uncompromising craftsmanship.
+                When you hire SS Carpentry and Renovations, you work directly with the owner from the initial on-site consultation to the final handover. Whether it&apos;s crafting custom walnut floating shelves, designing bespoke cabinetry, or executing a comprehensive home renovation, you receive direct communication, honest timelines, and uncompromising craftsmanship.
               </p>
               <div className="statbar atelier-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 24, marginTop: 28 }}>
                 <div>
@@ -821,11 +723,11 @@ export default function Home() {
               Tell us what you have in <span style={{ fontStyle: "italic", color: GOLD }}>mind</span>.
             </h2>
             <p style={{ margin: "0 0 36px", fontWeight: 300, fontSize: 17, lineHeight: 1.75, color: "rgba(247,245,241,.66)", maxWidth: 440 }}>
-              Send us the basics and Akash will personally review your project and get back within one working day. No cost, and zero sales pressure.
+              Send us the basics and the owner will personally review your project and get back within one working day. No cost, and zero sales pressure.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               {[
-                "Direct reply from Akash within one working day",
+                "Direct reply from our lead carpenter within one working day",
                 "Drawings and samples before you commit",
                 "One fixed, itemised price",
               ].map((line) => (
@@ -844,11 +746,20 @@ export default function Home() {
                 </div>
                 <span style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)", lineHeight: 1.5 }}>{COMPANY.address}</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ marginTop: 2, flexShrink: 0 }}>
                   <PhoneIcon size={18} />
                 </div>
-                <a href={COMPANY.phoneHref} style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)" }}>{COMPANY.phone}</a>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {COMPANY.phones.map((p) => (
+                    <a key={p.href} href={p.href} style={{ fontWeight: 300, fontSize: 14.5, color: "rgba(247,245,241,.85)" }}>
+                      {p.display}
+                    </a>
+                  ))}
+                  <span style={{ fontSize: 11, letterSpacing: ".14em", textTransform: "uppercase", color: GOLD }}>
+                    Call for a free estimate
+                  </span>
+                </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ flexShrink: 0 }}>
@@ -935,7 +846,7 @@ export default function Home() {
               <div style={{ width: 64, height: 64, border: `1px solid ${GOLD}`, color: GOLD, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 30 }}>&#10003;</div>
               <h3 style={{ margin: "0 0 16px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 38 }}>Thank you.</h3>
               <p style={{ margin: 0, fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.66)", maxWidth: 340 }}>
-                We have received your project details. Akash will review them and reach out within one working day.
+                We have received your project details. The owner will review them and reach out within one working day.
               </p>
             </div>
           )}
@@ -970,46 +881,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer style={{ background: "#000", borderTop: "1px solid rgba(227,175,43,.2)", padding: "74px 56px 44px" }}>
-        <div className="footer-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "1.7fr 1fr 1fr 1fr", gap: 48, marginBottom: 56 }}>
-          <div className="reveal">
-            <Image src="/assets/ss-logo-cropped.png" alt={COMPANY.name} width={300} height={173} style={{ width: 300, height: "auto", display: "block", marginBottom: 26 }} />
-            <p style={{ margin: 0, fontWeight: 300, fontSize: 15, lineHeight: 1.75, color: "rgba(247,245,241,.55)", maxWidth: 310 }}>
-              Bespoke carpentry and renovations for Ottawa homes where the details matter.
-            </p>
-          </div>
-          <div className="reveal">
-            <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Explore</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 15 }}>
-              <a href="#craft" style={{ color: "rgba(247,245,241,.7)" }}>Our craft</a>
-              <a href="#process" style={{ color: "rgba(247,245,241,.7)" }}>Process</a>
-              <a href="#portfolio" style={{ color: "rgba(247,245,241,.7)" }}>Portfolio</a>
-              <a href="#atelier" style={{ color: "rgba(247,245,241,.7)" }}>About Akash</a>
-            </div>
-          </div>
-          <div className="reveal">
-            <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Contact</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 15, color: "rgba(247,245,241,.7)" }}>
-              <a href={COMPANY.phoneHref} style={{ color: "rgba(247,245,241,.7)" }}>{COMPANY.phone}</a>
-              <a href={`mailto:${COMPANY.email}`} style={{ color: "rgba(247,245,241,.7)" }}>{COMPANY.email}</a>
-              <span>{COMPANY.address}</span>
-            </div>
-          </div>
-          <div className="reveal">
-            <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Assurance</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 300, fontSize: 13, letterSpacing: ".1em", color: "rgba(247,245,241,.55)" }}>
-              <span>{COMPANY.rating.toFixed(1)}&#9733; ON GOOGLE (3 REVIEWS)</span>
-              <span>FOUNDED 3 MONTHS AGO</span>
-              <span>SERVING OTTAWA, ON</span>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom reveal" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 28, fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.4)" }}>
-          <span>&copy; {new Date().getFullYear()} {COMPANY.name}</span>
-          <span style={{ letterSpacing: ".22em", textTransform: "uppercase" }}>Crafted by Akash &middot; Ottawa, ON</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
