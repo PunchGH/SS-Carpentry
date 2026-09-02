@@ -53,7 +53,7 @@ export function SiteNav() {
       <div style={{ display: "flex", alignItems: "center", gap: 38 }} className="nav-links">
         <Link href="/#craft" style={linkStyle}>Services</Link>
         <Link href="/#process" style={linkStyle}>Process</Link>
-        <Link href="/#portfolio" style={linkStyle}>Portfolio</Link>
+        <Link href="/gallery" style={linkStyle}>Gallery</Link>
         <Link href="/#atelier" style={linkStyle}>About us</Link>
       </div>
 

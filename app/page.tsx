@@ -8,6 +8,7 @@ import { SiteFooter } from "./components/SiteFooter";
 import { COMPANY } from "./data/company";
 import { SERVICES } from "./data/services";
 import { REVIEWS } from "./data/reviews";
+import { PROJECTS } from "./data/projects";
 
 const GOLD = "#e3af2b";
 const GOLD_LIGHT = "#f2c34a";
@@ -193,13 +194,6 @@ const PROCESS = [
   { icon: <HandoverIcon />, title: "Walk it with us", copy: "We go through every edge and hinge together, put anything right, then hand it over." },
 ];
 
-const PORTFOLIO = [
-  { label: "Walnut kitchen · Westboro", image: "/assets/portfolio-kitchen.jpg", big: true },
-  { label: "Custom staircase · Rockcliffe Park", image: "/assets/portfolio-staircase.jpg" },
-  { label: "Fitted wardrobe · The Glebe", image: "/assets/portfolio-wardrobe.jpg" },
-  { label: "Deck & walnut shelving · Barrhaven", image: "/assets/portfolio-deck.jpg" },
-  { label: "Full renovation · Kanata", image: "/assets/portfolio-renovation.jpg" },
-];
 
 function GoldButton({ children, onClick, style }: { children: ReactNode; onClick?: () => void; style?: CSSProperties }) {
   return (
@@ -541,28 +535,80 @@ export default function Home() {
               Recent <span style={{ fontStyle: "italic", color: GOLD }}>work</span>
             </h2>
           </div>
-          <a href="#quote" className="outline-btn" style={{ fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: "#f7f5f1", border: "1px solid rgba(227,175,43,.5)", padding: "17px 30px" }}>
-            Request a quote
-          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+            <Link href="/gallery" className="text-btn" style={{ fontWeight: 400, fontSize: 11, letterSpacing: ".2em", textTransform: "uppercase", color: GOLD, borderBottom: "1px solid rgba(227,175,43,.4)", paddingBottom: 4 }}>
+              View all projects &rarr;
+            </Link>
+            <a href="#quote" className="outline-btn" style={{ fontWeight: 400, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: "#f7f5f1", border: "1px solid rgba(227,175,43,.5)", padding: "17px 30px" }}>
+              Request a quote
+            </a>
+          </div>
         </div>
 
         <div className="portfolio-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gridAutoRows: 280, gap: 22 }}>
-          {PORTFOLIO.map((p) => (
-            <div key={p.label} className="gallery-tile reveal-scale" style={{ gridRow: p.big ? "span 2" : undefined, position: "relative", border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
-              <Image
-                src={p.image}
-                alt={p.label}
-                fill
-                style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
-                sizes="(max-width: 980px) 100vw, 33vw"
-                unoptimized
-              />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 100%)" }} />
-              <div style={{ position: "absolute", left: 24, bottom: 22, fontWeight: 300, fontSize: 11, letterSpacing: ".22em", textTransform: "uppercase", color: "#f7f5f1", textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>
-                {p.label}
-              </div>
-            </div>
-          ))}
+          {PROJECTS.slice(0, 5).map((p, idx) => {
+            const isBig = idx === 0;
+            return (
+              <Link
+                key={p.slug}
+                href={`/gallery/${p.slug}`}
+                className="gallery-tile reveal-scale"
+                style={{
+                  gridRow: isBig ? "span 2" : undefined,
+                  position: "relative",
+                  border: "1px solid rgba(247,245,241,.1)",
+                  overflow: "hidden",
+                  display: "block",
+                }}
+              >
+                <Image
+                  src={p.heroImage}
+                  alt={p.title}
+                  fill
+                  style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
+                  sizes="(max-width: 980px) 100vw, 33vw"
+                />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.88) 100%)" }} />
+                
+                {/* Location Badge */}
+                <div style={{ position: "absolute", top: 16, left: 16, background: "rgba(0,0,0,0.65)", backdropFilter: "blur(4px)", border: "1px solid rgba(227,175,43,0.3)", padding: "4px 8px", fontSize: 9, letterSpacing: ".16em", textTransform: "uppercase", color: GOLD }}>
+                  {p.neighbourhood}
+                </div>
+
+                <div style={{ position: "absolute", left: 20, right: 20, bottom: 20 }}>
+                  <div style={{ fontWeight: 400, fontSize: 15, fontFamily: "var(--font-display), serif", color: "#f7f5f1", textShadow: "0 2px 8px rgba(0,0,0,0.9)", marginBottom: 4 }}>
+                    {p.title}
+                  </div>
+                  <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".18em", textTransform: "uppercase", color: "rgba(247,245,241,0.65)" }}>
+                    {p.propertyType} · {p.duration}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 48 }} className="reveal">
+          <Link
+            href="/gallery"
+            className="outline-btn"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 12,
+              fontWeight: 400,
+              fontSize: 12,
+              letterSpacing: ".2em",
+              textTransform: "uppercase",
+              color: "#f7f5f1",
+              border: "1px solid rgba(227,175,43,.4)",
+              background: "rgba(227,175,43,.04)",
+              padding: "16px 32px",
+              transition: "all 0.25s ease",
+            }}
+          >
+            <span>Explore Full Gallery &amp; Case Studies ({PROJECTS.length}) &rarr;</span>
+          </Link>
         </div>
       </section>
 

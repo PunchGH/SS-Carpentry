@@ -46,6 +46,9 @@ export function SiteFooter() {
                 {s.navLabel}
               </Link>
             ))}
+            <Link href="/gallery" style={{ ...linkStyle, color: GOLD, marginTop: 4 }}>
+              View Project Gallery &rarr;
+            </Link>
           </div>
         </div>
 
