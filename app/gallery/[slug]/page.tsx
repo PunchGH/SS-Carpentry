@@ -404,10 +404,25 @@ export default async function ProjectPage({ params }: Props) {
                     gap: 12,
                   }}
                 >
-                  <div>
-                    <div style={{ fontWeight: 500, fontSize: 15, color: "#f7f5f1" }}>{review.name}</div>
-                    <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.5)", marginTop: 2 }}>
-                      {review.tag}
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ position: "relative", width: 44, height: 44, borderRadius: "50%", background: "#1c1915", border: "1.5px solid rgba(227,175,43,.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: GOLD, fontWeight: 600, overflow: "hidden", flexShrink: 0 }}>
+                      {review.avatar ? (
+                        <Image
+                          src={review.avatar}
+                          alt={review.name}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          sizes="44px"
+                        />
+                      ) : (
+                        review.name.charAt(0)
+                      )}
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 500, fontSize: 15, color: "#f7f5f1" }}>{review.name}</div>
+                      <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.5)", marginTop: 2 }}>
+                        {review.tag}
+                      </div>
                     </div>
                   </div>
 

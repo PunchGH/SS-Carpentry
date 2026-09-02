@@ -7,7 +7,7 @@ import { SiteNav } from "./components/SiteNav";
 import { SiteFooter } from "./components/SiteFooter";
 import { COMPANY } from "./data/company";
 import { SERVICES } from "./data/services";
-import { REVIEWS } from "./data/reviews";
+import { REVIEWS, formatReviewDate } from "./data/reviews";
 import { PROJECTS } from "./data/projects";
 import { PlaceholderImage } from "./components/PlaceholderImage";
 import { QuoteForm } from "./components/QuoteForm";
@@ -398,7 +398,7 @@ export default function Home() {
             </h2>
           </div>
           <p style={{ margin: 0, maxWidth: 380, fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.62)" }}>
-            Everything is carefully measured, built, and fitted under the owner&apos;s direct supervision. No subcontracting, no compromises.
+            Everything is carefully measured, built, and fitted under the owner&apos;s direct supervision. Master carpentry in-house with dedicated licensed trade partners.
           </p>
         </div>
 
@@ -641,14 +641,24 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="reviews-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28 }}>
+        {/* auto-fit rather than a fixed 3 columns: the review count grows over
+            time, and a hardcoded 3 leaves the 4th card orphaned on its own row. */}
+        <div className="reviews-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 28 }}>
           {REVIEWS.map((r) => (
             <div key={r.name} className="card-hover reveal" style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "36px 32px", display: "flex", flexDirection: "column", position: "relative" }}>
               {/* Google Verified Badge */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <GoogleLogo size={18} />
-                  <span style={{ fontSize: 10, letterSpacing: ".16em", textTransform: "uppercase", color: "rgba(247,245,241,.6)" }}>Google Review</span>
+                  <span style={{ fontSize: 10, letterSpacing: ".16em", textTransform: "uppercase", color: "rgba(247,245,241,.6)" }}>
+                    Google Review
+                    {r.date && (
+                      <>
+                        <span style={{ opacity: 0.5 }}> &middot; </span>
+                        <time dateTime={r.date}>{formatReviewDate(r.date)}</time>
+                      </>
+                    )}
+                  </span>
                 </div>
                 <div style={{ color: GOLD, fontSize: 13, letterSpacing: 2 }}>★★★★★</div>
               </div>
@@ -661,11 +671,40 @@ export default function Home() {
               {/* Reviewer Profile - Enlarged Initial Avatar */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", borderTop: "1px solid rgba(247,245,241,.08)", paddingTop: 18, flexWrap: "wrap", gap: 12 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 48, height: 48, borderRadius: "50%", background: "#1c1915", border: "1.5px solid rgba(227,175,43,.45)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: GOLD, fontWeight: 600, boxShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-                    {r.name.charAt(0)}
+                  <div style={{ position: "relative", width: 48, height: 48, borderRadius: "50%", background: "#1c1915", border: "1.5px solid rgba(227,175,43,.45)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: GOLD, fontWeight: 600, boxShadow: "0 2px 10px rgba(0,0,0,0.5)", overflow: "hidden", flexShrink: 0 }}>
+                    {r.avatar ? (
+                      <Image
+                        src={r.avatar}
+                        alt={r.name}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="48px"
+                      />
+                    ) : (
+                      r.name.charAt(0)
+                    )}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 400, fontSize: 15, color: "#f7f5f1" }}>{r.name}</div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                      <span style={{ fontWeight: 400, fontSize: 15, color: "#f7f5f1" }}>{r.name}</span>
+                      {r.localGuide && (
+                        <span
+                          title="Google Local Guide — a reviewer with an established public review history"
+                          style={{
+                            fontSize: 8.5,
+                            letterSpacing: ".14em",
+                            textTransform: "uppercase",
+                            color: "rgba(227,175,43,.9)",
+                            border: "1px solid rgba(227,175,43,.35)",
+                            borderRadius: 2,
+                            padding: "2px 6px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          Local Guide
+                        </span>
+                      )}
+                    </div>
                     <div style={{ fontWeight: 300, fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247,245,241,.45)", marginTop: 2 }}>{r.tag}</div>
                   </div>
                 </div>

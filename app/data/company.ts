@@ -17,7 +17,12 @@ export const COMPANY = {
   ],
   email: "ssrenovations.ottawa@gmail.com",
   rating: 5.0,
-  reviewCount: 3,
+  reviewCount: 4,
+  /**
+   * Verified from the Google Business Profile URL, 2026-09-02.
+   * CID 0xcf4e14828c73270a matches googleMapsUrl and every review link.
+   */
+  geo: { latitude: 45.2382542, longitude: -75.7497914 },
   googleMapsUrl:
     "https://www.google.com/maps/search/?api=1&query=SS%20Carpentry%20and%20Renovations&query_place_id=ChIJnT3tXwD9zUwRCidzjIIUTs8",
 } as const;

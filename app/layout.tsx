@@ -107,8 +107,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "CA-ON",
     "geo.placename": "Ottawa",
-    "geo.position": "45.275;-75.733",
-    ICBM: "45.275, -75.733",
+    "geo.position": `${COMPANY.geo.latitude};${COMPANY.geo.longitude}`,
+    ICBM: `${COMPANY.geo.latitude}, ${COMPANY.geo.longitude}`,
     "format-detection": "telephone=yes",
   },
 };
@@ -134,17 +134,14 @@ const jsonLd = {
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 45.275,
-    longitude: -75.733,
+    latitude: COMPANY.geo.latitude,
+    longitude: COMPANY.geo.longitude,
   },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "08:00",
-      closes: "18:00",
-    },
-  ],
+  // TODO(owner): opening hours, copied verbatim from the Google Business Profile.
+  // Removed rather than guessed: the previous value claimed Mon-Sat 08:00-18:00,
+  // which contradicts the only sourced data we have (companyinfo.md: "Opens 9 AM").
+  // Wrong hours in schema surface directly in Google and conflict with the GBP,
+  // so this stays out until the real weekly schedule is read off the profile.
   priceRange: "$$$",
   areaServed: [
     { "@type": "City", name: "Ottawa" },
@@ -195,8 +192,8 @@ const jsonLd = {
   },
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "3",
+    ratingValue: COMPANY.rating.toFixed(1),
+    reviewCount: String(COMPANY.reviewCount),
     bestRating: "5",
     worstRating: "1",
   },

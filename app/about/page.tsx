@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { DraftBlock, DraftTag } from "../components/DraftTag";
 import { PlaceholderImage } from "../components/PlaceholderImage";
@@ -484,10 +485,25 @@ export default function AboutPage() {
                       justifyContent: "space-between",
                     }}
                   >
-                    <div>
-                      <div style={{ fontWeight: 400, fontSize: 14, color: "#f7f5f1" }}>{r.name}</div>
-                      <div style={{ fontSize: 10.5, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.45)", marginTop: 2 }}>
-                        {r.tag}
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <div style={{ position: "relative", width: 42, height: 42, borderRadius: "50%", background: "#1c1915", border: "1px solid rgba(227,175,43,.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, color: GOLD, fontWeight: 600, overflow: "hidden", flexShrink: 0 }}>
+                        {r.avatar ? (
+                          <Image
+                            src={r.avatar}
+                            alt={r.name}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            sizes="42px"
+                          />
+                        ) : (
+                          r.name.charAt(0)
+                        )}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 400, fontSize: 14, color: "#f7f5f1" }}>{r.name}</div>
+                        <div style={{ fontSize: 10.5, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.45)", marginTop: 2 }}>
+                          {r.tag}
+                        </div>
                       </div>
                     </div>
                     <a

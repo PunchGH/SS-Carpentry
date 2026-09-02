@@ -99,9 +99,17 @@ export const DRAFT_INVENTORY: DraftItem[] = [
   },
   {
     id: "review-dates",
-    needs: "Review dates (month/year) for Google reviews to satisfy friction guide Stage 4",
+    needs:
+      "Review dates (month/year) for the three original Google reviews, plus a direct permalink to Ron Hunt's review. Ron Hunt's date is known (2026-09-01).",
     where: "Home page reviews section, Reviews data",
     priority: "improves-conversion",
+  },
+  {
+    id: "opening-hours",
+    needs:
+      "Weekly opening hours copied verbatim from the Google Business Profile. Removed from JSON-LD rather than guessed — the old value (Mon-Sat 08:00-18:00) contradicted companyinfo.md's 'Opens 9 AM'.",
+    where: "layout.tsx JSON-LD, contact page",
+    priority: "blocks-launch",
   },
   {
     id: "founding-year",
