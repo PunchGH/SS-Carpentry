@@ -26,6 +26,7 @@ This matters more than any layout work here. Stage 6 of the friction guide is th
 
 Section order (mobile-first — the guide says audit on phone):
 1. **H1 + response promise** — "We reply within one working day." Above the fold.
+
 2. **Direct contact row** — both phones (tappable), email, hours. Fastest paths first, before the form.
 3. **Form** (§3)
 4. **What happens next** — the 4 steps: reply → site visit → itemised quote → decide. No obligation.

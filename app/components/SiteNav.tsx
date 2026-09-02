@@ -83,7 +83,7 @@ export function SiteNav() {
         </a>
 
         <Link
-          href="/#quote"
+          href="/contact"
           className="gold-btn"
           style={{
             background: GOLD,

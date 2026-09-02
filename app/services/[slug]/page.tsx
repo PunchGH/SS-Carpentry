@@ -222,7 +222,7 @@ export default async function ServicePage({
           </p>
           <div style={{ display: "flex", gap: 18, justifyContent: "center", flexWrap: "wrap" }}>
             <Link
-              href="/#quote"
+              href="/contact"
               className="gold-btn"
               style={{ background: GOLD, color: "#0a0908", fontWeight: 500, fontSize: 12, letterSpacing: ".22em", textTransform: "uppercase", padding: "20px 40px" }}
             >

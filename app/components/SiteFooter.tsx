@@ -65,6 +65,9 @@ export function SiteFooter() {
             ))}
             <a href={`mailto:${COMPANY.email}`} style={linkStyle}>{COMPANY.email}</a>
             <span>{COMPANY.address}</span>
+            <Link href="/contact" style={{ ...linkStyle, color: GOLD, marginTop: 4 }}>
+              Request a Quote &rarr;
+            </Link>
           </div>
         </div>
 

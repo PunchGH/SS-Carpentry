@@ -550,7 +550,7 @@ export default async function ProjectPage({ params }: Props) {
               }}
             >
               <Link
-                href="/#quote"
+                href="/contact"
                 style={{
                   background: GOLD,
                   color: "#0a0908",

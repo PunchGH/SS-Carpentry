@@ -10,6 +10,7 @@ import { SERVICES } from "./data/services";
 import { REVIEWS } from "./data/reviews";
 import { PROJECTS } from "./data/projects";
 import { PlaceholderImage } from "./components/PlaceholderImage";
+import { QuoteForm } from "./components/QuoteForm";
 
 const GOLD = "#e3af2b";
 const GOLD_LIGHT = "#f2c34a";
@@ -224,8 +225,6 @@ function GoldButton({ children, onClick, style }: { children: ReactNode; onClick
 export default function Home() {
   const [progress, setProgress] = useState(0);
   const [faqOpen, setFaqOpen] = useState<boolean[]>(Array(5).fill(false));
-  const [form, setForm] = useState({ name: "", email: "", ptype: "", msg: "" });
-  const [submitted, setSubmitted] = useState(false);
   const quoteRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -290,11 +289,6 @@ export default function Home() {
 
   const toggleFaq = (i: number) =>
     setFaqOpen((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
 
   const stars = "★".repeat(Math.round(COMPANY.rating));
 
@@ -843,69 +837,9 @@ export default function Home() {
             </div>
           </div>
 
-          {!submitted ? (
-            <form onSubmit={submit} className="quote-form-card reveal-right" style={{ background: "#000", border: "1px solid rgba(247,245,241,.14)", padding: "44px 40px" }}>
-              <div style={{ marginBottom: 26 }}>
-                <label style={{ display: "block", fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginBottom: 11 }}>Your name</label>
-                <input
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                  placeholder="Your full name"
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(247,245,241,.24)", color: "#f7f5f1", fontSize: 16, fontWeight: 300, padding: "12px 2px", outline: "none" }}
-                />
-              </div>
-              <div style={{ marginBottom: 26 }}>
-                <label style={{ display: "block", fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginBottom: 11 }}>Email</label>
-                <input
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                  type="email"
-                  placeholder="you@email.com"
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(247,245,241,.24)", color: "#f7f5f1", fontSize: 16, fontWeight: 300, padding: "12px 2px", outline: "none" }}
-                />
-              </div>
-              <div style={{ marginBottom: 26 }}>
-                <label style={{ display: "block", fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginBottom: 11 }}>What are you planning?</label>
-                <select
-                  value={form.ptype}
-                  onChange={(e) => setForm((f) => ({ ...f, ptype: e.target.value }))}
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(247,245,241,.24)", color: "#f7f5f1", fontSize: 16, fontWeight: 300, padding: "12px 2px", outline: "none" }}
-                >
-                  <option value="" style={{ background: "#000" }}>Select one</option>
-                  <option value="kitchen" style={{ background: "#000" }}>Bespoke kitchen</option>
-                  <option value="joinery" style={{ background: "#000" }}>Staircase or custom joinery</option>
-                  <option value="wardrobes" style={{ background: "#000" }}>Fitted wardrobes</option>
-                  <option value="renovation" style={{ background: "#000" }}>Full renovation</option>
-                  <option value="deck" style={{ background: "#000" }}>Deck &amp; custom shelving</option>
-                  <option value="unsure" style={{ background: "#000" }}>Not sure yet</option>
-                </select>
-              </div>
-              <div style={{ marginBottom: 34 }}>
-                <label style={{ display: "block", fontWeight: 300, fontSize: 10, letterSpacing: ".26em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginBottom: 11 }}>A little detail</label>
-                <textarea
-                  value={form.msg}
-                  onChange={(e) => setForm((f) => ({ ...f, msg: e.target.value }))}
-                  rows={4}
-                  placeholder="The room, roughly when you would like to start, materials or ideas you already have in mind."
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(247,245,241,.24)", color: "#f7f5f1", fontSize: 16, fontWeight: 300, padding: "12px 2px", outline: "none", resize: "vertical" }}
-                />
-              </div>
-              <button type="submit" className="gold-btn" style={{ width: "100%", cursor: "pointer", background: GOLD, color: "#0a0908", border: "none", fontFamily: "var(--font-sans), sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: ".24em", textTransform: "uppercase", padding: 21 }}>
-                Request my quote
-              </button>
-              <p style={{ margin: "20px 0 0", textAlign: "center", fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.4)" }}>Your details are used only for this quote and nothing else.</p>
-            </form>
-          ) : (
-            <div style={{ background: "#000", border: "1px solid rgba(227,175,43,.55)", padding: "70px 44px", textAlign: "center", minHeight: 420, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ width: 64, height: 64, border: `1px solid ${GOLD}`, color: GOLD, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 30 }}>&#10003;</div>
-              <h3 style={{ margin: "0 0 16px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 38 }}>Thank you.</h3>
-              <p style={{ margin: 0, fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.66)", maxWidth: 340 }}>
-                We have received your project details. The owner will review them and reach out within one working day.
-              </p>
-            </div>
-          )}
+          <div className="reveal-right">
+            <QuoteForm source="home" />
+          </div>
         </div>
       </section>
 
