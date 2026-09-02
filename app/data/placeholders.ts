@@ -100,7 +100,7 @@ export const DRAFT_INVENTORY: DraftItem[] = [
   {
     id: "review-dates",
     needs:
-      "Review dates (month/year) for the three original Google reviews, plus a direct permalink to Ron Hunt's review. Ron Hunt's date is known (2026-09-01).",
+      "Review dates (month/year) for the other three Google reviews (Arman Sandhu, Sumeta Saroya, The Hartley Project). Ron Hunt's date (2026-09-01) and direct permalink are resolved.",
     where: "Home page reviews section, Reviews data",
     priority: "improves-conversion",
   },

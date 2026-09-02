@@ -47,9 +47,7 @@ export const REVIEWS: Review[] = [
     name: "Ron Hunt",
     tag: "Kitchen makeover",
     avatar: "/Google Reviewer Pfp/Ron Hunt.png",
-    // TODO(owner): direct permalink to this review, from the GBP reviews list.
-    reviewUrl:
-      "https://www.google.com/maps/search/?api=1&query=SS%20Carpentry%20and%20Renovations&query_place_id=ChIJnT3tXwD9zUwRCidzjIIUTs8",
+    reviewUrl: "https://maps.app.goo.gl/GUeLd41ajAVzKk6o6",
     text: "Went the extra mile on many facets of our kitchen makeover. Friendly and knowledgeable. Would hire again.",
     date: "2026-09-01",
     localGuide: true,
