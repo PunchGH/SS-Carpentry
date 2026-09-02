@@ -54,7 +54,7 @@ export function SiteNav() {
         <Link href="/#craft" style={linkStyle}>Services</Link>
         <Link href="/#process" style={linkStyle}>Process</Link>
         <Link href="/gallery" style={linkStyle}>Gallery</Link>
-        <Link href="/#atelier" style={linkStyle}>About us</Link>
+        <Link href="/about" style={linkStyle}>About us</Link>
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>

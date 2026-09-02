@@ -9,6 +9,7 @@ import { COMPANY } from "./data/company";
 import { SERVICES } from "./data/services";
 import { REVIEWS } from "./data/reviews";
 import { PROJECTS } from "./data/projects";
+import { PlaceholderImage } from "./components/PlaceholderImage";
 
 const GOLD = "#e3af2b";
 const GOLD_LIGHT = "#f2c34a";
@@ -712,43 +713,52 @@ export default function Home() {
               Craftsmanship led by the <span style={{ fontStyle: "italic", color: GOLD }}>maker</span>
             </h2>
             <p style={{ margin: 0, fontWeight: 300, fontSize: 17, lineHeight: 1.75, color: "rgba(247,245,241,.65)" }}>
-              Founded 3 months ago in Ottawa with a clear standard: no sales reps, no layers of bureaucracy, and no subcontracted labor.
+              Operating in Ottawa with a clear standard: direct owner oversight, no sales reps, and dedicated licensed trade partners.
             </p>
           </div>
 
           <div className="craft-grid atelier-card reveal-scale" style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: 52, alignItems: "center", border: "1px solid rgba(227,175,43,.2)", background: "#0c0a08", padding: "40px" }}>
-            <div className="atelier-portrait" style={{ position: "relative", height: 420, border: "1px solid rgba(247,245,241,.1)", overflow: "hidden" }}>
-              <Image
-                src="/assets/owner-portrait.jpg"
-                alt="Owner and Master Craftsman"
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 980px) 100vw, 360px"
-                unoptimized
+            <div className="atelier-portrait" style={{ position: "relative", minHeight: 380, border: "1px solid rgba(247,245,241,.1)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+              <PlaceholderImage
+                needs="Owner portrait — real on-site working photo required"
+                height={380}
               />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.85) 100%)" }} />
-              <div style={{ position: "absolute", bottom: 18, left: 20 }}>
-                <div style={{ fontFamily: "var(--font-display), serif", fontWeight: 400, fontSize: 24, color: "#f7f5f1" }}>The Owner</div>
-                <div style={{ fontWeight: 300, fontSize: 10, letterSpacing: ".24em", textTransform: "uppercase", color: GOLD, marginTop: 4 }}>Owner &amp; Lead Carpenter</div>
-              </div>
             </div>
 
             <div>
               <div style={{ fontWeight: 300, fontSize: 10.5, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 14 }}>Direct Owner Involvement</div>
-              <h3 style={{ margin: "0 0 20px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 34, lineHeight: 1.2 }}>
-                &ldquo;Every cut and joint is a reflection of my personal name on the work.&rdquo;
+              <h3 style={{ margin: "0 0 20px", fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 32, lineHeight: 1.2 }}>
+                Single-point accountability from the initial measurement to final handover.
               </h3>
-              <p style={{ margin: "0 0 20px", fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.7)" }}>
-                When you hire SS Carpentry and Renovations, you work directly with the owner from the initial on-site consultation to the final handover. Whether it&apos;s crafting custom walnut floating shelves, designing bespoke cabinetry, or executing a comprehensive home renovation, you receive direct communication, honest timelines, and uncompromising craftsmanship.
+              <p style={{ margin: "0 0 24px", fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.7)" }}>
+                When you hire SS Carpentry and Renovations, you work directly with the maker from the initial on-site consultation to the final walkthrough. Whether it&apos;s custom floating joinery, tailored cabinetry, or a comprehensive home renovation, you receive clear communication, honest timelines, and master craftsmanship.
               </p>
-              <div className="statbar atelier-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 24, marginTop: 28 }}>
+
+              <div style={{ marginBottom: 28 }}>
+                <Link
+                  href="/about"
+                  className="text-btn"
+                  style={{
+                    fontSize: 12,
+                    letterSpacing: ".18em",
+                    textTransform: "uppercase",
+                    color: GOLD,
+                    borderBottom: "1px solid rgba(227,175,43,.45)",
+                    paddingBottom: 4,
+                  }}
+                >
+                  More about our craft &amp; credentials &rarr;
+                </Link>
+              </div>
+
+              <div className="statbar atelier-stats" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 24 }}>
                 <div>
                   <div style={{ fontFamily: "var(--font-display), serif", fontSize: 26, color: GOLD }}>5.0 ★</div>
-                  <div style={{ fontSize: 10.5, letterSpacing: ".15em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginTop: 4 }}>Flawless Rating</div>
+                  <div style={{ fontSize: 10.5, letterSpacing: ".15em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginTop: 4 }}>Google Rating</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: "var(--font-display), serif", fontSize: 26, color: GOLD }}>3 Months</div>
-                  <div style={{ fontSize: 10.5, letterSpacing: ".15em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginTop: 4 }}>Ottawa Established</div>
+                  <div style={{ fontFamily: "var(--font-display), serif", fontSize: 26, color: GOLD }}>Ottawa, ON</div>
+                  <div style={{ fontSize: 10.5, letterSpacing: ".15em", textTransform: "uppercase", color: "rgba(247,245,241,.5)", marginTop: 4 }}>Local Craft</div>
                 </div>
                 <div>
                   <div style={{ fontFamily: "var(--font-display), serif", fontSize: 26, color: GOLD }}>1-on-1</div>

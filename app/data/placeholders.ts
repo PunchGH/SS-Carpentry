@@ -8,6 +8,9 @@
  *   1. Anything we don't have from the owner is a placeholder, not a guess.
  *   2. Every placeholder renders a visible <DraftTag /> so it can't ship unnoticed.
  *   3. Launch gate: `grep -rn "TODO(owner)" app/` must return nothing.
+ *   4. ZERO STOCK HUMANS POLICY: No stock photograph may stand in for a real
+ *      person, a real project, or a real credential. Text may be drafted;
+ *      people and proof may not.
  *
  * Draft tags are visible everywhere by default. To hide them (e.g. a client
  * preview where the tags would distract), set NEXT_PUBLIC_HIDE_DRAFT_TAGS=1.
@@ -49,7 +52,7 @@ export const DRAFT_INVENTORY: DraftItem[] = [
   {
     id: "insurance-figures",
     needs: "Liability coverage amount, WSIB clearance status, business/HST number",
-    where: "Footer trust strip, FAQ",
+    where: "Footer trust strip, FAQ, About page credentials",
     priority: "blocks-launch",
   },
   {
@@ -67,7 +70,7 @@ export const DRAFT_INVENTORY: DraftItem[] = [
   {
     id: "project-details",
     needs: "For each real project: neighbourhood, property type, scope, duration, date",
-    where: "Portfolio captions, service page galleries",
+    where: "Portfolio captions, service page galleries, /gallery case studies",
     priority: "blocks-content",
   },
   {
@@ -85,7 +88,7 @@ export const DRAFT_INVENTORY: DraftItem[] = [
   {
     id: "licensed-trades",
     needs: "Confirmation on electrical (ESA/ECRA) and plumbing arrangements across all services — in-house vs licensed trade partners",
-    where: "Service pages — What's included, Legal Basements, FAQs",
+    where: "Service pages — What's included, Legal Basements, FAQs, About page",
     priority: "blocks-launch",
   },
   {
@@ -99,6 +102,36 @@ export const DRAFT_INVENTORY: DraftItem[] = [
     needs: "Review dates (month/year) for Google reviews to satisfy friction guide Stage 4",
     where: "Home page reviews section, Reviews data",
     priority: "improves-conversion",
+  },
+  {
+    id: "founding-year",
+    needs: "Exact founding year / total years of trade experience in Ottawa",
+    where: "About page — hero and history",
+    priority: "blocks-launch",
+  },
+  {
+    id: "owner-bio",
+    needs: "Owner background story, apprenticeship/trade history, and philosophy in his own words",
+    where: "About page — founder section",
+    priority: "blocks-content",
+  },
+  {
+    id: "owner-portrait",
+    needs: "Real high-resolution portrait or on-site photo of the owner working",
+    where: "About page and home page atelier section",
+    priority: "blocks-launch",
+  },
+  {
+    id: "team-roster",
+    needs: "Crew details — solo master craftsman model vs names and roles of core site crew",
+    where: "About page — team section",
+    priority: "blocks-content",
+  },
+  {
+    id: "credentials",
+    needs: "Registered legal business name, HST number, active WSIB clearance #, and liability policy certificate",
+    where: "About page — verification strip, footer",
+    priority: "blocks-launch",
   },
 ];
 

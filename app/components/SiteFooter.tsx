@@ -49,6 +49,9 @@ export function SiteFooter() {
             <Link href="/gallery" style={{ ...linkStyle, color: GOLD, marginTop: 4 }}>
               View Project Gallery &rarr;
             </Link>
+            <Link href="/about" style={{ ...linkStyle, color: "rgba(247,245,241,.9)" }}>
+              About Us &amp; Craftsmanship
+            </Link>
           </div>
         </div>
 
