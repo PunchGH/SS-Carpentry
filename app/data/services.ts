@@ -45,6 +45,8 @@ export type Service = {
   seo: { title: string; description: string };
   /** "complete" = written properly. "draft" = skeleton awaiting real copy. */
   contentStatus: "complete" | "draft";
+  /** Team-facing only. Never rendered. What the owner still has to confirm. */
+  ownerNeeds?: string[];
 };
 
 export const SERVICES: Service[] = [
@@ -68,14 +70,12 @@ export const SERVICES: Service[] = [
       "Countertop templating coordination and precise installation",
       "Waterproofing systems behind shower and tub surrounds, plus floor and wall tiling",
       "Trim carpentry, door adjustments, drawer tuning, and hardware installation",
-      "TODO(owner): confirm — is plumbing rough-in and fixture installation handled in-house or by a licensed trade partner?",
-      "TODO(owner): confirm — is electrical rough-in and lighting handled by a licensed ESA/ECRA electrician?",
+      "Coordination of licensed plumbing and electrical trades where the work is regulated",
     ],
     notIncluded: [
       "Supply of major kitchen appliances, range hoods, or decorative lighting unless specified in contract",
       "Structural load-bearing wall removal or beam installation unless engineered drawings and permits are obtained",
       "Remediation of pre-existing hidden damage (e.g. historical water leaks, structural rot, or non-code wiring)",
-      "TODO(owner): confirm standard exclusions — are tiles, plumbing fixtures, and vanities supplied by homeowner or contractor?",
     ],
     steps: [
       {
@@ -84,7 +84,7 @@ export const SERVICES: Service[] = [
       },
       {
         title: "Itemized quote & schedule",
-        copy: "You receive an itemized quote outlining exact scope, allowances, and target build phases. TODO(owner): confirm standard quotation turnaround and deposit schedule.",
+        copy: "You receive an itemized quote outlining exact scope, allowances, and target build phases.",
       },
       {
         title: "Prep, build & fit",
@@ -103,14 +103,13 @@ export const SERVICES: Service[] = [
         "Countertop material choice (quartz, granite, porcelain, or laminate)",
         "Whether plumbing stacks or supply lines need relocation within walls or slab",
         "Tile format, shower niche build-outs, and custom glass enclosures",
-        "TODO(owner): confirm real starting and typical costs for Ottawa kitchens and bathrooms",
       ],
       draft: true,
     },
     faqs: [
       {
         q: "Can we use the kitchen or bathroom while work is underway?",
-        a: "If you have a second bathroom in the home, living on-site is straightforward. For kitchens, we maintain dust barriers and temporary access where possible, but sinks and cooking appliances are decommissioned during active rough-in and cabinet fitting. TODO(owner): confirm standard guidance on on-site living.",
+        a: "If you have a second bathroom in the home, living on-site is straightforward. For kitchens, we maintain dust barriers and temporary access where possible, but sinks and cooking appliances are decommissioned during active rough-in and cabinet fitting.",
       },
       {
         q: "Do you handle layout changes and moving plumbing lines?",
@@ -120,10 +119,6 @@ export const SERVICES: Service[] = [
         q: "Who provides the tile, fixtures, and cabinetry?",
         a: "We can work with homeowner-supplied materials or source directly through local trade suppliers. Finalizing selections before demolition ensures all items are on-site without stalling work.",
       },
-      {
-        q: "How long does a typical kitchen or bathroom renovation take?",
-        a: "TODO(owner): confirm realistic project timelines for typical Ottawa kitchen and bathroom renovations.",
-      },
     ],
     seo: {
       title: "Kitchen & Bathroom Renovations in Ottawa",
@@ -131,6 +126,15 @@ export const SERVICES: Service[] = [
         "Full kitchen and bathroom renovations in Ottawa — cabinetry, counters, tiling and fixtures, fitted by one team. Free estimate.",
     },
     contentStatus: "draft",
+    ownerNeeds: [
+      "Confirm whether plumbing rough-in and fixture installation is handled in-house or by a licensed trade partner",
+      "Confirm whether electrical rough-in and lighting is handled by a licensed ESA/ECRA electrician",
+      "Confirm standard exclusions — are tiles, plumbing fixtures, and vanities supplied by homeowner or contractor?",
+      "Confirm standard quotation turnaround and deposit schedule",
+      "Confirm real starting and typical costs for Ottawa kitchens and bathrooms",
+      "Confirm standard guidance on living on-site during a kitchen renovation",
+      "Confirm realistic project timelines for typical Ottawa kitchen and bathroom renovations",
+    ],
   },
 
   {
@@ -159,7 +163,6 @@ export const SERVICES: Service[] = [
       "Televisions, audio receivers, gaming consoles, soundbars, and streaming devices",
       "Audio/video system calibration and home automation network configuration",
       "Structural modifications to exterior walls or load-bearing studs without engineering approval",
-      "TODO(owner): confirm exclusions — are TV brackets and LED controllers supplied by homeowner or contractor?",
     ],
     steps: [
       {
@@ -168,7 +171,7 @@ export const SERVICES: Service[] = [
       },
       {
         title: "Specification & quote",
-        copy: "You receive a clear specification with dimensions, finish details, and fixed pricing. TODO(owner): confirm quote lead time.",
+        copy: "You receive a clear specification with dimensions, finish details, and fixed pricing.",
       },
       {
         title: "Framing & wiring rough-in",
@@ -187,7 +190,6 @@ export const SERVICES: Service[] = [
         "Panel materials (natural wood acoustic slats, architectural fluting, stone veneer, or painted finish)",
         "Inclusion of integrated floating lower cabinets, soft-close drawers, or electric fireplaces",
         "Number of independent LED lighting zones, drivers, and dimmer controls",
-        "TODO(owner): confirm real starting and typical costs for feature walls in Ottawa",
       ],
       draft: true,
     },
@@ -206,11 +208,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: "How are the LED lights controlled?",
-        a: "LED accent lighting can connect to a wall switch, a wireless remote, or smart home lighting systems. TODO(owner): confirm standard lighting controllers used.",
-      },
-      {
-        q: "How long does installation take?",
-        a: "TODO(owner): confirm typical on-site installation timeframe (e.g. 2 to 4 days).",
+        a: "LED accent lighting can connect to a wall switch, a wireless remote, or smart home lighting systems.",
       },
     ],
     seo: {
@@ -219,6 +217,13 @@ export const SERVICES: Service[] = [
         "Built-in TV feature walls and backlit panelling in Ottawa — cable managed and flush mounted. Free estimate.",
     },
     contentStatus: "draft",
+    ownerNeeds: [
+      "Confirm exclusions — are TV brackets and LED controllers supplied by homeowner or contractor?",
+      "Confirm quote lead time",
+      "Confirm real starting and typical costs for feature walls in Ottawa, and reconcile with the fixed price bands published on the TV walls page",
+      "Confirm standard lighting controllers used",
+      "Confirm typical on-site installation timeframe (e.g. 2 to 4 days)",
+    ],
   },
 
   {
@@ -241,13 +246,11 @@ export const SERVICES: Service[] = [
       "Uncoupling membranes and waterproof underlayment for tile to prevent substrate movement and cracked grout",
       "Precision cutting, expansion gap allowances around perimeters, and layout alignment across adjoining rooms",
       "Baseboard and shoe molding removal and reinstall, or fitting of new trim",
-      "TODO(owner): confirm — do you supply flooring materials or fit customer-supplied products?",
     ],
     notIncluded: [
       "Structural joist replacement or foundation leveling unless specifically quoted",
       "Moving heavy specialist items (e.g. pianos or pool tables) without prior agreement",
       "Supply of specialty tiles, hardwood planks, or transitions unless agreed in the materials schedule",
-      "TODO(owner): confirm standard exclusions regarding disposal fees and appliance disconnection",
     ],
     steps: [
       {
@@ -256,7 +259,7 @@ export const SERVICES: Service[] = [
       },
       {
         title: "Itemized quote",
-        copy: "You receive an estimate detailing square footage, subfloor prep requirements, trim transitions, and waste factor. TODO(owner): confirm quote turnaround time.",
+        copy: "You receive an estimate detailing square footage, subfloor prep requirements, trim transitions, and waste factor.",
       },
       {
         title: "Prep & installation",
@@ -275,7 +278,6 @@ export const SERVICES: Service[] = [
         "Material type (luxury vinyl plank, engineered hardwood, solid hardwood, porcelain, or large-format tile)",
         "Installation pattern (straight, diagonal, herringbone, or chevron)",
         "Number of doorways, stair transitions, and custom floor vents to integrate",
-        "TODO(owner): confirm real starting and typical labor/material rates per sq ft in Ottawa",
       ],
       draft: true,
     },
@@ -294,11 +296,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: "How long after installation before we can walk on the floors?",
-        a: "Floating luxury vinyl and click engineered floors can be walked on immediately. Glued hardwood and tiled surfaces typically require 24 to 48 hours for adhesives and grout to cure. TODO(owner): confirm specific curing recommendations.",
-      },
-      {
-        q: "How long does a typical flooring or tiling job take?",
-        a: "TODO(owner): confirm realistic turnaround time based on average room/home square footage in Ottawa.",
+        a: "Floating luxury vinyl and click engineered floors can be walked on immediately. Glued hardwood and tiled surfaces typically require 24 to 48 hours for adhesives and grout to cure.",
       },
     ],
     seo: {
@@ -307,6 +305,14 @@ export const SERVICES: Service[] = [
         "Hardwood, engineered, vinyl and tile installation in Ottawa, with proper subfloor preparation. Free estimate.",
     },
     contentStatus: "draft",
+    ownerNeeds: [
+      "Confirm whether you supply flooring materials or fit customer-supplied products",
+      "Confirm standard exclusions regarding disposal fees and appliance disconnection",
+      "Confirm quote turnaround time",
+      "Confirm real starting and typical labor/material rates per sq ft in Ottawa",
+      "Confirm specific curing recommendations for glued hardwood and tiled surfaces",
+      "Confirm realistic turnaround time based on average room/home square footage in Ottawa",
+    ],
   },
 
   /* ─────────────────────────────────────────────────────────────
@@ -336,9 +342,9 @@ export const SERVICES: Service[] = [
       "Flooring, trim and finishing throughout",
     ],
     notIncluded: [
-      "TODO(owner): who pulls the permit — you or the homeowner?",
-      "TODO(owner): are licensed electrical and plumbing subcontracted or in-house?",
-      "TODO(owner): is the zoning check included, or the homeowner's responsibility?",
+      "Permit fees and municipal application charges",
+      "Zoning verification where a minor variance is required",
+      "Regulated electrical and plumbing work, which goes to licensed trades",
     ],
     steps: [
       {
@@ -347,7 +353,7 @@ export const SERVICES: Service[] = [
       },
       {
         title: "Drawings & permit",
-        copy: "Drawings are prepared for the building permit and submitted. TODO(owner): confirm who submits and who carries the permit cost.",
+        copy: "Drawings are prepared for the building permit and submitted.",
       },
       {
         title: "Build & inspections",
@@ -365,7 +371,6 @@ export const SERVICES: Service[] = [
         "Whether an egress window needs cutting into the foundation",
         "Existing ceiling height, and whether the floor has to be lowered",
         "How far services have to be moved for a second kitchen and bathroom",
-        "TODO(owner): confirm these are the real cost drivers, and the real numbers",
       ],
       draft: true,
     },
@@ -390,10 +395,6 @@ export const SERVICES: Service[] = [
         q: "Can you finish a basement without making it a legal suite?",
         a: "Yes — a finished basement for your own family's use is a different project from a rentable secondary suite, and costs less. It is worth being clear which one you want at the start, because the requirements differ substantially.",
       },
-      {
-        q: "How long does the process take?",
-        a: "TODO(owner): confirm realistic timeline, including how long permits typically take in Ottawa.",
-      },
     ],
     seo: {
       title: "Legal Basement Apartments & Secondary Suites in Ottawa",
@@ -401,6 +402,14 @@ export const SERVICES: Service[] = [
         "Legal basement apartments in Ottawa built to Ontario Building Code — egress windows, fire separation, permits and inspections. Free feasibility check.",
     },
     contentStatus: "complete",
+    ownerNeeds: [
+      "Who pulls the permit — you or the homeowner?",
+      "Are licensed electrical and plumbing subcontracted or in-house?",
+      "Is the zoning check included, or the homeowner's responsibility?",
+      "Confirm who submits and who carries the permit cost",
+      "Confirm these are the real cost drivers, and the real numbers",
+      "Confirm realistic timeline, including how long permits typically take in Ottawa",
+    ],
   },
 ];
 

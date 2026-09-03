@@ -403,25 +403,38 @@ export function LightingToggle({ initialMode = "evening" }: LightingToggleProps)
               aria-label="Highlight 45-degree aluminum LED channel details"
               style={{
                 position: "absolute",
-                top: 24,
-                right: 28,
+                top: 15,
+                right: 19,
                 zIndex: 6,
                 cursor: "pointer",
-                background: activeAnnotation === "led" ? GOLD : "rgba(0, 0, 0, 0.75)",
-                color: activeAnnotation === "led" ? "#000" : GOLD,
-                border: `1px solid ${GOLD}`,
-                width: 26,
-                height: 26,
-                borderRadius: "50%",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 11,
-                fontWeight: 600,
-                transition: "all .2s ease",
               }}
             >
-              1
+              <span
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: activeAnnotation === "led" ? GOLD : "rgba(0, 0, 0, 0.75)",
+                  color: activeAnnotation === "led" ? "#000" : GOLD,
+                  border: `1px solid ${GOLD}`,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  transition: "all .2s ease",
+                }}
+              >
+                1
+              </span>
             </button>
 
             <button
@@ -430,25 +443,38 @@ export function LightingToggle({ initialMode = "evening" }: LightingToggleProps)
               aria-label="Highlight acoustic oak slats and felt backing details"
               style={{
                 position: "absolute",
-                top: 24,
-                left: 28,
+                top: 15,
+                left: 19,
                 zIndex: 6,
                 cursor: "pointer",
-                background: activeAnnotation === "slats" ? GOLD : "rgba(0, 0, 0, 0.75)",
-                color: activeAnnotation === "slats" ? "#000" : GOLD,
-                border: `1px solid ${GOLD}`,
-                width: 26,
-                height: 26,
-                borderRadius: "50%",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 11,
-                fontWeight: 600,
-                transition: "all .2s ease",
               }}
             >
-              2
+              <span
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: activeAnnotation === "slats" ? GOLD : "rgba(0, 0, 0, 0.75)",
+                  color: activeAnnotation === "slats" ? "#000" : GOLD,
+                  border: `1px solid ${GOLD}`,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  transition: "all .2s ease",
+                }}
+              >
+                2
+              </span>
             </button>
 
             <button
@@ -457,24 +483,37 @@ export function LightingToggle({ initialMode = "evening" }: LightingToggleProps)
               aria-label="Highlight concealed in-wall conduit chase"
               style={{
                 position: "absolute",
-                bottom: 24,
+                bottom: 15,
                 zIndex: 6,
                 cursor: "pointer",
-                background: activeAnnotation === "conduit" ? GOLD : "rgba(0, 0, 0, 0.75)",
-                color: activeAnnotation === "conduit" ? "#000" : GOLD,
-                border: `1px solid ${GOLD}`,
-                width: 26,
-                height: 26,
-                borderRadius: "50%",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 11,
-                fontWeight: 600,
-                transition: "all .2s ease",
               }}
             >
-              3
+              <span
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: activeAnnotation === "conduit" ? GOLD : "rgba(0, 0, 0, 0.75)",
+                  color: activeAnnotation === "conduit" ? "#000" : GOLD,
+                  border: `1px solid ${GOLD}`,
+                  fontSize: 11,
+                  fontWeight: 600,
+                  transition: "all .2s ease",
+                }}
+              >
+                3
+              </span>
             </button>
           </div>
 
@@ -516,21 +555,35 @@ export function LightingToggle({ initialMode = "evening" }: LightingToggleProps)
               aria-label="Highlight concealed driver bay"
               style={{
                 cursor: "pointer",
-                background: activeAnnotation === "driver" ? GOLD : "rgba(0,0,0,0.6)",
-                color: activeAnnotation === "driver" ? "#000" : GOLD,
-                border: `1px solid ${GOLD}`,
-                width: 22,
-                height: 22,
-                borderRadius: "50%",
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                width: 44,
+                height: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: 10,
-                fontWeight: 600,
-                transition: "all .2s ease",
+                flexShrink: 0,
               }}
             >
-              4
+              <span
+                style={{
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: activeAnnotation === "driver" ? GOLD : "rgba(0,0,0,0.6)",
+                  color: activeAnnotation === "driver" ? "#000" : GOLD,
+                  border: `1px solid ${GOLD}`,
+                  fontSize: 10,
+                  fontWeight: 600,
+                  transition: "all .2s ease",
+                }}
+              >
+                4
+              </span>
             </button>
           </div>
 

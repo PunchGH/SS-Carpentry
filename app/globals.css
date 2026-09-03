@@ -160,6 +160,13 @@ textarea {
   height: 88px;
 }
 
+/* ===== cross-sell (service page "also from" grid) ===== */
+.cross-sell-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
 /* ===== scroll reveal animations ===== */
 body.js-loaded .reveal {
   opacity: 0;
@@ -368,6 +375,10 @@ body.js-loaded .timeline-track.revealed .timeline-track-fill {
 
   .process-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .cross-sell-grid {
+    grid-template-columns: 1fr !important;
   }
 
   .reviews-grid {

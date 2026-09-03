@@ -8,6 +8,8 @@ import { DraftTag, DraftBlock } from "../../components/DraftTag";
 import { COMPANY, PRIMARY_PHONE } from "../../data/company";
 import { SERVICES } from "../../data/services";
 import { LightingToggle } from "./LightingToggle";
+import { QuoteForm } from "../../components/QuoteForm";
+import { ServiceProof } from "../../components/ServiceProof";
 
 import { GOLD } from "../../data/theme";
 
@@ -38,7 +40,6 @@ const typography = {
     margin: "0 0 24px",
     fontFamily: "var(--font-display), serif",
     fontWeight: 300,
-    fontSize: "clamp(30px, 4vw, 50px)",
     lineHeight: 1.1,
     letterSpacing: "-0.01em",
   },
@@ -46,7 +47,7 @@ const typography = {
     fontFamily: "var(--font-sans), sans-serif",
     fontWeight: 400,
     fontSize: 11,
-    letterSpacing: ".28em",
+    letterSpacing: ".32em",
     textTransform: "uppercase" as const,
     color: GOLD,
     marginBottom: 16,
@@ -151,7 +152,7 @@ export default function TvWallsServicePage() {
   return (
     <div id="main-content" style={{ width: "100%", overflowX: "hidden", background: "#000", color: "#f7f5f1" }}>
       <SiteNav />
-      <div style={{ height: 88 }} />
+      <div className="nav-spacer" />
 
       {/* ===== 1. PHOTO-LED HERO ===== */}
       <section
@@ -182,13 +183,14 @@ export default function TvWallsServicePage() {
         />
 
         <div
+          className="hero-content reveal"
           style={{
             position: "relative",
             zIndex: 2,
             width: "100%",
             maxWidth: 1280,
             margin: "0 auto",
-            padding: "0 56px 72px",
+            padding: "0 0 72px",
           }}
         >
           {/* Breadcrumbs */}
@@ -216,11 +218,11 @@ export default function TvWallsServicePage() {
           </div>
 
           <h1
+            className="hero-h1"
             style={{
               margin: "0 0 18px",
               fontFamily: "var(--font-display), serif",
               fontWeight: 300,
-              fontSize: "clamp(36px, 5.8vw, 76px)",
               lineHeight: 1.05,
               letterSpacing: "-.015em",
               maxWidth: 960,
@@ -279,7 +281,7 @@ export default function TvWallsServicePage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <DraftTag needs="owner's on/off photography pair per shot list" />
-            <span style={{ fontSize: 11, color: "rgba(247,245,241,.45)", letterSpacing: ".1em" }}>
+            <span style={{ fontSize: 11, color: "rgba(247,245,241,.6)", letterSpacing: ".1em" }}>
               Awaiting owner portfolio photography
             </span>
           </div>
@@ -288,9 +290,10 @@ export default function TvWallsServicePage() {
 
       {/* ===== 2. INTERACTIVE LIGHTING TRANSFORMATION ===== */}
       <section style={{ background: "#0b0a09", padding: "110px 56px", borderBottom: "1px solid rgba(247,245,241,.08)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ maxWidth: 840, marginBottom: 48 }}>
-            <h2 style={typography.h2}>
+            <div style={typography.eyebrow}>Lighting Experience</div>
+            <h2 className="h2" style={typography.h2}>
               The evening <span style={{ fontStyle: "italic", color: GOLD }}>transformation</span>: concealed 2700K lighting
             </h2>
             <p
@@ -312,9 +315,9 @@ export default function TvWallsServicePage() {
 
       {/* ===== 3. MATERIALS & FINISHES ===== */}
       <section id="materials" style={{ background: "#000", padding: "110px 56px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={typography.eyebrow}>Architectural Surfaces</div>
-          <h2 style={{ ...typography.h2, maxWidth: 800 }}>
+          <h2 className="h2" style={{ ...typography.h2, maxWidth: 800 }}>
             Curated materials, built for <span style={{ fontStyle: "italic", color: GOLD }}>acoustic warmth</span> and longevity
           </h2>
           <p
@@ -331,6 +334,7 @@ export default function TvWallsServicePage() {
           </p>
 
           <div
+            className="stagger-children"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
@@ -349,7 +353,7 @@ export default function TvWallsServicePage() {
                   justifyContent: "space-between",
                   transition: "border-color 0.3s ease",
                 }}
-                className="card-hover"
+                className="card-hover reveal"
               >
                 <div>
                   <div
@@ -433,10 +437,10 @@ export default function TvWallsServicePage() {
               gap: 64,
               alignItems: "center",
             }}
-            className="quote-grid"
+            className="quote-grid reveal"
           >
             <div>
-              <h2 style={typography.h2}>
+              <h2 className="h2" style={typography.h2}>
                 Concealed lighting engineering: <span style={{ fontStyle: "italic", color: GOLD }}>zero diode spotting</span>
               </h2>
               <p
@@ -542,8 +546,8 @@ export default function TvWallsServicePage() {
 
       {/* ===== 5. THE INVISIBLE DETAILS (ENGINEERING & CABLE MANAGEMENT) ===== */}
       <section style={{ background: "#000", padding: "110px 56px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <h2 style={typography.h2}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <h2 className="h2" style={typography.h2}>
             The invisible details: <span style={{ fontStyle: "italic", color: GOLD }}>precision carpentry</span> inside the wall
           </h2>
           <p
@@ -616,7 +620,7 @@ export default function TvWallsServicePage() {
 
       {/* ===== 6. ELECTRICAL HONESTY & ESA COMPLIANCE ===== */}
       <section style={{ background: "#0b0a09", padding: "80px 56px", borderTop: "1px solid rgba(227,175,43,.2)", borderBottom: "1px solid rgba(227,175,43,.2)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div
             style={{
               display: "flex",
@@ -646,18 +650,8 @@ export default function TvWallsServicePage() {
               ✓
             </div>
             <div>
-              <div
-                style={{
-                  fontSize: 11,
-                  letterSpacing: ".24em",
-                  textTransform: "uppercase",
-                  color: GOLD,
-                  marginBottom: 8,
-                }}
-              >
-                Electrical Safety &amp; Code Compliance
-              </div>
-              <h3
+              <div style={typography.eyebrow}>Electrical Safety &amp; Code Compliance</div>
+              <h2
                 style={{
                   margin: "0 0 12px",
                   fontFamily: "var(--font-display), serif",
@@ -667,7 +661,7 @@ export default function TvWallsServicePage() {
                 }}
               >
                 100% Certified Electrical: ESA Permits by Licensed Contractors
-              </h3>
+              </h2>
               <p
                 style={{
                   margin: 0,
@@ -686,9 +680,9 @@ export default function TvWallsServicePage() {
 
       {/* ===== 7. PRICE BAND & COST DRIVERS ===== */}
       <section style={{ background: "#000", padding: "110px 56px" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={typography.eyebrow}>Transparent Investment</div>
-          <h2 style={typography.h2}>
+          <h2 className="h2" style={typography.h2}>
             An honest <span style={{ fontStyle: "italic", color: GOLD }}>cost guide</span> before you call
           </h2>
 
@@ -843,12 +837,13 @@ export default function TvWallsServicePage() {
 
       {/* ===== 8. THE 4-STEP PROCESS ===== */}
       <section style={{ background: "#0b0a09", padding: "100px 56px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <h2 style={typography.h2}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <h2 className="h2" style={typography.h2}>
             From measurement to <span style={{ fontStyle: "italic", color: GOLD }}>first movie night</span>
           </h2>
 
           <div
+            className="stagger-children"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
@@ -880,6 +875,7 @@ export default function TvWallsServicePage() {
             ].map((p) => (
               <div
                 key={p.step}
+                className="reveal"
                 style={{
                   background: "#0f0d0b",
                   border: "1px solid rgba(247, 245, 241, 0.1)",
@@ -942,155 +938,13 @@ export default function TvWallsServicePage() {
         </div>
       </section>
 
-      {/* ===== 9. GALLERY SPOTLIGHT: THE GLEBE ACOUSTIC MEDIA WALL ===== */}
-      <section style={{ background: "#000", padding: "110px 56px", borderTop: "1px solid rgba(247,245,241,.08)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: 24,
-              marginBottom: 44,
-            }}
-          >
-            <div>
-              <h2 style={typography.h2}>
-                Featured project: <span style={{ fontStyle: "italic", color: GOLD }}>The Glebe Media Wall</span>
-              </h2>
-              <p
-                style={{
-                  margin: 0,
-                  fontWeight: 300,
-                  fontSize: 16.5,
-                  color: "rgba(247, 245, 241, 0.7)",
-                  maxWidth: 620,
-                }}
-              >
-                See how precision acoustic panelling transformed a century brick home in central Ottawa.
-              </p>
-            </div>
-
-            <Link
-              href="/gallery?service=tv-walls-lighting-panels"
-              style={{
-                fontSize: 11.5,
-                letterSpacing: ".22em",
-                textTransform: "uppercase",
-                color: GOLD,
-                fontWeight: 500,
-              }}
-            >
-              Explore all TV wall projects &rarr;
-            </Link>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.2fr 0.8fr",
-              background: "#0a0908",
-              border: "1px solid rgba(247, 245, 241, 0.12)",
-              overflow: "hidden",
-            }}
-            className="quote-grid"
-          >
-            <div style={{ position: "relative", minHeight: 380 }}>
-              <Image
-                src="/assets/portfolio-wardrobe.jpg"
-                alt="The Glebe Acoustic Slat Media Wall by SS Carpentry"
-                fill
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                style={{ objectFit: "cover" }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    "linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(10,9,8,0.7) 100%)",
-                }}
-              />
-            </div>
-
-            <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <div
-                  style={{
-                    fontSize: 10.5,
-                    letterSpacing: ".26em",
-                    textTransform: "uppercase",
-                    color: GOLD,
-                    marginBottom: 10,
-                  }}
-                >
-                  The Glebe &middot; 4 Days on Site
-                </div>
-                <h3
-                  style={{
-                    margin: "0 0 16px",
-                    fontFamily: "var(--font-display), serif",
-                    fontSize: 28,
-                    fontWeight: 300,
-                    lineHeight: 1.15,
-                  }}
-                >
-                  Acoustic Slat Media Wall &amp; Concealed Storage
-                </h3>
-                <p
-                  style={{
-                    margin: "0 0 24px",
-                    fontWeight: 300,
-                    fontSize: 15,
-                    lineHeight: 1.75,
-                    color: "rgba(247, 245, 241, 0.7)",
-                  }}
-                >
-                  Natural white oak acoustic slats over sound-absorbing felt backing, solid stud reinforcement for a 75-inch screen, concealed in-wall cable conduits, and an integrated floating oak credenza with indirect 2700K LED backlighting.
-                </p>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
-                  {[
-                    "Zero visible wires or external wire raceways",
-                    "Solid internal wood blocking rated for heavy screens",
-                    "Acoustic felt dampens sound reflection across living area",
-                  ].map((feat) => (
-                    <div key={feat} style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                      <span style={{ color: GOLD, fontSize: 13 }}>✓</span>
-                      <span style={{ fontSize: 13.5, color: "rgba(247,245,241,.8)", fontWeight: 300 }}>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <Link
-                  href="/gallery?service=tv-walls-lighting-panels"
-                  className="gold-btn"
-                  style={{
-                    display: "inline-block",
-                    background: GOLD,
-                    color: "#0a0908",
-                    fontWeight: 500,
-                    fontSize: 11,
-                    letterSpacing: ".2em",
-                    textTransform: "uppercase",
-                    padding: "16px 28px",
-                  }}
-                >
-                  See TV wall projects &rarr;
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ===== 9. PROOF ===== */}
+      <ServiceProof serviceSlug="tv-walls-lighting-panels" eyebrow="Client Proof" />
 
       {/* ===== 10. FREQUENTLY ASKED QUESTIONS ===== */}
       <section style={{ background: "#0b0a09", padding: "110px 56px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2 style={typography.h2}>Frequently asked questions</h2>
+        <div className="reveal" style={{ maxWidth: 900, margin: "0 auto" }}>
+          <h2 className="h2" style={typography.h2}>Frequently asked questions</h2>
           <p
             style={{
               margin: "0 0 40px",
@@ -1115,8 +969,8 @@ export default function TvWallsServicePage() {
           borderTop: "1px solid rgba(227,175,43,.25)",
         }}
       >
-        <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ ...typography.h2, margin: "0 0 20px" }}>
+        <div className="reveal" style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+          <h2 className="h2" style={{ ...typography.h2, margin: "0 0 20px" }}>
             Ready to design your <span style={{ fontStyle: "italic", color: GOLD }}>feature wall</span>?
           </h2>
           <p
@@ -1130,44 +984,22 @@ export default function TvWallsServicePage() {
           >
             Send us your wall dimensions, room photos, or inspiration ideas. We&apos;ll get back to you within one working day with an honest estimate.
           </p>
-          <div style={{ display: "flex", gap: 18, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/contact"
-              className="gold-btn"
-              style={{
-                background: GOLD,
-                color: "#0a0908",
-                fontWeight: 500,
-                fontSize: 12,
-                letterSpacing: ".22em",
-                textTransform: "uppercase",
-                padding: "20px 42px",
-              }}
-            >
-              Request a quote
-            </Link>
-            <a
-              href={PRIMARY_PHONE.href}
-              className="outline-btn"
-              style={{
-                border: "1px solid rgba(227,175,43,.5)",
-                color: "#f7f5f1",
-                fontWeight: 400,
-                fontSize: 12,
-                letterSpacing: ".22em",
-                textTransform: "uppercase",
-                padding: "20px 38px",
-              }}
-            >
-              Call {PRIMARY_PHONE.display}
-            </a>
+          <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "left" }}>
+            <QuoteForm source="service-tv-walls-lighting-panels" defaultService="TV Walls & Lighting Panels" />
           </div>
+          <p style={{ margin: "28px 0 0", fontWeight: 300, fontSize: 14, color: "rgba(247,245,241,.55)" }}>
+            Prefer to talk it through? Call{" "}
+            <a href={PRIMARY_PHONE.href} style={{ color: GOLD, textDecoration: "underline" }}>
+              {PRIMARY_PHONE.display}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
       {/* ===== 12. OTHER SERVICES ===== */}
       <section style={{ background: "#0b0a09", padding: "90px 56px", borderTop: "1px solid rgba(247,245,241,.08)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={typography.eyebrow}>Also from {COMPANY.short}</div>
           <div
             style={{

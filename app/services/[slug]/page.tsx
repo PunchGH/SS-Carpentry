@@ -8,6 +8,8 @@ import { ServiceFaqList } from "../../components/ServiceFaq";
 import { DraftTag, DraftBlock } from "../../components/DraftTag";
 import { COMPANY, PRIMARY_PHONE } from "../../data/company";
 import { SERVICES, getService } from "../../data/services";
+import { QuoteForm } from "../../components/QuoteForm";
+import { ServiceProof } from "../../components/ServiceProof";
 
 import { GOLD } from "../../data/theme";
 
@@ -24,7 +26,6 @@ const h2 = {
   margin: "0 0 28px",
   fontFamily: "var(--font-display), serif",
   fontWeight: 300,
-  fontSize: "clamp(28px, 3.6vw, 44px)",
   lineHeight: 1.12,
 };
 
@@ -69,7 +70,7 @@ export default async function ServicePage({
   return (
     <div id="main-content" style={{ width: "100%", overflowX: "hidden" }}>
       <SiteNav />
-      <div style={{ height: 88 }} />
+      <div className="nav-spacer" />
 
       {/* ===== HERO ===== */}
       <section style={{ position: "relative", minHeight: 460, display: "flex", alignItems: "flex-end", overflow: "hidden", background: "#000" }}>
@@ -83,24 +84,49 @@ export default async function ServicePage({
         />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.92) 100%)" }} />
 
-        <div style={{ position: "relative", zIndex: 2, padding: "0 56px 64px", maxWidth: 1100 }}>
+        <div className="hero-content reveal" style={{ position: "relative", zIndex: 2, padding: "0 0 64px", maxWidth: 1100 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 22, fontSize: 11, letterSpacing: ".2em", textTransform: "uppercase", color: "rgba(247,245,241,.6)" }}>
             <Link href="/" style={{ color: "rgba(247,245,241,.6)" }}>Home</Link>
             <span>/</span>
             <span style={{ color: GOLD }}>{service.navLabel}</span>
           </div>
-          <h1 style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: "clamp(38px, 6vw, 74px)", lineHeight: 1.04, letterSpacing: "-.015em" }}>
+          <h1 className="hero-h1" style={{ margin: 0, fontFamily: "var(--font-display), serif", fontWeight: 300, lineHeight: 1.04, letterSpacing: "-.015em" }}>
             {service.title}
           </h1>
           {service.imageDraft && <DraftTag needs="real photography for this service" />}
+
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", marginTop: 30 }}>
+            <Link
+              href="/contact"
+              className="gold-btn"
+              style={{ background: GOLD, color: "#0a0908", fontWeight: 500, fontSize: 11.5, letterSpacing: ".2em", textTransform: "uppercase", padding: "18px 36px", display: "inline-block" }}
+            >
+              Request a quote
+            </Link>
+            <a
+              href={PRIMARY_PHONE.href}
+              className="outline-btn"
+              style={{ border: "1px solid rgba(247,245,241,.3)", color: "#f7f5f1", fontWeight: 400, fontSize: 11.5, letterSpacing: ".2em", textTransform: "uppercase", padding: "18px 32px", display: "inline-block" }}
+            >
+              Call {PRIMARY_PHONE.display}
+            </a>
+          </div>
+
+          {/* Friction guide Stage 6 — the response promise is the strongest differentiator. */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 20 }}>
+            <span style={{ width: 20, height: 1, background: GOLD }} />
+            <span style={{ fontWeight: 300, fontSize: 13.5, color: "rgba(247,245,241,.75)" }}>
+              We reply to every enquiry within one working day.
+            </span>
+          </div>
         </div>
       </section>
 
       {/* ===== INTRO + WHAT'S INCLUDED ===== */}
       <section style={{ background: "#0b0a09", padding: "110px 56px" }}>
-        <div className="quote-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start", maxWidth: 1280, margin: "0 auto" }}>
+        <div className="quote-grid reveal" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start", maxWidth: 1280, margin: "0 auto" }}>
           <div>
-            <div style={eyebrow}>What this covers</div>
+            <div style={eyebrow}>I / What this covers</div>
             <p style={{ margin: 0, fontWeight: 300, fontSize: 18, lineHeight: 1.8, color: "rgba(247,245,241,.8)" }}>
               {service.intro}
             </p>
@@ -178,9 +204,9 @@ export default async function ServicePage({
 
       {/* ===== PRICE BAND (friction guide Stage 3) ===== */}
       <section style={{ background: "#000", padding: "100px 56px" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <div style={eyebrow}>What it costs</div>
-          <h2 style={h2}>
+        <div className="reveal" style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <div style={eyebrow}>II / What it costs</div>
+          <h2 className="h2" style={h2}>
             An honest <span style={{ fontStyle: "italic", color: GOLD }}>range</span>, before you call
           </h2>
 
@@ -215,11 +241,11 @@ export default async function ServicePage({
 
       {/* ===== PROCESS ===== */}
       <section style={{ background: "#0b0a09", padding: "100px 56px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={eyebrow}>How it runs</div>
-          <h2 style={h2}>From first call to final <span style={{ fontStyle: "italic", color: GOLD }}>sign-off</span></h2>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={eyebrow}>III / How it runs</div>
+          <h2 className="h2" style={h2}>From first call to final <span style={{ fontStyle: "italic", color: GOLD }}>sign-off</span></h2>
 
-          <div className="process-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
+          <div className="process-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 28 }}>
             {service.steps.map((step, i) => (
               <div key={step.title} style={{ border: "1px solid rgba(247,245,241,.1)", background: "#0f0d0b", padding: "30px 26px 32px" }}>
                 <div style={{ fontFamily: "var(--font-display), serif", fontSize: 20, color: "rgba(227,175,43,.5)", marginBottom: 14 }}>
@@ -230,59 +256,49 @@ export default async function ServicePage({
               </div>
             ))}
           </div>
-
-          {/* Friction guide Stage 6 — the response promise is the strongest differentiator. */}
-          <div style={{ marginTop: 44, border: "1px solid rgba(227,175,43,.3)", background: "rgba(227,175,43,.05)", padding: "26px 30px", display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-            <span style={{ width: 28, height: 1, background: GOLD }} />
-            <span style={{ fontWeight: 300, fontSize: 16, color: "rgba(247,245,241,.9)" }}>
-              We reply to every enquiry within one working day.
-            </span>
-          </div>
         </div>
       </section>
 
+      {/* ===== PROOF ===== */}
+      <ServiceProof serviceSlug={service.slug} eyebrow="IV / What clients say" />
+
       {/* ===== FAQ ===== */}
       <section style={{ background: "#000", padding: "100px 56px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <div style={eyebrow}>Before you ask</div>
-          <h2 style={h2}>{service.navLabel} questions</h2>
+        <div className="reveal" style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={eyebrow}>V / Before you ask</div>
+          <h2 className="h2" style={h2}>{service.navLabel} questions</h2>
           <ServiceFaqList faqs={service.faqs} />
         </div>
       </section>
 
       {/* ===== CTA ===== */}
       <section style={{ background: "#0b0a09", padding: "100px 56px", borderTop: "1px solid rgba(227,175,43,.25)" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ ...h2, margin: "0 0 20px" }}>
+        <div className="reveal" style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ ...eyebrow, textAlign: "center" as const }}>VI / Get in touch</div>
+          <h2 className="h2" style={{ ...h2, margin: "0 0 20px" }}>
             Get a free <span style={{ fontStyle: "italic", color: GOLD }}>estimate</span>
           </h2>
           <p style={{ margin: "0 0 36px", fontWeight: 300, fontSize: 17, lineHeight: 1.75, color: "rgba(247,245,241,.66)" }}>
             Tell us about the project and we&apos;ll come back within one working day. No cost, no sales pressure.
           </p>
-          <div style={{ display: "flex", gap: 18, justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/contact"
-              className="gold-btn"
-              style={{ background: GOLD, color: "#0a0908", fontWeight: 500, fontSize: 12, letterSpacing: ".22em", textTransform: "uppercase", padding: "20px 40px" }}
-            >
-              Request a quote
-            </Link>
-            <a
-              href={PRIMARY_PHONE.href}
-              className="outline-btn"
-              style={{ border: "1px solid rgba(227,175,43,.5)", color: "#f7f5f1", fontWeight: 400, fontSize: 12, letterSpacing: ".22em", textTransform: "uppercase", padding: "20px 40px" }}
-            >
-              Call {PRIMARY_PHONE.display}
-            </a>
+          <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "left" }}>
+            <QuoteForm source={`service-${service.slug}`} defaultService={service.title} />
           </div>
+          <p style={{ margin: "28px 0 0", fontWeight: 300, fontSize: 14, color: "rgba(247,245,241,.55)" }}>
+            Prefer to talk it through? Call{" "}
+            <a href={PRIMARY_PHONE.href} style={{ color: GOLD, textDecoration: "underline" }}>
+              {PRIMARY_PHONE.display}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
       {/* ===== OTHER SERVICES ===== */}
       <section style={{ background: "#000", padding: "90px 56px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={eyebrow}>Also from {COMPANY.short}</div>
-          <div className="process-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+        <div className="reveal" style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={eyebrow}>VII / Also from {COMPANY.short}</div>
+          <div className="cross-sell-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
             {others.map((o) => (
               <Link
                 key={o.slug}
