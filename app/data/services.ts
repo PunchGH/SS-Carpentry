@@ -135,11 +135,11 @@ export const SERVICES: Service[] = [
 
   {
     slug: "tv-walls-lighting-panels",
-    title: "TV Walls & Lighting Panels",
-    navLabel: "TV Walls & Lighting",
-    badge: "Feature work",
+    title: "TV Walls & Custom Millwork",
+    navLabel: "TV Walls & Millwork",
+    badge: "Custom millwork",
     blurb:
-      "Built-in media walls and backlit panelling — cable managed, mounted flush, lit the way you want it.",
+      "Custom architectural media walls and backlit panelling — built in our workshop, fitted flush on site.",
     // TODO(owner): placeholder image — shows joinery, not a media wall.
     image: "/assets/craft-wardrobe.jpg",
     alt: "Placeholder image — awaiting TV wall photography",
@@ -153,7 +153,7 @@ export const SERVICES: Service[] = [
       "Precision installation of acoustic slat wall panels, architectural wood veneer, or painted panels",
       "Integrated LED extrusion channels with diffusers for clean accent backlighting",
       "Secure flush mounting of television brackets and floating media consoles",
-      "TODO(owner): confirm — is high-voltage outlet installation handled by a licensed trade partner?",
+      "Dedicated high-voltage outlet relocations and new branch circuits completed by licensed electrical contractors (ESA certified)",
     ],
     notIncluded: [
       "Televisions, audio receivers, gaming consoles, soundbars, and streaming devices",
@@ -370,6 +370,10 @@ export const SERVICES: Service[] = [
       draft: true,
     },
     faqs: [
+      {
+        q: "Where can I check if my Ottawa property qualifies before calling?",
+        a: "We published a comprehensive, cited regulatory breakdown and 60-second self-qualification checker in our Ottawa Legal Basement Apartment Guide (/guides/legal-basement-ottawa). It covers ceiling heights, egress dimensions, fire separations, and Ottawa's current dual zoning by-law rules.",
+      },
       {
         q: "What actually makes a basement apartment legal?",
         a: "It comes down to meeting the Ontario Building Code requirements for a secondary suite and your municipality's zoning. In practice the deciding factors are usually ceiling height, a compliant egress window, fire separation between the units, and interconnected smoke and carbon monoxide alarms. A permit and the inspections that follow are what turn that work into a legal unit.",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { DraftTag } from "../../components/DraftTag";
+import { DraftBlock, DraftTag } from "../../components/DraftTag";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { COMPANY, PRIMARY_PHONE } from "../../data/company";
@@ -15,7 +15,7 @@ import {
 } from "../../data/projects";
 import { ProjectImageGrid } from "./ProjectImageGrid";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../../data/theme";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -71,6 +71,11 @@ function GoogleLogo({ size = 20 }: { size?: number }) {
   );
 }
 
+function FactStripWrapper({ draft, children }: { draft: boolean; children: React.ReactNode }) {
+  if (!draft) return <>{children}</>;
+  return <DraftBlock needs="Neighbourhood, property era, build duration and completion date — owner confirmation">{children}</DraftBlock>;
+}
+
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
@@ -122,16 +127,46 @@ export default async function ProjectPage({ params }: Props) {
       />
       <SiteNav />
 
-      <main style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
-        {/* Top Breadcrumb & Hero */}
-        <div
+      <main id="main-content" style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
+        {/* Full-bleed Hero Photograph */}
+        <section
+          className="gallery-hero"
           style={{
-            padding: "135px 56px 40px",
+            position: "relative",
+            height: "min(62vh, 620px)",
+            minHeight: 380,
+            marginTop: 88,
+            overflow: "hidden",
             borderBottom: "1px solid rgba(247, 245, 241, 0.08)",
-            background: "radial-gradient(ellipse at 50% 0%, rgba(227, 175, 43, 0.08) 0%, rgba(11, 10, 9, 0) 70%)",
           }}
         >
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Image
+            src={project.heroImage}
+            alt={project.title}
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 35%, rgba(11,10,9,0.94) 100%)",
+            }}
+          />
+
+          <div
+            className="gallery-hero-content"
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              padding: "24px 56px 32px",
+            }}
+          >
             {/* Breadcrumb Navigation */}
             <nav
               aria-label="Breadcrumb"
@@ -142,8 +177,10 @@ export default async function ProjectPage({ params }: Props) {
                 fontSize: 11,
                 letterSpacing: ".18em",
                 textTransform: "uppercase",
-                color: "rgba(247, 245, 241, 0.5)",
-                marginBottom: 24,
+                color: "rgba(247, 245, 241, 0.75)",
+                maxWidth: 1100,
+                margin: "0 auto",
+                width: "100%",
               }}
             >
               <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>
@@ -157,36 +194,44 @@ export default async function ProjectPage({ params }: Props) {
               <span style={{ color: GOLD }}>{project.neighbourhood}</span>
             </nav>
 
-            {/* Eyebrow & Project Title */}
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, flexWrap: "wrap" }}>
-              <span
+            <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
+              {/* Eyebrow & Project Title */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, flexWrap: "wrap" }}>
+                <span
+                  style={{
+                    fontWeight: 300,
+                    fontSize: 11,
+                    letterSpacing: ".28em",
+                    textTransform: "uppercase",
+                    color: GOLD,
+                  }}
+                >
+                  {service ? service.navLabel : "Carpentry & Renovation"}
+                </span>
+                {project.draft && <DraftTag needs="owner project facts" />}
+              </div>
+
+              <h1
                 style={{
+                  fontFamily: "var(--font-display), serif",
                   fontWeight: 300,
-                  fontSize: 11,
-                  letterSpacing: ".28em",
-                  textTransform: "uppercase",
-                  color: GOLD,
+                  fontSize: "clamp(34px, 5vw, 56px)",
+                  lineHeight: 1.08,
+                  margin: 0,
+                  letterSpacing: "-.02em",
+                  maxWidth: 900,
+                  textShadow: "0 2px 16px rgba(0,0,0,0.6)",
                 }}
               >
-                {service ? service.navLabel : "Carpentry & Renovation"}
-              </span>
-              {project.draft && <DraftTag needs="owner project facts" />}
+                {project.title}
+              </h1>
             </div>
+          </div>
+        </section>
 
-            <h1
-              style={{
-                fontFamily: "var(--font-display), serif",
-                fontWeight: 300,
-                fontSize: "clamp(34px, 5vw, 56px)",
-                lineHeight: 1.08,
-                margin: "0 0 24px",
-                letterSpacing: "-.02em",
-                maxWidth: 900,
-              }}
-            >
-              {project.title}
-            </h1>
-
+        {/* Summary & Fact Strip */}
+        <section style={{ padding: "48px 56px 0" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <p
               style={{
                 fontWeight: 300,
@@ -200,51 +245,53 @@ export default async function ProjectPage({ params }: Props) {
               {project.summary}
             </p>
 
-            {/* Fact Strip (Above the Fold) */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                gap: 16,
-                padding: "24px 28px",
-                background: "rgba(247, 245, 241, 0.03)",
-                border: "1px solid rgba(227, 175, 43, 0.25)",
-              }}
-            >
-              <div>
-                <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
-                  Neighbourhood
+            {/* Fact Strip */}
+            <FactStripWrapper draft={project.draft}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: 16,
+                  padding: "24px 28px",
+                  background: "rgba(247, 245, 241, 0.03)",
+                  border: "1px solid rgba(227, 175, 43, 0.25)",
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
+                    Neighbourhood
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.neighbourhood}, Ottawa</div>
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.neighbourhood}, Ottawa</div>
-              </div>
 
-              <div>
-                <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
-                  Property Era / Type
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
+                    Property Era / Type
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.propertyType}</div>
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.propertyType}</div>
-              </div>
 
-              <div>
-                <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
-                  Build Duration
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
+                    Build Duration
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.duration}</div>
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.duration}</div>
-              </div>
 
-              <div>
-                <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
-                  Completion Date
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>
+                    Completion Date
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.completed}</div>
                 </div>
-                <div style={{ fontSize: 15, fontWeight: 400, color: "#f7f5f1" }}>{project.completed}</div>
               </div>
-            </div>
+            </FactStripWrapper>
           </div>
-        </div>
+        </section>
 
         {/* Project Content & Scope */}
         <section style={{ padding: "60px 56px 40px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 48 }}>
               {/* Left Column: Story & Narrative */}
               <div>
@@ -339,14 +386,17 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Photography Grid with Lightbox Integration */}
         <section style={{ padding: "40px 56px 80px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32 }}>
               <div>
                 <div style={{ fontSize: 10, letterSpacing: ".28em", textTransform: "uppercase", color: GOLD, marginBottom: 8 }}>
                   Project Photography
                 </div>
-                <h2 style={{ fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 32, margin: 0 }}>
+                <h2 style={{ fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 32, margin: 0, display: "flex", alignItems: "center", flexWrap: "wrap" }}>
                   Craftsmanship Details
+                  {project.imageDraft && (
+                    <DraftTag needs="Confirm these photos are from this specific job, not reference imagery" />
+                  )}
                 </h2>
               </div>
               <span style={{ fontSize: 12, color: "rgba(247, 245, 241, 0.5)", letterSpacing: ".08em" }}>
@@ -361,7 +411,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Attached Google Review (Stage 4 Proof) */}
         {review && (
           <section style={{ padding: "60px 56px", background: "#0f0d0b", borderTop: "1px solid rgba(247, 245, 241, 0.08)" }}>
-            <div style={{ maxWidth: 900, margin: "0 auto" }}>
+            <div className="reveal" style={{ maxWidth: 900, margin: "0 auto" }}>
               <div
                 style={{
                   border: "1px solid rgba(227, 175, 43, 0.3)",
@@ -458,6 +508,7 @@ export default async function ProjectPage({ params }: Props) {
           }}
         >
           <div
+            className="reveal"
             style={{
               maxWidth: 1100,
               margin: "0 auto",
@@ -520,7 +571,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Bottom CTA */}
         <section style={{ padding: "100px 56px", textAlign: "center", background: "#0b0a09" }}>
-          <div style={{ maxWidth: 700, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 700, margin: "0 auto" }}>
             <div
               style={{
                 fontSize: 11,

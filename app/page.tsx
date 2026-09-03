@@ -12,8 +12,7 @@ import { PROJECTS } from "./data/projects";
 import { PlaceholderImage } from "./components/PlaceholderImage";
 import { QuoteForm } from "./components/QuoteForm";
 
-const GOLD = "#e3af2b";
-const GOLD_LIGHT = "#f2c34a";
+import { GOLD } from "./data/theme";
 
 const eyebrow: CSSProperties = {
   fontWeight: 300,
@@ -227,9 +226,9 @@ export default function Home() {
   const [faqOpen, setFaqOpen] = useState<boolean[]>(Array(5).fill(false));
   const quoteRef = useRef<HTMLElement>(null);
 
+  // js-loaded and the scroll-reveal IntersectionObserver are wired up once,
+  // site-wide, by <ScrollReveal /> in the root layout — see that file.
   useEffect(() => {
-    document.body.classList.add("js-loaded");
-
     // Scroll progress indicator
     let queued = false;
     const update = () => {
@@ -249,35 +248,7 @@ export default function Home() {
     window.addEventListener("resize", onScroll);
     update();
 
-    // Scroll-triggered reveal animations observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const revealElements = document.querySelectorAll(
-      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
-    );
-    revealElements.forEach((el) => observer.observe(el));
-
-    // Smoothly reveal hero elements right on page load
-    const timer = setTimeout(() => {
-      document.querySelectorAll(".hero-reveal").forEach((el) => {
-        el.classList.add("revealed");
-        observer.unobserve(el);
-      });
-    }, 60);
-
     return () => {
-      clearTimeout(timer);
-      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -316,7 +287,7 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ width: "100%", overflowX: "hidden" }}>
+    <div id="main-content" style={{ width: "100%", overflowX: "hidden" }}>
       {/* progress bar */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: 2, zIndex: 80, pointerEvents: "none" }}>
         <div style={{ height: "100%", width: `${progress}%`, background: GOLD, transition: "width .12s linear" }} />
@@ -333,6 +304,8 @@ export default function Home() {
           loop
           muted
           playsInline
+          preload="auto"
+          poster="/assets/portfolio-kitchen.jpg"
           style={{
             position: "absolute",
             inset: 0,
@@ -357,7 +330,7 @@ export default function Home() {
             Craftsmanship you<br />can run your <span style={{ fontStyle: "italic", color: GOLD }}>hand</span> along.
           </h1>
           <p className="reveal hero-reveal" style={{ margin: "26px 0 0", fontWeight: 300, fontSize: 19, lineHeight: 1.7, maxWidth: 540, color: "rgba(247,245,241,.9)", textShadow: "0 2px 14px rgba(0,0,0,0.9)", transitionDelay: "0.12s" }}>
-            Hand-built kitchens, custom staircases, tailored wardrobes and whole-home renovations in Ottawa crafted with owner-led precision.
+            Hand-built custom millwork, architectural media walls, tailored kitchens and whole-home renovations in Ottawa crafted with owner-led precision.
           </p>
           <div className="reveal hero-reveal" style={{ display: "flex", alignItems: "center", gap: 26, marginTop: 38, flexWrap: "wrap", transitionDelay: "0.22s" }}>
             <GoldButton onClick={scrollToForm}>Request a quote</GoldButton>
@@ -398,7 +371,7 @@ export default function Home() {
             </h2>
           </div>
           <p style={{ margin: 0, maxWidth: 380, fontWeight: 300, fontSize: 16, lineHeight: 1.75, color: "rgba(247,245,241,.62)" }}>
-            Everything is carefully measured, built, and fitted under the owner&apos;s direct supervision. Master carpentry in-house with dedicated licensed trade partners.
+            Everything is carefully measured, built, and fitted under the owner&apos;s direct supervision. Custom millwork and master carpentry in-house with dedicated licensed trade partners.
           </p>
         </div>
 
@@ -418,7 +391,6 @@ export default function Home() {
                   fill
                   style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
                   sizes="(max-width: 980px) 100vw, 50vw"
-                  unoptimized
                 />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(15,13,11,0.92) 100%)" }} />
               </div>
@@ -448,7 +420,6 @@ export default function Home() {
             fill
             style={{ objectFit: "cover", filter: "brightness(0.72) contrast(1.08)" }}
             sizes="100vw"
-            unoptimized
           />
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%)" }} />
           
@@ -540,9 +511,17 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="portfolio-grid stagger-children" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gridAutoRows: 280, gap: 22 }}>
+        <div
+          className="portfolio-grid stagger-children"
+          style={{
+            display: "grid",
+            gridTemplateColumns: PROJECTS.length >= 3 ? "repeat(3,1fr)" : "repeat(auto-fit, minmax(320px, 1fr))",
+            gridAutoRows: 340,
+            gap: 22,
+          }}
+        >
           {PROJECTS.slice(0, 5).map((p, idx) => {
-            const isBig = idx === 0;
+            const isBig = PROJECTS.length >= 3 && idx === 0;
             return (
               <Link
                 key={p.slug}

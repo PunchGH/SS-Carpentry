@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { ScrollReveal } from "./components/ScrollReveal";
 import { COMPANY } from "./data/company";
 import "./globals.css";
 
@@ -29,14 +30,18 @@ export const metadata: Metadata = {
     template: "%s | SS Carpentry and Renovations",
   },
   description:
-    "SS Carpentry and Renovations — kitchen and bathroom renovations, TV feature walls, flooring and tiling, and legal basement secondary suites in Ottawa, ON. Owner-led precision with a 5.0★ Google rating.",
+    "SS Carpentry and Renovations — custom architectural millwork, TV feature walls, kitchen & bathroom renovations, flooring and legal basement secondary suites in Ottawa, ON. Owner-led precision with a 5.0★ Google rating.",
   keywords: [
     "SS Carpentry and Renovations",
+    "custom millwork Ottawa",
+    "architectural media wall Ottawa",
+    "TV feature wall Ottawa",
+    "slat wall installation Ottawa",
+    "custom cabinetry Ottawa",
     "carpenter Ottawa",
     "home renovations Ottawa",
     "kitchen renovation Ottawa",
     "bathroom renovation Ottawa",
-    "TV feature wall Ottawa",
     "basement apartment Ottawa",
     "legal basement Ottawa",
     "flooring installation Ottawa",
@@ -81,17 +86,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SS Carpentry and Renovations | Kitchen, Bathroom & Renovation Contractor in Ottawa",
     description:
-      "Kitchen and bathroom renovations, custom TV feature walls, flooring, tiling, and legal secondary suites in Ottawa. Owner-led precision with 5.0★ Google reviews.",
+      "Custom architectural millwork, TV feature walls, kitchen & bathroom renovations, flooring, and legal secondary suites in Ottawa. Owner-led precision with 5.0★ Google reviews.",
     url: "https://sscarpentryandrenovations.com",
     siteName: "SS Carpentry and Renovations",
     locale: "en_CA",
     type: "website",
     images: [
       {
-        url: "/assets/og-image.png",
+        url: "/assets/og-image.jpg",
         width: 1200,
-        height: 630,
-        type: "image/png",
+        height: 800,
+        type: "image/jpeg",
         alt: "SS Carpentry and Renovations - Website Snapshot & Portfolio",
       },
     ],
@@ -100,8 +105,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SS Carpentry and Renovations | Kitchen, Bathroom & Renovation Contractor in Ottawa",
     description:
-      "Kitchen and bathroom renovations, custom TV feature walls, flooring, tiling, and legal secondary suites in Ottawa. 5.0★ Google rated owner-led craftsmanship.",
-    images: ["/assets/og-image.png"],
+      "Custom architectural millwork, TV feature walls, kitchen & bathroom renovations, flooring, and legal secondary suites in Ottawa. 5.0★ Google rated owner-led craftsmanship.",
+    images: ["/assets/og-image.jpg"],
     creator: "@SSCarpentry",
   },
   other: {
@@ -117,10 +122,10 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: COMPANY.name,
-  image: "https://sscarpentryandrenovations.com/assets/og-image.png",
+  image: "https://sscarpentryandrenovations.com/assets/og-image.jpg",
   logo: "https://sscarpentryandrenovations.com/assets/ss-logo-cropped.png",
   description:
-    "Kitchen and bathroom renovations, custom TV feature walls, flooring and tiling, and legal basement secondary suites in Ottawa, ON. Hand-crafted with owner-led precision.",
+    "Custom architectural millwork, built-in TV feature walls, kitchen and bathroom renovations, flooring and tiling, and legal basement secondary suites in Ottawa, ON. Hand-crafted with owner-led precision.",
   telephone: COMPANY.phones[0].href.replace("tel:", ""),
   email: COMPANY.email,
   url: "https://sscarpentryandrenovations.com",
@@ -168,7 +173,7 @@ const jsonLd = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "TV Walls & Lighting Panels",
+          name: "TV Walls & Custom Millwork",
           url: "https://sscarpentryandrenovations.com/services/tv-walls-lighting-panels",
         },
       },
@@ -210,7 +215,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+        <ScrollReveal />
+        {children}
+      </body>
     </html>
   );
 }

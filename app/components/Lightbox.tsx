@@ -11,22 +11,33 @@ type LightboxProps = {
   onClose: () => void;
 };
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
 export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
-  // Sync index when opened with a new image
-  useEffect(() => {
+  // Reset to the requested photo when the lightbox transitions to open.
+  // Done during render (React's documented "adjusting state" pattern)
+  // rather than in an effect, to avoid an extra cascading render.
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen);
     if (isOpen) {
       setCurrentIndex(initialIndex);
+    }
+  }
+
+  // Focus management and body-scroll lock — genuine side effects, so these
+  // stay in an effect; they no longer need `initialIndex` since the index
+  // reset above is handled at render time.
+  useEffect(() => {
+    if (isOpen) {
       previousActiveElement.current = document.activeElement as HTMLElement | null;
-      // Lock body scroll
       document.body.style.overflow = "hidden";
       setTimeout(() => closeButtonRef.current?.focus(), 50);
     } else {
@@ -38,7 +49,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen, initialIndex]);
+  }, [isOpen]);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -146,6 +157,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
         }}
       >
         <div
+          aria-live="polite"
           style={{
             fontFamily: "var(--font-sans), sans-serif",
             fontSize: 13,
@@ -158,6 +170,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
         </div>
 
         <button
+          type="button"
           ref={closeButtonRef}
           onClick={onClose}
           aria-label="Close photo preview (Escape)"
@@ -200,6 +213,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
         {/* Previous Button */}
         {images.length > 1 && (
           <button
+            type="button"
             onClick={handlePrev}
             aria-label="Previous photo (Left arrow)"
             style={{
@@ -254,6 +268,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
         {/* Next Button */}
         {images.length > 1 && (
           <button
+            type="button"
             onClick={handleNext}
             aria-label="Next photo (Right arrow)"
             style={{
@@ -310,7 +325,7 @@ export function Lightbox({ images, initialIndex, isOpen, onClose }: LightboxProp
             fontSize: 11,
             letterSpacing: ".12em",
             textTransform: "uppercase",
-            color: "rgba(247, 245, 241, 0.4)",
+            color: "rgba(247, 245, 241, 0.5)",
           }}
         >
           Use arrow keys to navigate · Esc to close · Swipe on mobile

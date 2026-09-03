@@ -4,9 +4,11 @@ import { DraftTag } from "../components/DraftTag";
 import { QuoteForm } from "../components/QuoteForm";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteNav } from "../components/SiteNav";
-import { COMPANY, PRIMARY_PHONE } from "../data/company";
+import { ABOUT_DATA } from "../data/about";
+import { COMPANY } from "../data/company";
+import { REVIEWS } from "../data/reviews";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
 export const metadata: Metadata = {
   title: "Contact & Free Quote | SS Carpentry & Renovations Ottawa",
@@ -41,21 +43,6 @@ const NEXT_STEPS = [
     title: "No-Obligation Decision",
     desc: "Review the quote on your own time. When you're ready to proceed, we lock in your start date and order materials.",
   },
-];
-
-const NEIGHBOURHOODS = [
-  "Westboro",
-  "Kanata",
-  "Barrhaven",
-  "The Glebe",
-  "Rockcliffe Park",
-  "Stittsville",
-  "Nepean",
-  "Orleans",
-  "Centretown",
-  "Manotick",
-  "Riverside South",
-  "Alta Vista",
 ];
 
 function GoogleLogo({ size = 20 }: { size?: number }) {
@@ -100,14 +87,6 @@ export default function ContactPage() {
         postalCode: "K2J 7G4",
         addressCountry: "CA",
       },
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          opens: "08:00",
-          closes: "18:00",
-        },
-      ],
     },
   };
 
@@ -119,9 +98,10 @@ export default function ContactPage() {
       />
       <SiteNav />
 
-      <main style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
+      <main id="main-content" style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
         {/* Hero Section */}
         <section
+          className="hero-section"
           style={{
             padding: "140px 56px 60px",
             borderBottom: "1px solid rgba(247, 245, 241, 0.08)",
@@ -195,7 +175,7 @@ export default function ContactPage() {
 
         {/* Direct Contact Cards Row (Fastest Paths First) */}
         <section style={{ padding: "40px 56px 60px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div
               style={{
                 display: "grid",
@@ -291,8 +271,9 @@ export default function ContactPage() {
                 <div style={{ fontSize: 10, letterSpacing: ".22em", textTransform: "uppercase", color: "rgba(247,245,241,.6)", marginBottom: 8 }}>
                   Operating Hours
                 </div>
-                <div style={{ fontSize: 16, fontWeight: 500, color: "#f7f5f1", marginBottom: 6 }}>
-                  Mon – Sat: 8:00 AM – 6:00 PM
+                <div style={{ fontSize: 16, fontWeight: 500, color: "#f7f5f1", marginBottom: 6, display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                  Reply within one business day
+                  <DraftTag needs="Weekly opening hours copied verbatim from the Google Business Profile" />
                 </div>
                 <div style={{ fontSize: 12, color: "rgba(247, 245, 241, 0.5)" }}>
                   Based in Ottawa (K2J 7G4)
@@ -304,11 +285,11 @@ export default function ContactPage() {
 
         {/* Main Form & Location Section */}
         <section style={{ padding: "20px 56px 80px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))",
                 gap: 48,
                 alignItems: "start",
               }}
@@ -389,17 +370,47 @@ export default function ContactPage() {
                   }}
                 >
                   <div style={{ fontSize: 10.5, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, marginBottom: 10 }}>
-                    Stage 4 Contractor Vetting
+                    Before we start work
                   </div>
                   <h4 style={{ fontFamily: "var(--font-display), serif", fontSize: 20, fontWeight: 400, margin: "0 0 12px" }}>
-                    Fully Insured &amp; WSIB In Good Standing
+                    Insurance and clearance, in writing
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: "rgba(247, 245, 241, 0.75)", display: "flex", flexDirection: "column", gap: 6 }}>
-                    <li>$2,000,000 Commercial General Liability Policy</li>
-                    <li>WSIB Ontario Workplace Safety Coverage</li>
-                    <li>Specialized Electrical &amp; Plumbing via Licensed ESA/ECRA Trade Partners</li>
-                    <li>Fixed written contracts with milestone schedule</li>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: "rgba(247, 245, 241, 0.75)", display: "flex", flexDirection: "column", gap: 10 }}>
+                    {Object.entries(ABOUT_DATA.credentials).map(([key, cred]) => (
+                      <li key={key} style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                        {cred.value}
+                        {cred.draft && <DraftTag needs={cred.needs ?? cred.label} />}
+                      </li>
+                    ))}
+                    <li>Fixed written contract before work begins</li>
                   </ul>
+                </div>
+
+                {/* Compact Review Strip — proof beside the form, survives the mobile stack */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <GoogleLogo size={16} />
+                    <span style={{ fontSize: 10.5, letterSpacing: ".22em", textTransform: "uppercase", color: "rgba(247,245,241,.6)" }}>
+                      {COMPANY.rating.toFixed(1)} &#9733; on Google ({COMPANY.reviewCount} reviews)
+                    </span>
+                  </div>
+                  {REVIEWS.slice(0, 2).map((r) => (
+                    <div
+                      key={r.name}
+                      style={{
+                        background: "#0f0d0b",
+                        border: "1px solid rgba(247, 245, 241, 0.08)",
+                        padding: "20px 22px",
+                      }}
+                    >
+                      <p style={{ margin: "0 0 10px", fontSize: 13.5, fontWeight: 300, lineHeight: 1.6, color: "rgba(247, 245, 241, 0.8)" }}>
+                        &ldquo;{r.text.length > 140 ? r.text.slice(0, 140).trimEnd() + "…" : r.text}&rdquo;
+                      </p>
+                      <div style={{ fontSize: 11.5, color: "rgba(247, 245, 241, 0.5)" }}>
+                        &mdash; {r.name}, {r.tag}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -408,7 +419,7 @@ export default function ContactPage() {
 
         {/* What Happens Next Section */}
         <section style={{ padding: "80px 56px", background: "#080706", borderTop: "1px solid rgba(247, 245, 241, 0.08)" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
               <div style={{ fontSize: 10.5, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>
                 Clear Process
@@ -461,15 +472,88 @@ export default function ContactPage() {
             textAlign: "center",
           }}
         >
-          <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1000, margin: "0 auto" }}>
             <div style={{ fontSize: 10.5, letterSpacing: ".28em", textTransform: "uppercase", color: GOLD, marginBottom: 16 }}>
               Ottawa Service Locations
             </div>
             <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "10px 18px" }}>
-              {NEIGHBOURHOODS.map((n) => (
+              {ABOUT_DATA.serviceAreas.map((n) => (
                 <span key={n} style={{ fontSize: 13, fontWeight: 300, color: "rgba(247, 245, 241, 0.65)" }}>
                   {n}
                 </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Closing CTA — every other page ends on a CTA; this is the page where it matters most */}
+        <section style={{ padding: "100px 56px", textAlign: "center", background: "#0b0a09", borderTop: "1px solid rgba(247, 245, 241, 0.08)" }}>
+          <div className="reveal" style={{ maxWidth: 700, margin: "0 auto" }}>
+            <div
+              style={{
+                fontSize: 11,
+                letterSpacing: ".32em",
+                textTransform: "uppercase",
+                color: GOLD,
+                marginBottom: 16,
+              }}
+            >
+              Ready When You Are
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display), serif",
+                fontSize: "clamp(30px, 4vw, 44px)",
+                fontWeight: 300,
+                lineHeight: 1.15,
+                margin: "0 0 16px",
+              }}
+            >
+              We reply within one business day, every time.
+            </h2>
+            <p
+              style={{
+                fontSize: 15.5,
+                fontWeight: 300,
+                lineHeight: 1.7,
+                color: "rgba(247, 245, 241, 0.7)",
+                margin: "0 0 32px",
+              }}
+            >
+              Send the form above, or call either line directly — you&apos;ll reach the owner, not a call centre.
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 20,
+                flexWrap: "wrap",
+              }}
+            >
+              {COMPANY.phones.map((p) => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  style={{
+                    background: p.label === "Primary" ? GOLD : "transparent",
+                    color: p.label === "Primary" ? "#0a0908" : "#f7f5f1",
+                    border: p.label === "Primary" ? "none" : "1px solid rgba(227, 175, 43, 0.4)",
+                    fontWeight: p.label === "Primary" ? 600 : 400,
+                    fontSize: 12,
+                    letterSpacing: ".18em",
+                    textTransform: "uppercase",
+                    padding: "18px 32px",
+                    minHeight: 44,
+                    boxSizing: "border-box",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                  }}
+                >
+                  Call {p.display}
+                </a>
               ))}
             </div>
           </div>

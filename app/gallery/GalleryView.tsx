@@ -2,32 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo } from "react";
 import { DraftTag } from "../components/DraftTag";
-import { COMPANY, PRIMARY_PHONE } from "../data/company";
-import { PROJECTS, type Project } from "../data/projects";
+import { ABOUT_DATA } from "../data/about";
+import { PRIMARY_PHONE } from "../data/company";
+import { PROJECTS } from "../data/projects";
 import { SERVICES } from "../data/services";
 
-const GOLD = "#e3af2b";
-
-const NEIGHBOURHOODS = [
-  "Westboro",
-  "Kanata",
-  "Barrhaven",
-  "The Glebe",
-  "Rockcliffe Park",
-  "Stittsville",
-  "Nepean",
-  "Orleans",
-  "Centretown",
-  "Manotick",
-  "Riverside South",
-  "Alta Vista",
-];
+import { GOLD } from "../data/theme";
 
 function GalleryContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const activeService = searchParams.get("service") || "all";
 
@@ -36,18 +21,11 @@ function GalleryContent() {
     return PROJECTS.filter((p) => p.serviceSlug === activeService);
   }, [activeService]);
 
-  const handleFilterChange = (slug: string) => {
-    if (slug === "all") {
-      router.push("/gallery", { scroll: false });
-    } else {
-      router.push(`/gallery?service=${encodeURIComponent(slug)}`, { scroll: false });
-    }
-  };
-
   return (
     <div style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
       {/* Header Section */}
       <section
+        className="hero-section"
         style={{
           padding: "150px 56px 60px",
           borderBottom: "1px solid rgba(247, 245, 241, 0.08)",
@@ -65,13 +43,13 @@ function GalleryContent() {
               marginBottom: 18,
             }}
           >
-            Real Projects · Ottawa Craftsmanship
+            Selected Work · Ottawa
           </div>
           <h1
             style={{
               fontFamily: "var(--font-display), serif",
               fontWeight: 300,
-              fontSize: "clamp(36px, 5.5vw, 64px)",
+              fontSize: "clamp(36px, 5.5vw, 62px)",
               lineHeight: 1.05,
               margin: "0 0 24px",
               letterSpacing: "-.02em",
@@ -89,13 +67,12 @@ function GalleryContent() {
               margin: "0 0 40px",
             }}
           >
-            Every project has a location, property type, scope, and timeline. Click any project to explore the full case
-            study, high-resolution photography, and verified homeowner feedback.
+            A small set of real projects from around Ottawa. Click any one to see photography and, where a client
+            left a review, their own words on Google.
           </p>
 
-          {/* Service Filter Tabs */}
+          {/* Service Filter */}
           <div
-            role="tablist"
             aria-label="Filter gallery by service"
             style={{
               display: "flex",
@@ -104,10 +81,10 @@ function GalleryContent() {
               paddingTop: 10,
             }}
           >
-            <button
-              role="tab"
-              aria-selected={activeService === "all"}
-              onClick={() => handleFilterChange("all")}
+            <Link
+              href="/gallery"
+              scroll={false}
+              aria-current={activeService === "all" ? "page" : undefined}
               style={{
                 background: activeService === "all" ? GOLD : "rgba(247, 245, 241, 0.04)",
                 color: activeService === "all" ? "#0a0908" : "#f7f5f1",
@@ -118,21 +95,23 @@ function GalleryContent() {
                 letterSpacing: ".14em",
                 textTransform: "uppercase",
                 padding: "10px 20px",
-                cursor: "pointer",
+                minHeight: 44,
+                display: "inline-flex",
+                alignItems: "center",
                 transition: "all 0.2s ease",
               }}
             >
               All Work ({PROJECTS.length})
-            </button>
+            </Link>
             {SERVICES.map((s) => {
               const isSelected = activeService === s.slug;
               const count = PROJECTS.filter((p) => p.serviceSlug === s.slug).length;
               return (
-                <button
+                <Link
                   key={s.slug}
-                  role="tab"
-                  aria-selected={isSelected}
-                  onClick={() => handleFilterChange(s.slug)}
+                  href={`/gallery?service=${encodeURIComponent(s.slug)}`}
+                  scroll={false}
+                  aria-current={isSelected ? "page" : undefined}
                   style={{
                     background: isSelected ? GOLD : "rgba(247, 245, 241, 0.04)",
                     color: isSelected ? "#0a0908" : "#f7f5f1",
@@ -143,12 +122,14 @@ function GalleryContent() {
                     letterSpacing: ".14em",
                     textTransform: "uppercase",
                     padding: "10px 20px",
-                    cursor: "pointer",
+                    minHeight: 44,
+                    display: "inline-flex",
+                    alignItems: "center",
                     transition: "all 0.2s ease",
                   }}
                 >
                   {s.navLabel} {count > 0 && `(${count})`}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -157,7 +138,7 @@ function GalleryContent() {
 
       {/* Projects Grid Section */}
       <section style={{ padding: "80px 56px 120px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 1200, margin: "0 auto" }}>
           {filteredProjects.length === 0 ? (
             <div
               style={{
@@ -167,14 +148,15 @@ function GalleryContent() {
                 background: "rgba(247, 245, 241, 0.02)",
               }}
             >
-              <h3 style={{ fontFamily: "var(--font-display), serif", fontSize: 26, fontWeight: 300, margin: "0 0 12px" }}>
+              <h2 style={{ fontFamily: "var(--font-display), serif", fontSize: 26, fontWeight: 300, margin: "0 0 12px" }}>
                 No projects found in this category yet
-              </h3>
+              </h2>
               <p style={{ color: "rgba(247, 245, 241, 0.6)", fontSize: 15, margin: "0 0 24px" }}>
                 We are constantly adding new project case studies across the Greater Ottawa Area.
               </p>
-              <button
-                onClick={() => handleFilterChange("all")}
+              <Link
+                href="/gallery"
+                scroll={false}
                 style={{
                   background: GOLD,
                   color: "#0a0908",
@@ -184,17 +166,19 @@ function GalleryContent() {
                   letterSpacing: ".14em",
                   textTransform: "uppercase",
                   fontWeight: 600,
-                  cursor: "pointer",
+                  minHeight: 44,
+                  display: "inline-flex",
+                  alignItems: "center",
                 }}
               >
                 View all projects
-              </button>
+              </Link>
             </div>
           ) : (
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill, minmax(min(360px, 100%), 1fr))",
                 gap: 36,
               }}
             >
@@ -255,9 +239,15 @@ function GalleryContent() {
                       <span>{p.propertyType}</span>
                     </div>
 
-                    {p.draft && (
+                    {(p.draft || p.imageDraft) && (
                       <div style={{ position: "absolute", top: 16, right: 16 }}>
-                        <DraftTag needs="owner project confirmation" />
+                        <DraftTag
+                          needs={
+                            p.imageDraft
+                              ? "Confirm these photos are from this specific job, and confirm remaining project facts"
+                              : "owner project confirmation"
+                          }
+                        />
                       </div>
                     )}
                   </div>
@@ -302,7 +292,7 @@ function GalleryContent() {
                           fontSize: 10,
                           letterSpacing: ".2em",
                           textTransform: "uppercase",
-                          color: "rgba(247, 245, 241, 0.45)",
+                          color: "rgba(247, 245, 241, 0.5)",
                           marginBottom: 8,
                         }}
                       >
@@ -374,7 +364,7 @@ function GalleryContent() {
           padding: "50px 56px",
         }}
       >
-        <div style={{ maxWidth: 1200, margin: "0 auto", textAlign: "center" }}>
+        <div className="reveal" style={{ maxWidth: 1200, margin: "0 auto", textAlign: "center" }}>
           <div
             style={{
               fontSize: 11,
@@ -396,7 +386,7 @@ function GalleryContent() {
               margin: "0 auto",
             }}
           >
-            {NEIGHBOURHOODS.map((n) => (
+            {ABOUT_DATA.serviceAreas.map((n) => (
               <span
                 key={n}
                 style={{
@@ -415,7 +405,7 @@ function GalleryContent() {
 
       {/* Bottom CTA */}
       <section style={{ padding: "120px 56px", textAlign: "center", background: "#0b0a09" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 720, margin: "0 auto" }}>
           <div
             style={{
               fontSize: 11,
@@ -430,7 +420,7 @@ function GalleryContent() {
           <h2
             style={{
               fontFamily: "var(--font-display), serif",
-              fontSize: "clamp(30px, 4vw, 46px)",
+              fontSize: "clamp(30px, 4vw, 44px)",
               fontWeight: 300,
               lineHeight: 1.15,
               margin: "0 0 20px",

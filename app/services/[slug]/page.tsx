@@ -9,7 +9,7 @@ import { DraftTag, DraftBlock } from "../../components/DraftTag";
 import { COMPANY, PRIMARY_PHONE } from "../../data/company";
 import { SERVICES, getService } from "../../data/services";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../../data/theme";
 
 const eyebrow = {
   fontWeight: 300,
@@ -67,7 +67,7 @@ export default async function ServicePage({
   const others = SERVICES.filter((s) => s.slug !== service.slug);
 
   return (
-    <div style={{ width: "100%", overflowX: "hidden" }}>
+    <div id="main-content" style={{ width: "100%", overflowX: "hidden" }}>
       <SiteNav />
       <div style={{ height: 88 }} />
 
@@ -80,7 +80,6 @@ export default async function ServicePage({
           style={{ objectFit: "cover", opacity: 0.5 }}
           sizes="100vw"
           priority
-          unoptimized
         />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.92) 100%)" }} />
 
@@ -105,6 +104,46 @@ export default async function ServicePage({
             <p style={{ margin: 0, fontWeight: 300, fontSize: 18, lineHeight: 1.8, color: "rgba(247,245,241,.8)" }}>
               {service.intro}
             </p>
+            {service.slug === "legal-basements" && (
+              <div
+                style={{
+                  marginTop: 28,
+                  padding: "22px 24px",
+                  border: "1px solid rgba(227,175,43,.35)",
+                  background: "rgba(227,175,43,.06)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                }}
+              >
+                <div style={{ fontSize: 10.5, letterSpacing: ".22em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
+                  Regulatory Guide &amp; Feasibility Checker
+                </div>
+                <div style={{ fontFamily: "var(--font-display), serif", fontSize: 20, color: "#f7f5f1", lineHeight: 1.25 }}>
+                  Can your basement legally become an apartment in Ottawa?
+                </div>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "rgba(247,245,241,.7)", fontWeight: 300 }}>
+                  We wrote a detailed guide on the 2024 Ontario Building Code requirements (ceiling height, egress, fire separation) and Ottawa&apos;s active dual zoning by-laws, with a 60-second self-qualification tool.
+                </p>
+                <Link
+                  href="/guides/legal-basement-ottawa"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    color: GOLD,
+                    fontSize: 11.5,
+                    letterSpacing: ".18em",
+                    textTransform: "uppercase",
+                    fontWeight: 500,
+                    marginTop: 4,
+                    textDecoration: "underline",
+                  }}
+                >
+                  Read the Ottawa Legal Basement Guide &rarr;
+                </Link>
+              </div>
+            )}
             {service.contentStatus === "draft" && (
               <div style={{ marginTop: 18 }}>
                 <DraftTag needs="confirmed description of this service" />

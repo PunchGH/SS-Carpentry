@@ -31,12 +31,37 @@ textarea {
 }
 
 ::placeholder {
-  color: rgba(247, 245, 241, 0.32);
+  color: rgba(247, 245, 241, 0.5);
 }
 
 ::selection {
   background: #e3af2b;
   color: #0a0908;
+}
+
+:focus-visible {
+  outline: 2px solid #e3af2b;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  background: #e3af2b;
+  color: #0a0908;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 22px;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
 }
 
 /* ===== interaction states ===== */
@@ -353,20 +378,47 @@ body.js-loaded .timeline-track.revealed .timeline-track-fill {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-auto-rows: 260px !important;
   }
+
+  .credentials-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .about-reviews-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 @media (max-width: 768px) {
   nav {
     padding: 0 20px !important;
     height: 74px !important;
+    --nav-height: 74px;
   }
 
   .nav-spacer {
     height: 74px !important;
   }
 
-  .nav-links {
+  .nav-links,
+  .nav-call,
+  .nav-quote-cta {
     display: none !important;
+  }
+
+  .nav-hamburger {
+    display: flex !important;
+  }
+
+  .nav-drawer {
+    top: 74px !important;
+  }
+
+  .gallery-hero {
+    margin-top: 74px !important;
+  }
+
+  .gallery-hero-content {
+    padding: 20px 20px 24px !important;
   }
 
   .hero-content {
@@ -379,6 +431,13 @@ body.js-loaded .timeline-track.revealed .timeline-track-fill {
     padding-right: 20px !important;
     padding-top: 80px !important;
     padding-bottom: 80px !important;
+  }
+
+  /* Hero sections sit directly under the fixed 74px nav — the generic
+     80px section padding above leaves ~6px of clearance. Give them enough
+     room to clear the nav plus breathing space. */
+  .hero-section {
+    padding-top: 104px !important;
   }
 
   .statbar {
@@ -469,6 +528,18 @@ body.js-loaded .timeline-track.revealed .timeline-track-fill {
 
   .portfolio-grid > div {
     grid-row: auto !important;
+  }
+
+  .credentials-grid,
+  .about-reviews-grid,
+  .project-image-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .credentials-grid > div,
+  .about-reviews-grid > div {
+    grid-column: auto !important;
+    max-width: none !important;
   }
 
   .atelier-card {

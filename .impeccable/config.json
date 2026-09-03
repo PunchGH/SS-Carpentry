@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "app/page.tsx"
+        ],
+        "createdAt": "2026-09-03T06:18:18.172Z",
+        "reason": "pre-existing 2px scroll-progress bar; width transition on a 1-2px element has no measurable layout-thrash cost, not introduced this session"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "app/globals.css"
+        ],
+        "createdAt": "2026-09-03T06:18:18.269Z",
+        "reason": "pre-existing 1px nav underline width transition; negligible-size element, no layout-thrash cost, not introduced this session"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "app/guides/legal-basement-ottawa/LegalBasementChecker.tsx"
+        ],
+        "createdAt": "2026-09-03T06:18:18.364Z",
+        "reason": "pre-existing thin progress bar; width transition on a small isolated element, no layout-thrash cost, not introduced this session"
+      }
+    ]
+  }
+}

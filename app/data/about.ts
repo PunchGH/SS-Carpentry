@@ -2,8 +2,19 @@ import { COMPANY } from "./company";
 
 export type CredentialItem = {
   label: string;
+  /**
+   * Customer-facing. Must state only what the business can stand behind today.
+   * An unconfirmed figure is never written here — promise the document instead
+   * of asserting the number, and let `needs` carry what we still have to get.
+   */
   value: string;
+  /** Customer-facing supporting line. Never contains a TODO or an internal note. */
   subtext?: string;
+  /**
+   * Team-facing only. Surfaced as a tooltip on the draft marker and never
+   * rendered as page copy — see DraftTag / DraftBlock / PlaceholderImage.
+   */
+  needs?: string;
   draft: boolean;
 };
 
@@ -75,36 +86,50 @@ export const ABOUT_DATA: AboutData = {
     draft: true,
   },
 
+  /**
+   * The single source of truth for what this business claims about its
+   * licensing, insurance and compliance. Both /about and /contact render from
+   * here so the two pages can never state different things again.
+   *
+   * Rule: until the owner supplies a document, `value` promises the document
+   * rather than asserting the figure. "Certificate on request" is checkable and
+   * true today; "$2,000,000 Policy Coverage" was neither.
+   */
   credentials: {
     legalName: {
       label: "Registered Business",
       value: COMPANY.name,
-      subtext: "Ontario Registered Business Entity",
+      subtext: "Ontario-registered business entity.",
       draft: false,
     },
     hstNumber: {
       label: "HST / Business Number",
-      value: "TODO(owner): Registered Business #",
-      subtext: "Official Canada Revenue Agency Registration",
+      value: "Shown on every quote and invoice",
+      subtext: "Our registered number appears in writing on the paperwork you receive.",
+      needs: "Registered legal business name and HST / business number",
       draft: true,
     },
     wsib: {
       label: "WSIB Ontario Coverage",
-      value: "Active & In Good Standing",
-      subtext: "TODO(owner): WSIB Clearance / Account #",
+      value: "Clearance certificate on request",
+      subtext: "Ask us and we will send a current WSIB clearance certificate before work starts.",
+      needs: "Active WSIB clearance number and account status",
       draft: true,
     },
     liabilityInsurance: {
       label: "Commercial General Liability",
-      value: "$2,000,000 Policy Coverage",
-      subtext: "TODO(owner): Insurance provider & policy certificate",
+      value: "Certificate of insurance on request",
+      subtext: "Proof of coverage goes out with your quote, before anyone is on site.",
+      needs: "Insurance provider, coverage amount and policy certificate",
       draft: true,
     },
     licensedTrades: {
       label: "Regulated Trades Compliance",
-      value: "Licensed Trade Partners (ESA / ECRA & Plumbers)",
-      subtext: "Specialized high-voltage electrical and plumbing handled by certified trade partners",
-      draft: false,
+      value: "Regulated work goes to licensed trades",
+      subtext: "Electrical and plumbing that requires a licence is carried out by certified trade partners.",
+      needs:
+        "Confirm electrical (ESA/ECRA) and plumbing arrangements across all services — in-house vs licensed trade partners",
+      draft: true,
     },
   },
 

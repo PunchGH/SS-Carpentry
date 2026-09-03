@@ -1,8 +1,11 @@
 import type { CSSProperties } from "react";
-import { DRAFT_TAGS_HIDDEN } from "../data/placeholders";
+import { DRAFT_TAGS_HIDDEN, DRAFT_TAGS_LOUD } from "../data/placeholders";
 
 type PlaceholderImageProps = {
+  /** Team-facing only. Carried in `title`, never rendered as page copy. */
   needs: string;
+  /** Customer-facing. Defaults to a line that owns the no-stock-photos position. */
+  caption?: string;
   aspectRatio?: string; // e.g. "4/3", "16/9", "3/4"
   height?: number | string;
   width?: number | string;
@@ -10,29 +13,41 @@ type PlaceholderImageProps = {
   className?: string;
 };
 
+const DEFAULT_CAPTION = "We don't use stock photos of people. Real site photos go up as jobs finish.";
+
 /**
  * Renders a clearly marked placeholder block for images the owner has not yet supplied.
  * POLICY: No stock photograph may stand in for a real person, a real project, or a real credential.
+ *
+ * Styled in brand gold, not red — this is a stance the business is taking
+ * (real photos only), not an error state. Set NEXT_PUBLIC_DRAFT_TAGS_LOUD=1
+ * for the red internal review-pass version.
  */
 export function PlaceholderImage({
   needs,
+  caption = DEFAULT_CAPTION,
   aspectRatio,
   height,
   width,
   style,
   className,
 }: PlaceholderImageProps) {
+  const accent = DRAFT_TAGS_LOUD ? "#ff9d9d" : "#e3af2b";
+  const borderColor = DRAFT_TAGS_LOUD ? "rgba(255, 110, 110, 0.45)" : "rgba(227, 175, 43, 0.45)";
+  const stripeColor = DRAFT_TAGS_LOUD ? "rgba(255, 72, 72, 0.04)" : "rgba(227, 175, 43, 0.05)";
+  const stripeColorStrong = DRAFT_TAGS_LOUD ? "rgba(255, 72, 72, 0.08)" : "rgba(227, 175, 43, 0.09)";
+
   return (
     <div
       className={className}
+      title={`Placeholder — ${needs}`}
       style={{
         position: "relative",
         width: width || "100%",
         height: height || (aspectRatio ? undefined : "100%"),
         aspectRatio: aspectRatio,
-        border: "1.5px dashed rgba(255, 110, 110, 0.45)",
-        background:
-          "repeating-linear-gradient(45deg, rgba(255, 72, 72, 0.04), rgba(255, 72, 72, 0.04) 12px, rgba(255, 72, 72, 0.08) 12px, rgba(255, 72, 72, 0.08) 24px)",
+        border: `1.5px dashed ${borderColor}`,
+        background: `repeating-linear-gradient(45deg, ${stripeColor}, ${stripeColor} 12px, ${stripeColorStrong} 12px, ${stripeColorStrong} 24px)`,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -53,12 +68,12 @@ export function PlaceholderImage({
               height: 38,
               margin: "0 auto 12px",
               borderRadius: "50%",
-              background: "rgba(255, 72, 72, 0.15)",
-              border: "1px solid rgba(255, 110, 110, 0.4)",
+              background: DRAFT_TAGS_LOUD ? "rgba(255, 72, 72, 0.15)" : "rgba(227, 175, 43, 0.15)",
+              border: `1px solid ${borderColor}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#ff9d9d",
+              color: accent,
               fontSize: 16,
             }}
           >
@@ -67,7 +82,7 @@ export function PlaceholderImage({
               height="18"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#ff9d9d"
+              stroke={accent}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -85,7 +100,7 @@ export function PlaceholderImage({
               fontSize: 10,
               letterSpacing: ".22em",
               textTransform: "uppercase",
-              color: "#ff9d9d",
+              color: accent,
               marginBottom: 6,
             }}
           >
@@ -101,7 +116,7 @@ export function PlaceholderImage({
               color: "rgba(247, 245, 241, 0.7)",
             }}
           >
-            {needs}
+            {caption}
           </div>
         </div>
       )}

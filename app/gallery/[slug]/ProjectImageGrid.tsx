@@ -23,15 +23,17 @@ export function ProjectImageGrid({ images }: ProjectImageGridProps) {
   return (
     <>
       <div
+        className="project-image-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gridTemplateColumns: "repeat(2, 1fr)",
           gap: 24,
         }}
       >
         {images.map((img, idx) => (
           <button
             key={img.src + idx}
+            type="button"
             onClick={() => openLightbox(idx)}
             aria-label={`Open photo ${idx + 1}: ${img.caption}`}
             style={{
@@ -44,42 +46,25 @@ export function ProjectImageGrid({ images }: ProjectImageGridProps) {
               textAlign: "left",
               overflow: "hidden",
               transition: "all 0.25s ease",
+              gridColumn: idx === 0 ? "1 / -1" : undefined,
             }}
             className="card-hover"
           >
-            <div style={{ position: "relative", width: "100%", height: 320, overflow: "hidden" }}>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: idx === 0 ? "16 / 9" : "4 / 3",
+                overflow: "hidden",
+              }}
+            >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes={idx === 0 ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
                 style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
               />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(15,13,11,0.85) 100%)",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 14,
-                  right: 14,
-                  background: "rgba(10, 9, 8, 0.75)",
-                  backdropFilter: "blur(6px)",
-                  border: "1px solid rgba(227, 175, 43, 0.35)",
-                  color: "#e3af2b",
-                  padding: "4px 10px",
-                  fontSize: 10,
-                  letterSpacing: ".14em",
-                  textTransform: "uppercase",
-                  borderRadius: 2,
-                }}
-              >
-                Click to expand ↗
-              </div>
             </div>
             <div style={{ padding: "16px 20px 20px" }}>
               <p

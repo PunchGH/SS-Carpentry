@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { ServiceFaq as Faq } from "../data/services";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
 export function ServiceFaqList({ faqs }: { faqs: Faq[] }) {
   const [open, setOpen] = useState<boolean[]>(faqs.map(() => false));
@@ -15,6 +15,7 @@ export function ServiceFaqList({ faqs }: { faqs: Faq[] }) {
       {faqs.map((f, i) => (
         <div key={f.q}>
           <button
+            type="button"
             onClick={() => toggle(i)}
             aria-expanded={open[i]}
             style={{

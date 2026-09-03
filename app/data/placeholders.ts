@@ -144,3 +144,11 @@ export const DRAFT_INVENTORY: DraftItem[] = [
 ];
 
 export const DRAFT_TAGS_HIDDEN = process.env.NEXT_PUBLIC_HIDE_DRAFT_TAGS === "1";
+
+/**
+ * Draft markers read in brand gold by default — a placeholder isn't an error,
+ * it's a promise not yet kept, and red is otherwise the only chromatic break
+ * in this palette. Set NEXT_PUBLIC_DRAFT_TAGS_LOUD=1 for the red "this still
+ * needs work" review pass.
+ */
+export const DRAFT_TAGS_LOUD = process.env.NEXT_PUBLIC_DRAFT_TAGS_LOUD === "1";

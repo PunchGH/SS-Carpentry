@@ -9,7 +9,7 @@ import { ABOUT_DATA } from "../data/about";
 import { COMPANY, PRIMARY_PHONE } from "../data/company";
 import { REVIEWS } from "../data/reviews";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
 export const metadata: Metadata = {
   title: "About Us & Craftsmanship | SS Carpentry & Renovations Ottawa",
@@ -80,9 +80,10 @@ export default function AboutPage() {
       />
       <SiteNav />
 
-      <main style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
+      <main id="main-content" style={{ background: "#0b0a09", color: "#f7f5f1", minHeight: "100vh" }}>
         {/* Hero Section */}
         <section
+          className="hero-section"
           style={{
             padding: "140px 56px 60px",
             borderBottom: "1px solid rgba(247, 245, 241, 0.08)",
@@ -155,11 +156,11 @@ export default function AboutPage() {
 
         {/* Founder & Hands-On Ownership Section */}
         <section style={{ padding: "80px 56px 60px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))",
                 gap: 56,
                 alignItems: "center",
                 background: "#0f0d0b",
@@ -170,7 +171,7 @@ export default function AboutPage() {
               {/* Left: Placeholder portrait (strict no-stock policy) */}
               <div>
                 <PlaceholderImage
-                  needs="Owner portrait — real photo of Akash / on-site working photo required"
+                  needs="Owner portrait — on-site working photo required"
                   height={420}
                 />
                 <div style={{ marginTop: 14, textAlign: "center" }}>
@@ -255,10 +256,10 @@ export default function AboutPage() {
 
         {/* Verifiable Credentials & Compliance Strip (Friction Guide Stage 4) */}
         <section style={{ padding: "40px 56px 80px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ marginBottom: 28 }}>
               <div style={{ fontSize: 10.5, letterSpacing: ".28em", textTransform: "uppercase", color: GOLD, marginBottom: 8 }}>
-                Stage 4 Vetting &amp; Proof
+                Verify before you hire
               </div>
               <h2 style={{ fontFamily: "var(--font-display), serif", fontWeight: 300, fontSize: 30, margin: 0 }}>
                 Licensing, Insurance &amp; Trade Compliance
@@ -269,13 +270,14 @@ export default function AboutPage() {
             </div>
 
             <div
+              className="credentials-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                gridTemplateColumns: "repeat(4, minmax(200px, 1fr))",
                 gap: 20,
               }}
             >
-              {Object.entries(ABOUT_DATA.credentials).map(([key, cred]) => (
+              {Object.entries(ABOUT_DATA.credentials).map(([key, cred], idx, arr) => (
                 <div
                   key={key}
                   style={{
@@ -285,6 +287,7 @@ export default function AboutPage() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
+                    gridColumn: arr.length % 4 === 1 && idx === arr.length - 1 ? "1 / -1" : undefined,
                   }}
                 >
                   <div>
@@ -293,7 +296,7 @@ export default function AboutPage() {
                     </div>
                     <div style={{ fontSize: 16, fontWeight: 500, color: "#f7f5f1", marginBottom: 6 }}>
                       {cred.value}
-                      {cred.draft && <DraftTag needs={cred.subtext || "verification details"} />}
+                      {cred.draft && <DraftTag needs={cred.needs ?? cred.label} />}
                     </div>
                   </div>
                   {cred.subtext && (
@@ -309,7 +312,7 @@ export default function AboutPage() {
 
         {/* Why We Started / Our Story */}
         <section style={{ padding: "60px 56px 80px", background: "#080706", borderTop: "1px solid rgba(247, 245, 241, 0.08)" }}>
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 900, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 36 }}>
               <div style={{ fontSize: 10.5, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>
                 Our Background
@@ -340,7 +343,7 @@ export default function AboutPage() {
 
         {/* Core Values Grid */}
         <section style={{ padding: "80px 56px 90px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ marginBottom: 40 }}>
               <div style={{ fontSize: 10.5, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 8 }}>
                 Operating Principles
@@ -397,9 +400,39 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Team / Operating Model — full-bleed statement, not another bordered card */}
+        <section
+          style={{
+            padding: "110px 56px",
+            background: "radial-gradient(ellipse at 50% 50%, rgba(227, 175, 43, 0.1) 0%, #080706 72%)",
+            borderTop: "1px solid rgba(227, 175, 43, 0.18)",
+            borderBottom: "1px solid rgba(227, 175, 43, 0.18)",
+            textAlign: "center",
+          }}
+        >
+          <div className="reveal" style={{ maxWidth: 860, margin: "0 auto" }}>
+            <div style={{ fontSize: 10.5, letterSpacing: ".3em", textTransform: "uppercase", color: GOLD, marginBottom: 24 }}>
+              {ABOUT_DATA.team.modelTitle}
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-display), serif",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "clamp(24px, 3.4vw, 38px)",
+                lineHeight: 1.35,
+                color: "#f7f5f1",
+                margin: 0,
+              }}
+            >
+              {ABOUT_DATA.team.modelDescription}
+            </p>
+          </div>
+        </section>
+
         {/* Verified Reviews Section */}
         <section style={{ padding: "80px 56px 100px", background: "#080706", borderTop: "1px solid rgba(247, 245, 241, 0.08)" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 44, flexWrap: "wrap", gap: 20 }}>
               <div>
                 <div style={{ fontSize: 10.5, letterSpacing: ".26em", textTransform: "uppercase", color: GOLD, marginBottom: 6 }}>
@@ -426,6 +459,8 @@ export default function AboutPage() {
                   border: "1px solid rgba(227, 175, 43, 0.4)",
                   background: "rgba(227, 175, 43, 0.05)",
                   padding: "10px 20px",
+                  minHeight: 44,
+                  boxSizing: "border-box",
                 }}
               >
                 <GoogleLogo size={16} />
@@ -434,13 +469,14 @@ export default function AboutPage() {
             </div>
 
             <div
+              className="about-reviews-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                gridTemplateColumns: "repeat(3, minmax(240px, 1fr))",
                 gap: 28,
               }}
             >
-              {REVIEWS.map((r) => (
+              {REVIEWS.map((r, idx) => (
                 <div
                   key={r.name}
                   style={{
@@ -449,6 +485,9 @@ export default function AboutPage() {
                     padding: "32px 28px",
                     display: "flex",
                     flexDirection: "column",
+                    ...(REVIEWS.length % 3 === 1 && idx === REVIEWS.length - 1
+                      ? { gridColumn: "1 / -1", maxWidth: 460, margin: "0 auto", width: "100%" }
+                      : null),
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
@@ -501,7 +540,7 @@ export default function AboutPage() {
                       </div>
                       <div>
                         <div style={{ fontWeight: 400, fontSize: 14, color: "#f7f5f1" }}>{r.name}</div>
-                        <div style={{ fontSize: 10.5, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.45)", marginTop: 2 }}>
+                        <div style={{ fontSize: 10.5, letterSpacing: ".1em", textTransform: "uppercase", color: "rgba(247, 245, 241, 0.5)", marginTop: 2 }}>
                           {r.tag}
                         </div>
                       </div>
@@ -524,7 +563,7 @@ export default function AboutPage() {
 
         {/* Bottom CTA */}
         <section style={{ padding: "100px 56px", textAlign: "center", background: "#0b0a09" }}>
-          <div style={{ maxWidth: 700, margin: "0 auto" }}>
+          <div className="reveal" style={{ maxWidth: 700, margin: "0 auto" }}>
             <div
               style={{
                 fontSize: 11,

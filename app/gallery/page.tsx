@@ -19,7 +19,7 @@ export default function GalleryPage() {
   return (
     <>
       <SiteNav />
-      <main>
+      <main id="main-content">
         <GalleryView />
       </main>
       <SiteFooter />

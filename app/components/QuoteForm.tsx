@@ -1,19 +1,13 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { sendQuoteLead } from "../actions/sendQuoteLead";
 import { PRIMARY_PHONE } from "../data/company";
+import { SERVICES } from "../data/services";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
-const SERVICE_OPTIONS = [
-  "Kitchens & Bathrooms",
-  "TV Walls & Lighting Panels",
-  "Flooring & Tiling",
-  "Legal Basements",
-  "Custom Carpentry & Millwork",
-  "Not sure yet / Whole-home Renovation",
-];
+const SERVICE_OPTIONS = [...SERVICES.map((s) => s.title), "Not sure yet / Whole-home Renovation"];
 
 const inputStyle = {
   width: "100%",
@@ -24,7 +18,6 @@ const inputStyle = {
   fontWeight: 300,
   fontSize: 15,
   padding: "16px 18px",
-  outline: "none",
   transition: "border-color .2s",
   boxSizing: "border-box" as const,
 };
@@ -39,6 +32,8 @@ const labelStyle = {
   marginBottom: 8,
 };
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 type QuoteFormProps = {
   source?: string;
   defaultService?: string;
@@ -48,6 +43,9 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
   const [isPending, startTransition] = useTransition();
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
+  const errorId = `quote-form-error-${source}`;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -57,6 +55,19 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
     details: "",
     website_hp: "",
   });
+
+  useEffect(() => {
+    if (errorMessage && errorRef.current) {
+      errorRef.current.focus();
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (submitted && statusRef.current) {
+      statusRef.current.focus();
+    }
+  }, [submitted]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +90,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
         } else {
           setErrorMessage(res.error || "An unexpected error occurred. Please call us directly.");
         }
-      } catch (err) {
+      } catch {
         setErrorMessage("Network error sending your request. Please call " + PRIMARY_PHONE.display);
       }
     });
@@ -88,11 +99,15 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
   if (submitted) {
     return (
       <div
+        ref={statusRef}
+        role="status"
+        tabIndex={-1}
         style={{
           border: "1px solid rgba(227,175,43,.4)",
           background: "rgba(227,175,43,.04)",
           padding: "48px 40px",
           textAlign: "center",
+          outline: "none",
         }}
       >
         <div
@@ -136,7 +151,8 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
           }}
         >
           Thank you, <strong style={{ color: "#f7f5f1" }}>{formData.name}</strong>. We have received your project details
-          for <strong style={{ color: GOLD }}>{formData.service}</strong>.
+          for <strong style={{ color: GOLD }}>{formData.service}</strong>. A confirmation is on its way to{" "}
+          <strong style={{ color: "#f7f5f1" }}>{formData.email}</strong>.
         </p>
 
         <div
@@ -189,7 +205,10 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
 
       {errorMessage && (
         <div
+          ref={errorRef}
+          id={errorId}
           role="alert"
+          tabIndex={-1}
           style={{
             background: "rgba(255, 72, 72, 0.12)",
             border: "1px solid rgba(255, 110, 110, 0.5)",
@@ -197,6 +216,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
             padding: "14px 18px",
             fontSize: 14,
             lineHeight: 1.5,
+            outline: "none",
           }}
         >
           {errorMessage}
@@ -210,13 +230,17 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
         </label>
         <input
           id={`name-${source}`}
+          name="name"
           type="text"
           required
+          autoComplete="name"
           placeholder="e.g. Sarah Jenkins"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           style={inputStyle}
           disabled={isPending}
+          aria-invalid={!!errorMessage && !formData.name}
+          aria-describedby={errorMessage ? errorId : undefined}
         />
       </div>
 
@@ -228,13 +252,17 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
           </label>
           <input
             id={`email-${source}`}
+            name="email"
             type="email"
             required
+            autoComplete="email"
             placeholder="sarah@example.com"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             style={inputStyle}
             disabled={isPending}
+            aria-invalid={!!errorMessage && !EMAIL_RE.test(formData.email)}
+            aria-describedby={errorMessage ? errorId : undefined}
           />
         </div>
 
@@ -244,7 +272,9 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
           </label>
           <input
             id={`phone-${source}`}
+            name="phone"
             type="tel"
+            autoComplete="tel"
             placeholder="613-555-0199"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -261,6 +291,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
         </label>
         <select
           id={`service-${source}`}
+          name="service"
           value={formData.service}
           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
           style={{ ...inputStyle, cursor: "pointer" }}
@@ -281,6 +312,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
         </label>
         <textarea
           id={`details-${source}`}
+          name="details"
           rows={4}
           placeholder="Describe room dimensions, ideas, or questions (e.g. kitchen remodel in Westboro, aiming for spring)..."
           value={formData.details}
@@ -294,6 +326,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
       <button
         type="submit"
         disabled={isPending}
+        aria-busy={isPending}
         className="gold-btn"
         style={{
           cursor: isPending ? "not-allowed" : "pointer",
@@ -310,7 +343,7 @@ export function QuoteForm({ source = "website", defaultService }: QuoteFormProps
           transition: "all .25s ease",
         }}
       >
-        {isPending ? "Sending Request..." : "Request a Quote &rarr;"}
+        <span aria-live="polite">{isPending ? "Sending Request..." : <>Request a Quote &rarr;</>}</span>
       </button>
 
       {/* Response Guarantee Notice */}

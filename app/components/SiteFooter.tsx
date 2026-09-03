@@ -4,7 +4,7 @@ import { COMPANY } from "../data/company";
 import { SERVICES } from "../data/services";
 import { DraftTag } from "./DraftTag";
 
-const GOLD = "#e3af2b";
+import { GOLD } from "../data/theme";
 
 const headingStyle = {
   fontWeight: 300,
@@ -46,6 +46,9 @@ export function SiteFooter() {
                 {s.navLabel}
               </Link>
             ))}
+            <Link href="/guides/legal-basement-ottawa" style={{ ...linkStyle, color: "rgba(247,245,241,.85)" }}>
+              Ottawa Legal Basement Guide
+            </Link>
             <Link href="/gallery" style={{ ...linkStyle, color: GOLD, marginTop: 4 }}>
               View Project Gallery &rarr;
             </Link>
@@ -87,7 +90,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="footer-bottom" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 28, fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.4)" }}>
+      <div className="footer-bottom" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 14, borderTop: "1px solid rgba(247,245,241,.1)", paddingTop: 28, fontWeight: 300, fontSize: 12, color: "rgba(247,245,241,.5)" }}>
         <span>&copy; {new Date().getFullYear()} {COMPANY.name}</span>
         <span style={{ letterSpacing: ".22em", textTransform: "uppercase" }}>Ottawa, ON</span>
       </div>
